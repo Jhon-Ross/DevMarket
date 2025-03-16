@@ -1,0 +1,447 @@
+/* Estilos globais */
+* {
+    text-decoration: none;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --cor-primaria: #00ffff;
+    --cor-secundaria: #ffffff;
+    --cor-fundo: #1a1a1a;
+    --cor-texto: #e0e0e0;
+    --cor-hover: #00ffee; /* Ciano Neon (hover) */
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--cor-fundo);
+    color: var(--cor-texto);
+    line-height: 1.6;
+    padding-top: 60px; /* Ajuste para a altura da barra de navegação */
+}
+
+/* Estilos da barra de navegação */
+nav {
+    background-color: var(--cor-fundo);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    border-bottom: 1px solid var(--cor-primaria);
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.nav-toggle {
+    display: none; /* Oculta o botão de toggle em telas maiores */
+    background: none;
+    border: none;
+    color: var(--cor-texto);
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+    flex-grow: 1;
+}
+
+/* Centraliza os itens do menu */
+.nav-menu.center {
+    justify-content: center;
+    flex-grow: 1;
+}
+
+/* Aumenta o espaçamento entre os links do meio */
+.nav-menu.center li {
+    margin: 0 25px; /* Aumente o valor para dar mais espaçamento */
+}
+
+/* Alinha o item de login à direita */
+.nav-menu.right {
+    justify-content: flex-end;
+    flex-grow: 0;
+}
+
+/* Move o #login mais para a direita */
+.nav-menu.right li#login {
+    margin-right: 40px; /* Ajuste o valor para mover mais para a direita */
+}
+
+.nav-menu li a {
+    color: var(--cor-texto);
+    font-size: 1.2rem; /* Aumente o tamanho da fonte */
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+    font-weight: bold; /* Adiciona negrito aos links */
+}
+
+.nav-menu li a:hover {
+    color: var(--cor-hover);
+    text-shadow: 0 0 5px var(--cor-hover), 0 0 10px var(--cor-hover); /* Efeito neon ao passar o mouse */
+}
+
+/* Efeito neon para textos */
+.neon-text {
+    color: var(--cor-primaria);
+    text-shadow: 0 0 3px var(--cor-primaria), 0 0 6px var(--cor-primaria); /* Efeito neon mais suave */
+}
+
+/* Efeito neon para links */
+.neon-link {
+    color: var(--cor-primaria);
+    text-shadow: 0 0 3px var(--cor-primaria), 0 0 6px var(--cor-primaria); /* Efeito neon mais suave */
+    transition: all 0.3s ease;
+}
+
+.neon-link:hover {
+    color: var(--cor-hover);
+    text-shadow: 0 0 5px var(--cor-hover), 0 0 10px var(--cor-hover); /* Efeito neon ao passar o mouse */
+}
+
+/* Exibe o item de login à direita no desktop */
+.nav-login-desktop {
+    display: block;
+}
+
+/* Oculta o item de login no menu para desktop */
+.nav-login-mobile {
+    display: none;
+}
+
+/* Linha divisória entre as seções */
+section {
+    border-bottom: 2px solid var(--cor-primaria); /* Linha com a cor do tema */
+    padding-bottom: 60px; /* Espaçamento abaixo de cada seção */
+    margin-bottom: 60px; /* Espaçamento entre as seções */
+}
+
+/* Remover a linha da última seção (footer) */
+footer {
+    border-bottom: none; /* Remove a linha do footer */
+    margin-bottom: 0; /* Remove o espaçamento abaixo do footer */
+}
+
+/* Estilo da seção Home */
+#home {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Cobrir a altura total da tela */
+    background-color: var(--cor-fundo); /* Usar a cor de fundo definida */
+    text-align: center;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Efeito de brilho no fundo (opcional) */
+#home::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(0, 255, 238, 0.1) 0%, rgba(0, 0, 0, 0) 70%);
+    animation: brilho 5s infinite alternate;
+}
+
+@keyframes brilho {
+    0% {
+        opacity: 0.3;
+    }
+    100% {
+        opacity: 0.8;
+    }
+}
+
+/* Estilo do conteúdo da Home */
+.home-conteudo {
+    z-index: 1; /* Garantir que o conteúdo fique acima do efeito de fundo */
+}
+
+/* Estilo do título */
+.home-conteudo h1 {
+    font-size: 4.5rem; /* Tamanho grande para o título */
+    margin-bottom: 20px; /* Espaçamento abaixo do título */
+    color: var(--cor-primaria); /* Ciano neon */
+    text-shadow: 0 0 10px var(--cor-primaria), 0 0 20px var(--cor-primaria); /* Efeito neon */
+    animation: pulsar 2s infinite alternate; /* Animação de pulsar */
+}
+
+@keyframes pulsar {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(1.05);
+    }
+}
+
+/* Estilo do parágrafo */
+.home-conteudo p {
+    font-size: 1.5rem; /* Tamanho médio para o parágrafo */
+    color: var(--cor-texto); /* Cor do texto definida */
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.3); /* Sombra sutil */
+    margin-top: 10px; /* Espaçamento acima do parágrafo */
+}
+
+/* Estilo da seção Sobre */
+#sobre {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Altura mínima da tela */
+    background-color: var(--cor-fundo); /* Usar a cor de fundo definida */
+    padding: 20px;
+    text-align: center; /* Centralizar o conteúdo */
+}
+
+/* Estilo do título */
+#sobre h2 {
+    font-size: 2.5rem; /* Tamanho grande para o título */
+    color: var(--cor-primaria); /* Ciano neon */
+    margin-bottom: 10px; /* Espaçamento abaixo do título */
+}
+
+/* Estilo do subtítulo */
+#sobre .subtitulo {
+    font-size: 1.25rem; /* Tamanho médio para o subtítulo */
+    color: var(--cor-texto); /* Cor do texto definida */
+    margin-bottom: 30px; /* Espaçamento abaixo do subtítulo */
+    opacity: 0.9; /* Leve transparência */
+    font-weight: 300; /* Fonte mais fina para um visual clean */
+}
+
+/* Estilo do container */
+#sobre .container {
+    background-color: rgba(255, 255, 255, 0.05); /* Fundo levemente claro */
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Borda sutil */
+    border-radius: 10px; /* Cantos arredondados */
+    padding: 40px; /* Espaçamento interno */
+    max-width: 800px; /* Limitar a largura do conteúdo */
+    width: 90%; /* Garantir que ocupe 90% da largura disponível */
+    text-align: left; /* Alinhar o texto à esquerda */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra sutil */
+}
+
+/* Estilo da descrição (article) */
+#sobre .descricao {
+    font-size: 1.1rem; /* Tamanho confortável para leitura */
+    color: var(--cor-texto); /* Cor do texto definida */
+    line-height: 1.8; /* Espaçamento entre linhas */
+    opacity: 0.8; /* Leve transparência */
+    text-align: left; /* Alinhar o texto à esquerda */
+    word-wrap: break-word; /* Quebrar palavras longas */
+}
+
+/* Estilo dos parágrafos dentro do article */
+#sobre .descricao p {
+    margin-bottom: 20px; /* Espaçamento entre parágrafos */
+}
+
+/* Remover margem inferior do último parágrafo */
+#sobre .descricao p:last-child {
+    margin-bottom: 0;
+}
+
+/* Estilo para destacar o nome "DevMarket" */
+.destaque {
+    color: var(--cor-primaria); /* Ciano neon */
+    font-weight: bold; /* Negrito para destacar */
+}
+
+/* Estilo da seção Projetos */
+#projetos {
+    background-color: var(--cor-fundo); /* Usar a cor de fundo definida */
+    padding: 60px 20px; /* Espaçamento interno */
+    text-align: center; /* Centralizar o conteúdo */
+    min-height: 100vh; /* Ocupa pelo menos 100% da altura da tela */
+    position: relative; /* Permite posicionar elementos internos */
+    border-bottom: 2px solid var(--cor-primaria); /* Linha divisória com a cor do tema */
+    margin-bottom: 0; /* Remove o espaçamento abaixo da seção */
+}
+
+#projetos h2 {
+    font-size: 2.5rem; /* Tamanho grande para o título */
+    color: var(--cor-primaria); /* Ciano neon */
+    margin-bottom: 10px; /* Espaçamento abaixo do título */
+}
+
+#projetos .subtitulo {
+    font-size: 1.25rem; /* Tamanho médio para o subtítulo */
+    color: var(--cor-texto); /* Cor do texto definida */
+    margin-bottom: 40px; /* Espaçamento abaixo do subtítulo */
+    opacity: 0.9; /* Leve transparência */
+    font-weight: 300; /* Fonte mais fina para um visual clean */
+}
+
+/* Estilo do container */
+#projetos .container {
+    max-width: 1200px; /* Limitar a largura do conteúdo */
+    margin: 0 auto; /* Centralizar o container */
+    display: flex;
+    flex-wrap: wrap; /* Permitir que os projetos quebrem para a próxima linha */
+    gap: 40px; /* Espaçamento entre os projetos */
+    justify-content: center; /* Centralizar os projetos */
+    overflow-y: auto; /* Adicionar scroll vertical se necessário */
+    max-height: calc(100vh - 200px); /* Altura máxima do container */
+    padding-bottom: 60px; /* Espaçamento interno para evitar sobreposição com o footer */
+}
+
+/* Estilo de cada projeto */
+.projeto {
+    background-color: rgba(255, 255, 255, 0.05); /* Fundo levemente claro */
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Borda sutil */
+    border-radius: 10px; /* Cantos arredondados */
+    padding: 20px; /* Espaçamento interno */
+    max-width: 400px; /* Largura máxima de cada projeto */
+    text-align: left; /* Alinhar o texto à esquerda */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra sutil */
+}
+
+.projeto-titulo {
+    font-size: 1.5rem; /* Tamanho grande para o título do projeto */
+    color: var(--cor-primaria); /* Ciano neon */
+    margin-bottom: 10px; /* Espaçamento abaixo do título */
+}
+
+.projeto-subtitulo {
+    font-size: 1.1rem; /* Tamanho médio para o subtítulo do projeto */
+    color: var(--cor-texto); /* Cor do texto definida */
+    margin-bottom: 15px; /* Espaçamento abaixo do subtítulo */
+    opacity: 0.9; /* Leve transparência */
+}
+
+.projeto-descricao {
+    font-size: 1rem; /* Tamanho confortável para leitura */
+    color: var(--cor-texto); /* Cor do texto definida */
+    line-height: 1.6; /* Espaçamento entre linhas */
+    opacity: 0.8; /* Leve transparência */
+    margin-bottom: 20px; /* Espaçamento abaixo da descrição */
+}
+
+.projeto-video {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* Proporção 16:9 para o vídeo */
+    overflow: hidden;
+    border-radius: 5px; /* Cantos arredondados */
+}
+
+.projeto-video iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* Estilo do Rodapé */
+footer {
+    background-color: rgba(255, 255, 255, 0.05); /* Fundo levemente claro */
+    border-top: none; /* Remove a borda superior do footer */
+    padding: 40px 20px; /* Espaçamento interno */
+    color: var(--cor-texto); /* Cor do texto definida */
+    text-align: center; /* Centralizar o conteúdo */
+    margin-top: -2px; /* Cola o footer à linha divisória */
+}
+
+/* Estilo do container do footer */
+footer .container {
+    max-width: 1200px; /* Limitar a largura do conteúdo */
+    margin: 0 auto; /* Centralizar o container */
+    display: flex;
+    flex-direction: column;
+    gap: 40px; /* Espaçamento entre as seções */
+}
+
+/* Estilo da newsletter */
+footer .newsletter {
+    margin-bottom: 20px; /* Espaçamento abaixo da newsletter */
+}
+
+footer .newsletter h3 {
+    font-size: 1.5rem; /* Tamanho grande para o título */
+    margin-bottom: 20px; /* Espaçamento abaixo do título */
+    color: var(--cor-primaria); /* Ciano neon */
+}
+
+footer .newsletter form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Espaçamento entre os campos */
+    max-width: 400px; /* Largura máxima do formulário */
+    margin: 0 auto; /* Centralizar o formulário */
+}
+
+footer .newsletter label {
+    font-size: 1rem; /* Tamanho confortável para leitura */
+    color: var(--cor-texto); /* Cor do texto definida */
+    text-align: left; /* Alinhar labels à esquerda */
+}
+
+footer .newsletter input {
+    padding: 10px; /* Espaçamento interno */
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Borda sutil */
+    border-radius: 5px; /* Cantos arredondados */
+    background-color: rgba(255, 255, 255, 0.05); /* Fundo levemente claro */
+    color: var(--cor-texto); /* Cor do texto definida */
+    font-size: 1rem; /* Tamanho confortável para leitura */
+}
+
+footer .newsletter input::placeholder {
+    color: rgba(255, 255, 255, 0.5); /* Cor do placeholder */
+}
+
+footer .newsletter button {
+    padding: 10px 20px; /* Espaçamento interno */
+    background-color: var(--cor-primaria); /* Ciano neon */
+    color: var(--cor-fundo); /* Cor do texto (preto) */
+    border: none;
+    border-radius: 5px; /* Cantos arredondados */
+    font-size: 1rem; /* Tamanho confortável para leitura */
+    font-weight: bold; /* Texto em negrito */
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Transição suave */
+}
+
+footer .newsletter button:hover {
+    background-color: var(--cor-hover); /* Ciano neon mais escuro ao passar o mouse */
+}
+
+/* Estilo dos direitos autorais e links */
+footer .direitos {
+    font-size: 0.9rem; /* Tamanho menor para o texto */
+    opacity: 0.8; /* Leve transparência */
+}
+
+footer .direitos a {
+    color: var(--cor-primaria); /* Ciano neon para links */
+    text-decoration: none; /* Remover sublinhado */
+    transition: color 0.3s ease; /* Transição suave */
+}
+
+footer .direitos a:hover {
+    color: var(--cor-hover); /* Ciano neon mais escuro ao passar o mouse */
+}

@@ -1,0 +1,71 @@
+/* Responsivo: Ajustes para telas menores */
+@media (max-width: 768px) {
+    /* Aumenta a altura da barra de navegação */
+    nav {
+        padding: 15px 0; /* Aumenta o padding vertical */
+    }
+
+    .container {
+        padding: 0 20px; /* Mantém o padding horizontal */
+    }
+
+    .nav-toggle {
+        display: block; /* Mostra o botão de toggle */
+        position: absolute;
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 1.8rem; /* Aumenta o tamanho do ícone do botão */
+    }
+
+    .nav-menu {
+        display: none; /* Oculta o menu em telas menores */
+        flex-direction: column;
+        width: 100%;
+        background-color: var(--cor-fundo);
+        position: absolute;
+        top: 70px; /* Ajuste para a nova altura da barra */
+        left: 0;
+        padding: 10px 0; /* Aumenta o padding do menu dropdown */
+        background-color: rgba(0, 255, 255, 0.1); /* Ciano transparente */
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Adiciona uma sombra */
+    }
+
+    /* Alinha o item de login à direita no desktop */
+    .nav-login {
+        margin-left: auto; /* Empurra o item para a direita */
+    }
+
+    .nav-menu li {
+        margin: 15px 0; /* Aumenta o espaçamento entre os itens */
+    }
+
+    .nav-menu li a {
+        font-size: 1.2rem; /* Aumenta o tamanho da fonte dos itens */
+    }
+
+    .nav-menu.active {
+        display: flex; /* Mostra o menu quando ativo */
+    }
+
+    /* Ajuste para o item de login no mobile */
+    .nav-menu.right {
+        display: none; /* Oculta o item de login no mobile */
+    }
+
+    /* Exibe o item de login dentro do menu dropdown */
+    .nav-menu.active .nav-menu.right {
+        display: flex;
+        flex-direction: column;
+    }
+    .nav-login-desktop {
+        display: none;
+
+    }
+    
+    .nav-login-mobile {
+        display: block;
+
+    }
+    
+}
