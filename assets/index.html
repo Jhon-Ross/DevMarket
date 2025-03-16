@@ -9,10 +9,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/TweenLite.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/easing/EasePack.min.js"></script>
     <script src="/assets/js/nav.js"></script>
+    <script src="/assets/js/login.js"></script>
 
 
     <link href="/assets/css/desktop.css" rel="stylesheet">
     <link href="/assets/css/mobile.css" rel="stylesheet">
+    <link href="/assets/css/login.css" rel="stylesheet">
 
     <link rel="icon" href="" type="">
     <title>DevMarket</title>
@@ -22,29 +24,41 @@
 <body>
     <nav>
         <div class="container">
-            <!-- Menu de navegação -->
             <ul class="nav-menu center">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#sobre">Sobre</a></li>
                 <li><a href="#projetos">Projetos</a></li>
-                <!-- Item de login para mobile -->
                 <li class="nav-login-mobile"><a href="#login">Login</a></li>
             </ul>
-    
-            <!-- Contêiner para o item de login e o botão de toggle -->
             <div class="nav-right">
-                <!-- Item de login à direita (desktop) -->
                 <ul class="nav-menu right">
                     <li class="nav-login-desktop"><a href="#login">Login</a></li>
                 </ul>
-    
-                <!-- Botão de toggle -->
                 <button class="nav-toggle" aria-label="Abrir menu">
                     <i class="bi bi-list"></i>
                 </button>
             </div>
         </div>
     </nav>
+    
+    <!-- Modal de Login -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Login</h2>
+            <form>
+                <label for="email">E-mail ou CPF</label>
+                <input type="text" id="email" name="email" required>
+                <label for="senha">Senha</label>
+                <input type="password" id="senha" name="senha" required>
+                <button type="submit">Entrar</button>
+            </form>
+            <p><a href="#esqueci-senha">Esqueci minha senha</a></p>
+            <p>ou</p>
+            <button>FAÇA SEU LOGIN COM REDE SOCIAL</button>
+            <p><a href="#cadastrar">QUERO ME CADASTRAR</a></p>
+        </div>
+    </div>
 
     <!-- Seção Home -->
     <section id="home">

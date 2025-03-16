@@ -1,0 +1,129 @@
+/* Estilo do modal */
+.modal {
+    display: none; /* Escondido por padrão */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8); /* Fundo escuro com transparência */
+    overflow: auto;
+}
+
+/* Conteúdo do modal */
+.modal-content {
+    background-color: var(--cor-fundo); /* Cor de fundo do tema */
+    margin: 10% auto;
+    padding: 30px;
+    border: 1px solid var(--cor-primaria); /* Borda com cor neon */
+    border-radius: 10px; /* Cantos arredondados */
+    width: 90%;
+    max-width: 400px;
+    position: relative;
+    box-shadow: 0 0 20px rgba(0, 255, 238, 0.5); /* Sombra neon */
+}
+
+/* Botão de fechar */
+.close {
+    color: var(--cor-primaria); /* Cor neon */
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.close:hover,
+.close:focus {
+    color: var(--cor-hover); /* Cor neon ao passar o mouse */
+    text-shadow: 0 0 5px var(--cor-hover), 0 0 10px var(--cor-hover); /* Efeito neon */
+}
+
+/* Título do modal */
+.modal-content h2 {
+    color: var(--cor-primaria); /* Cor neon */
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 2rem;
+    text-shadow: 0 0 5px var(--cor-primaria), 0 0 10px var(--cor-primaria); /* Efeito neon */
+}
+
+/* Estilo do formulário */
+.modal-content form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Estilo dos labels */
+.modal-content label {
+    color: var(--cor-texto); /* Cor do texto */
+    font-size: 1rem;
+}
+
+/* Estilo dos inputs */
+.modal-content input {
+    padding: 10px;
+    border: 1px solid var(--cor-primaria); /* Borda neon */
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.05); /* Fundo levemente claro */
+    color: var(--cor-texto); /* Cor do texto */
+    font-size: 1rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.modal-content input:focus {
+    border-color: var(--cor-hover); /* Borda neon ao focar */
+    box-shadow: 0 0 5px var(--cor-hover), 0 0 10px var(--cor-hover); /* Efeito neon ao focar */
+    outline: none;
+}
+
+/* Estilo do botão de entrar */
+.modal-content button[type="submit"] {
+    padding: 10px;
+    background-color: var(--cor-primaria); /* Cor neon */
+    color: var(--cor-fundo); /* Cor do texto (preto) */
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.modal-content button[type="submit"]:hover {
+    background-color: var(--cor-hover); /* Cor neon ao passar o mouse */
+    box-shadow: 0 0 5px var(--cor-hover), 0 0 10px var(--cor-hover); /* Efeito neon */
+}
+
+/* Estilo dos links dentro do modal */
+.modal-content a {
+    color: var(--cor-primaria); /* Cor neon */
+    text-decoration: none;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.modal-content a:hover {
+    color: var(--cor-hover); /* Cor neon ao passar o mouse */
+    text-shadow: 0 0 5px var(--cor-hover), 0 0 10px var(--cor-hover); /* Efeito neon */
+}
+
+/* Estilo do botão de login com rede social */
+.modal-content button.social-login {
+    padding: 10px;
+    background-color: transparent;
+    border: 1px solid var(--cor-primaria); /* Borda neon */
+    border-radius: 5px;
+    color: var(--cor-primaria); /* Cor neon */
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.modal-content button.social-login:hover {
+    background-color: var(--cor-primaria); /* Cor neon ao passar o mouse */
+    color: var(--cor-fundo); /* Cor do texto (preto) */
+    box-shadow: 0 0 5px var(--cor-primaria), 0 0 10px var(--cor-primaria); /* Efeito neon */
+}
