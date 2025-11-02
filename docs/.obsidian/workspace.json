@@ -1,0 +1,210 @@
+{
+  "main": {
+    "id": "3380ef768076f03c",
+    "type": "split",
+    "children": [
+      {
+        "id": "006a0f766e2da6f4",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "e088423a6c90800a",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "sprints/sprint-00-fundacoes.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "sprint-00-fundacoes"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "6b5d94992ecfded3",
+    "type": "split",
+    "children": [
+      {
+        "id": "5f8b0ab3cbaeeee3",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "95930a3ad934d45c",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Explorador de arquivos"
+            }
+          },
+          {
+            "id": "9a81f15c0ce4fdbe",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "175017bd625c63fb",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "bf35895329fe9ac7",
+    "type": "split",
+    "children": [
+      {
+        "id": "b891de3706223ce8",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "8cdb81f69c854f36",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "kanban/devmarket-kanban.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks for devmarket-kanban"
+            }
+          },
+          {
+            "id": "51f46b73fd135b6e",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "kanban/devmarket-kanban.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from devmarket-kanban"
+            }
+          },
+          {
+            "id": "146f7a8dfdb48ba8",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "56252ae4114de88e",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "kanban/devmarket-kanban.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline of devmarket-kanban"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Abrir a troca rápida": false,
+      "graph:Abrir visualização em gráfico": false,
+      "canvas:Criar novo canvas": false,
+      "daily-notes:Abrir a nota de hoje": false,
+      "templates:Inserir modelo": false,
+      "command-palette:Abrir paleta de comandos": false,
+      "bases:Criar nova base": false,
+      "obsidian-kanban:Criar um novo quadro": false
+    }
+  },
+  "active": "e088423a6c90800a",
+  "lastOpenFiles": [
+    "CHANGELOG.md",
+    "dev_market_readme.md",
+    "kanban/devmarket-kanban.md",
+    "sprints/sprint-00-fundacoes.md",
+    "setup/environment-setup.md",
+    "checklists/release-checklist.md",
+    "exemplo/README.md",
+    "exemplo/kanban/pre-sprint0-visual-estrutura.md",
+    "exemplo/estrutura/packages/ui/README.md",
+    "exemplo/estrutura/apps/web/README.md",
+    "exemplo/backlog/pre-sprint0-visual-estrutura.md",
+    "exemplo/estrutura/packages/types/README.md",
+    "exemplo/estrutura/packages/sanity/README.md",
+    "exemplo/estrutura/packages/lib/README.md",
+    "exemplo/estrutura/packages/config/README.md",
+    "planning/sprints-overview.md",
+    "sprints/sprint-01-perfil-publico.md",
+    "INDICE KANBAN.md",
+    "templates/sprint-template.md",
+    "templates/user-story-template.md",
+    "exemplo/kanban",
+    "exemplo/backlog",
+    "exemplo/estrutura/prisma/README.md",
+    "exemplo/estrutura/prisma",
+    "exemplo/estrutura/packages/config",
+    "exemplo/estrutura/packages/types",
+    "exemplo/estrutura/packages/lib",
+    "exemplo/estrutura/packages/sanity",
+    "exemplo/estrutura/packages/ui",
+    "exemplo/estrutura/packages",
+    "exemplo/estrutura/apps/web",
+    "sprints/sprint-02-projetos-midia.md",
+    "sprints/sprint-03-pagamentos.md",
+    "sprints/sprint-04-hardening-qa.md"
+  ]
+}

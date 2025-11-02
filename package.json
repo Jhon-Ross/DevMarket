@@ -1,0 +1,15 @@
+{
+  "name": "devmarket",
+  "private": true,
+  "version": "0.0.1",
+  "scripts": {
+    "web:dev": "pnpm -C apps/web dev",
+    "web:build": "pnpm -C apps/web build",
+    "web:start": "pnpm -C apps/web start",
+    "lint": "pnpm -C apps/web lint",
+    "changelog": "node scripts/update-changelog.js"
+  },
+  "devDependencies": {
+    "@types/node": "^20"
+  }
+}

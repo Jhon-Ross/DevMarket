@@ -1,0 +1,20 @@
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2, 8px);
+  padding: 0 var(--space-3, 12px);
+  height: 28px;
+  border-radius: var(--radius-sm, 6px);
+  font-family: var(--font-sans, ui-sans-serif);
+  font-size: var(--font-size-xs, 12px);
+  line-height: var(--line-height, 1.5);
+  border: 1px solid var(--color-border, #e2e8f0);
+  color: var(--color-text, #0f172a);
+  background: var(--color-bg-subtle, #f8fafc);
+}
+
+/* .tag-default is intentionally unstyled; it inherits the base .tag rules */
+.tag-primary { background: var(--color-accent, #3b82f6); color: var(--color-accent-foreground, #fff); border-color: transparent; }
+.tag-success { background: var(--color-success, #16a34a); color: #fff; border-color: transparent; }
+.tag-warning { background: var(--color-warning, #f59e0b); color: #111827; border-color: transparent; }
+.tag-danger { background: var(--color-danger, #ef4444); color: #fff; border-color: transparent; }
