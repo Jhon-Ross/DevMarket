@@ -83,6 +83,18 @@ kanban-plugin: board
 
 - [x] Navegação e layout base implementados (release 0.1.1 — 2025-11-02)
 
+### Concluído — 2025-11-02
+
+- [x] Atualizado `.gitignore` e validado build do `apps/web` (Next.js 16)
+- [x] Tipagem estrita "async props" aplicada em `apps/web/src/app/perfil/[slug]/page.tsx`
+- [x] ISR básico configurado em `perfil/[slug]` (`revalidate = 60` e `generateStaticParams` vazio)
+- [x] Criado pacote `@devmarket/sanity` (client + queries) com `tsconfig` e build para `dist`
+- [x] Criado pacote `@devmarket/types` com tipo `Perfil` e build para `dist`
+- [x] Corrigidos erros TypeScript no monorepo:
+  - TS2307: imports relativos `./client`/`./queries` — ajustado para ESM com extensão `.js`
+  - TS2688: tipos `react`/`react-dom` ausentes — fixado `types: ["node"]` nos `tsconfig` dos pacotes
+  - TS2303/TS2459: conflito por alias `@sanity/*` — removido alias do `tsconfig.base.json` e instalada `typescript` no workspace
+
 
 ## Concluído
 

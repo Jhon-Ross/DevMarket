@@ -11,6 +11,51 @@ Formato baseado em Keep a Changelog e organizado em camadas para inspeção prec
 - Ajustado `docs/sprints/sprint-01-perfil-publico.md` para rota `/perfil/[slug]` e revalidação correspondente.
 - Atualizado `docs/dev_market_readme.md` com status da navegação/layout e exemplo do Card usando `CardHeader/CardBody/CardFooter`.
 
+## [0.1.2] — 2025-11-02
+
+### Camada 1 — Resumo executivo
+- Preparado terreno para a Sprint 1 com esqueleto de pacotes `@devmarket/sanity` e `@devmarket/types`, e **ISR básico** na rota `perfil/[slug]`.
+- Resolvidos erros de TypeScript de resolução de módulos e tipos no monorepo.
+
+### Camada 2 — Áreas e tópicos
+- Rota Perfil
+  - `apps/web/src/app/perfil/[slug]/page.tsx` com tipagem estrita de "async props" (`params: Promise<{ slug: string }>`), `revalidate = 60` e `generateStaticParams` vazio.
+- Pacotes
+  - `@devmarket/sanity`: `src/client.ts` e `src/queries.ts`, `tsconfig.json`, build para `dist` (JS + d.ts).
+  - `@devmarket/types`: `src/index.ts` com interface `Perfil`, `tsconfig.json`, build para `dist`.
+- TypeScript & Resolução
+  - Ajuste ESM nos specifiers: `packages/sanity/src/index.ts` usando `./client.js` e `./queries.js`.
+  - Remoção do alias `@sanity/*` em `tsconfig.base.json` para evitar conflito com `@sanity/client`.
+  - `types: ["node"]` em `tsconfig.json` dos pacotes para impedir carga implícita de `react`/`react-dom`.
+  - `typescript` adicionado ao workspace e scripts de build nos pacotes.
+
+### Camada 3 — Referências a arquivos
+- `apps/web/src/app/perfil/[slug]/page.tsx` — `async props`, `revalidate`, `generateStaticParams`.
+- `packages/sanity/src/index.ts` — exports com extensão `.js`.
+- `packages/sanity/src/client.ts` — client do Sanity com envs.
+- `packages/sanity/src/queries.ts` — query básica `perfilBySlugQuery`.
+- `packages/sanity/tsconfig.json` e `packages/types/tsconfig.json` — configuração de build.
+- `packages/sanity/package.json` e `packages/types/package.json` — `main/types` apontando para `dist`, scripts `build`.
+- `tsconfig.base.json` — remoção do alias `@sanity/*`.
+
+### Camada 4 — Notas comportamentais
+- ISR básico: páginas de perfil renderizadas sob demanda e revalidadas a cada 60 segundos.
+- Tipagem estrita com Next 16: App Router aceita `params` como `Promise`, garantindo compatibilidade com pipelines de props.
+
+### Fixed
+- TS2307: `Cannot find module './client'` e `./queries` — ajustados specifiers para `.js`.
+- TS2307: `Cannot find module '@sanity/client'` — removido alias conflitante e garantida instalação da lib.
+- TS2688: `Cannot find type definition file for 'react'/'react-dom'` — fixado `types: ["node"]` nos pacotes.
+- TS2303/TS2459: conflito por alias `@sanity/*` com `@sanity/client` — resolvido removendo alias e recompilando.
+
+### Added
+- Pacote `@devmarket/sanity` (client + queries) com build para `dist`.
+- Pacote `@devmarket/types` com interface `Perfil` e build para `dist`.
+- ISR básico em `perfil/[slug]` com `revalidate` e `generateStaticParams` vazio.
+
+### Changed
+- Tipagem da rota `perfil/[slug]` alinhada ao Next.js 16 com "async props".
+
 ## [0.1.1] — 2025-11-02
 
 ### Camada 1 — Resumo executivo

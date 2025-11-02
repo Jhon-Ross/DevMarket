@@ -14,7 +14,7 @@
       "@ui/*": ["packages/ui/src/*"],
       "@lib/*": ["packages/lib/src/*"],
       "@types/*": ["packages/types/src/*"],
-      "@sanity/*": ["packages/sanity/src/*"]
+      
     }
   }
 }
