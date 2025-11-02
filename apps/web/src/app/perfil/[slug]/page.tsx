@@ -1,5 +1,5 @@
-export default function PerfilPage({ params }: any) {
-  const { slug } = params;
+export default async function PerfilPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
   return (
     <section>
       <h1>Perfil: {slug}</h1>
