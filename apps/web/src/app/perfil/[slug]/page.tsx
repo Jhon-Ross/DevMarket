@@ -1,8 +1,4 @@
-interface PerfilPageProps {
-  params: { slug: string };
-}
-
-export default function PerfilPage({ params }: PerfilPageProps) {
+export default function PerfilPage({ params }: any) {
   const { slug } = params;
   return (
     <section>
