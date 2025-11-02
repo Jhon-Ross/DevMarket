@@ -7,6 +7,44 @@ Formato baseado em Keep a Changelog e organizado em camadas para inspeção prec
 - Testes de componentes (`packages/ui`)
 - Storybook opcional para o Design System
 
+## [0.1.1] — 2025-11-02
+
+### Camada 1 — Resumo executivo
+- Consolidado roteamento no **App Router** e criado **layout base** com cabeçalho e navegação.
+- Migrada a página **UI Preview** para `src/app/ui-preview` e removido `src/pages/`.
+
+### Camada 2 — Áreas e tópicos
+- Navegação
+  - Cabeçalho com links: Home `/`, UI Preview `/ui-preview`, Projetos `/projetos`, Perfil `/perfil/[slug]`.
+- Layout
+  - Wrapper `<main>` com largura máxima e padding usando tokens CSS.
+  - Estilos alinhados às variáveis do design system (`--bg-*`, `--text-*`, `--space-*`).
+- Rotas
+  - `apps/web/src/app/projetos/page.tsx` (placeholder)
+  - `apps/web/src/app/perfil/[slug]/page.tsx` (placeholder)
+
+### Camada 3 — Referências a arquivos
+- `apps/web/src/app/layout.tsx` — cabeçalho e navegação base adicionados.
+- `apps/web/src/app/ui-preview/page.tsx` — migrado do Pages Router.
+- `apps/web/src/app/projetos/page.tsx` — nova rota placeholder.
+- `apps/web/src/app/perfil/[slug]/page.tsx` — nova rota dinâmica placeholder.
+- `apps/web/src/pages/ui-preview.tsx` — arquivo removido.
+
+### Camada 4 — Notas comportamentais
+- Navegação usa `next/link` com estilos baseados em tokens.
+- Layout fixo no topo com `position: sticky` e barra inferior.
+- App agora usa apenas App Router; evita conflitos de roteamento.
+
+### Added
+- Layout base com navegação no App Router.
+- Páginas placeholder de Projetos e Perfil dinâmico.
+
+### Changed
+- UI Preview migrada para `src/app/ui-preview`.
+
+### Removed
+- `src/pages/ui-preview.tsx` (Pages Router).
+
 ## [0.1.0] — 2025-11-01
 
 ### Camada 1 — Resumo executivo

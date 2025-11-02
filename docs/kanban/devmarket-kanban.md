@@ -70,7 +70,18 @@ kanban-plugin: board
 ## Em Progresso
 
 - [ ] Configurar ESLint/Prettier/Husky para qualidade de código
-- [ ] Implementar sistema de navegação e layout base
+
+## Em Revisão
+
+- [x] Implementar sistema de navegação e layout base
+  - Consolidado App Router (remoção de `src/pages/`)
+  - Cabeçalho com links: `/`, `/ui-preview`, `/projetos`, `/perfil/[slug]`
+  - Migrada UI Preview para `src/app/ui-preview/page.tsx`
+  - Placeholders criados: `projetos` e `perfil/[slug]`
+
+## Concluído
+
+- [x] Navegação e layout base implementados (release 0.1.1 — 2025-11-02)
 
 
 ## Concluído
