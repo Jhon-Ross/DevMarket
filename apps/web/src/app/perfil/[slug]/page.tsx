@@ -7,3 +7,9 @@ export default async function PerfilPage({ params }: { params: Promise<{ slug: s
     </section>
   );
 }
+
+export const revalidate = 60;
+
+export async function generateStaticParams() {
+  return [] as { slug: string }[];
+}

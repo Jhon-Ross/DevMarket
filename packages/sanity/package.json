@@ -1,0 +1,13 @@
+{
+  "name": "@devmarket/sanity",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "main": "src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@sanity/client": "^6.18.2"
+  }
+}
