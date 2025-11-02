@@ -14,11 +14,11 @@ DevMarket é uma plataforma onde desenvolvedores criam um perfil profissional (v
 - **Aliases TypeScript** configurados (`@/*`, `@ui/*`, `@lib/*`, etc.)
 - **Servidor de desenvolvimento** rodando em http://localhost:3000
  - **Pacote UI (`@devmarket/ui`)** criado e integrado ao app, com página de preview
- -  Componentes UI base (Button, Card, Avatar)
+ - Componentes UI base (Button, Card, Avatar, Tag, Grid, MediaGallery)
+ - **Navegação e layout base** consolidados no App Router (release 0.1.1)
 
 ### 🔄 Em Progresso
 - Configuração de qualidade de código (ESLint/Prettier)
-- Sistema de navegação e layout
 
 ### 📋 Próximos Passos
 - Autenticação com NextAuth.js
@@ -71,15 +71,18 @@ DevMarket é uma plataforma onde desenvolvedores criam um perfil profissional (v
 
 ### Como usar
 ```tsx
-import { Button, Card, Avatar, Tag, Grid, MediaGallery } from '@devmarket/ui';
+import { Button, Card, CardHeader, CardBody, CardFooter, Avatar, Tag, Grid, MediaGallery } from '@devmarket/ui';
 
 export default function Example() {
   return (
     <Card elevated>
-      <Card.Header>Exemplo</Card.Header>
-      <Card.Body>
+      <CardHeader>Exemplo</CardHeader>
+      <CardBody>
         <Button variant="primary" size="md">Clique</Button>
-      </Card.Body>
+      </CardBody>
+      <CardFooter>
+        <Tag variant="primary">Rodapé</Tag>
+      </CardFooter>
     </Card>
   );
 }
@@ -88,6 +91,7 @@ export default function Example() {
 ### Preview de UI
 - Página de preview: `http://localhost:3000/ui-preview` (rodar com `pnpm --filter web dev`).
 - Exibe exemplos de todos os componentes com variações e props.
+- Layout e navegação base disponíveis em todas as páginas (App Router).
 
 ### Correções recentes
 - Botão em `loading`: spinner passou a ser renderizado inline (em vez de overlay absoluto) para evitar sobreposição de texto.

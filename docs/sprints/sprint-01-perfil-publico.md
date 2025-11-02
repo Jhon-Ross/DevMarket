@@ -10,7 +10,7 @@ Entregar página pública de perfil com conteúdo do Sanity, CRUD de perfil aute
 - [x] Homepage base criada
 
 ## Critérios de Aceitação
-- [ ] Página `/dev/:slug` renderiza dados do `userProfile` via GROQ
+- [ ] Página `/perfil/:slug` renderiza dados do `userProfile` via GROQ
 - [ ] ISR com webhook do Sanity revalida no publish/update
 - [ ] Edição de perfil (bio, skills, links, avatar) apenas autenticada (server-side)
 - [ ] Componentes UI base funcionais (`Avatar`, `Tag`, `Card`, `Section`)
@@ -73,7 +73,7 @@ export const USER_PROFILE_QUERY = `
 **Estrutura:**
 ```
 apps/web/src/app/
-├── dev/
+├── perfil/
 │   └── [slug]/
 │       ├── page.tsx      # ISR + SEO
 │       ├── loading.tsx   # Skeleton
@@ -82,7 +82,7 @@ apps/web/src/app/
 
 **Implementação ISR:**
 ```typescript
-// apps/web/src/app/dev/[slug]/page.tsx
+// apps/web/src/app/perfil/[slug]/page.tsx
 export const revalidate = 3600 // 1 hora
 
 export async function generateStaticParams() {
@@ -103,7 +103,7 @@ export async function POST(request: Request) {
   const { _type, slug } = await request.json()
   
   if (_type === 'userProfile') {
-    revalidatePath(`/dev/${slug}`)
+    revalidatePath(`/perfil/${slug}`)
   }
   
   return Response.json({ revalidated: true })

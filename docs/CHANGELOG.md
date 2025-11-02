@@ -7,6 +7,10 @@ Formato baseado em Keep a Changelog e organizado em camadas para inspeção prec
 - Testes de componentes (`packages/ui`)
 - Storybook opcional para o Design System
 
+### Docs
+- Ajustado `docs/sprints/sprint-01-perfil-publico.md` para rota `/perfil/[slug]` e revalidação correspondente.
+- Atualizado `docs/dev_market_readme.md` com status da navegação/layout e exemplo do Card usando `CardHeader/CardBody/CardFooter`.
+
 ## [0.1.1] — 2025-11-02
 
 ### Camada 1 — Resumo executivo
