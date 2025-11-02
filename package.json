@@ -7,9 +7,23 @@
     "web:build": "pnpm -C apps/web build",
     "web:start": "pnpm -C apps/web start",
     "lint": "pnpm -C apps/web lint",
+    "format": "prettier --write .",
+    "prepare": "husky install",
     "changelog": "node scripts/update-changelog.js"
   },
   "devDependencies": {
-    "@types/node": "^20"
+    "@types/node": "^20",
+    "typescript": "^5.9.3",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.2.10",
+    "prettier": "^3.3.3"
+  },
+  "lint-staged": {
+    "apps/web/**/*.{ts,tsx,js,jsx}": [
+      "pnpm -C apps/web eslint --fix"
+    ],
+    "**/*.{ts,tsx,js,jsx,css,scss,json,md}": [
+      "prettier --write"
+    ]
   }
 }
