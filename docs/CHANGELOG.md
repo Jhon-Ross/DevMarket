@@ -3,21 +3,38 @@
 Formato baseado em Keep a Changelog e organizado em camadas para inspeção precisa. Versões seguirão SemVer quando houver publicação.
 
 ## [Unreleased]
+
 - Documentação de tokens individual
 - Testes de componentes (`packages/ui`)
 - Storybook opcional para o Design System
 
 ### Docs
+
 - Ajustado `docs/sprints/sprint-01-perfil-publico.md` para rota `/perfil/[slug]` e revalidação correspondente.
 - Atualizado `docs/dev_market_readme.md` com status da navegação/layout e exemplo do Card usando `CardHeader/CardBody/CardFooter`.
+- Publicado `README.md` na raiz com apresentação comercial e seção de Parcerias.
+- Atualizado `docs/kanban/devmarket-kanban.md`: coluna "Em Revisão" esvaziada e itens consolidados em "Concluído".
+
+### Tooling / Qualidade
+
+- Adicionado `Prettier` com `.prettierrc.json` e `.prettierignore` na raiz.
+- Configurado `Husky` com hook `pre-commit` para executar `lint-staged`.
+- Adicionado `lint-staged` ao `package.json` da raiz:
+  - `apps/web/**/*.{ts,tsx,js,jsx}` → `pnpm -C apps/web eslint --fix`
+  - `**/*.{ts,tsx,js,jsx,css,scss,json,md}` → `prettier --write`
+- Novos scripts no `package.json`:
+  - `format` → `prettier --write .`
+  - `prepare` → `husky install`
 
 ## [0.1.2] — 2025-11-02
 
 ### Camada 1 — Resumo executivo
+
 - Preparado terreno para a Sprint 1 com esqueleto de pacotes `@devmarket/sanity` e `@devmarket/types`, e **ISR básico** na rota `perfil/[slug]`.
 - Resolvidos erros de TypeScript de resolução de módulos e tipos no monorepo.
 
 ### Camada 2 — Áreas e tópicos
+
 - Rota Perfil
   - `apps/web/src/app/perfil/[slug]/page.tsx` com tipagem estrita de "async props" (`params: Promise<{ slug: string }>`), `revalidate = 60` e `generateStaticParams` vazio.
 - Pacotes
@@ -30,6 +47,7 @@ Formato baseado em Keep a Changelog e organizado em camadas para inspeção prec
   - `typescript` adicionado ao workspace e scripts de build nos pacotes.
 
 ### Camada 3 — Referências a arquivos
+
 - `apps/web/src/app/perfil/[slug]/page.tsx` — `async props`, `revalidate`, `generateStaticParams`.
 - `packages/sanity/src/index.ts` — exports com extensão `.js`.
 - `packages/sanity/src/client.ts` — client do Sanity com envs.
@@ -39,30 +57,36 @@ Formato baseado em Keep a Changelog e organizado em camadas para inspeção prec
 - `tsconfig.base.json` — remoção do alias `@sanity/*`.
 
 ### Camada 4 — Notas comportamentais
+
 - ISR básico: páginas de perfil renderizadas sob demanda e revalidadas a cada 60 segundos.
 - Tipagem estrita com Next 16: App Router aceita `params` como `Promise`, garantindo compatibilidade com pipelines de props.
 
 ### Fixed
+
 - TS2307: `Cannot find module './client'` e `./queries` — ajustados specifiers para `.js`.
 - TS2307: `Cannot find module '@sanity/client'` — removido alias conflitante e garantida instalação da lib.
 - TS2688: `Cannot find type definition file for 'react'/'react-dom'` — fixado `types: ["node"]` nos pacotes.
 - TS2303/TS2459: conflito por alias `@sanity/*` com `@sanity/client` — resolvido removendo alias e recompilando.
 
 ### Added
+
 - Pacote `@devmarket/sanity` (client + queries) com build para `dist`.
 - Pacote `@devmarket/types` com interface `Perfil` e build para `dist`.
 - ISR básico em `perfil/[slug]` com `revalidate` e `generateStaticParams` vazio.
 
 ### Changed
+
 - Tipagem da rota `perfil/[slug]` alinhada ao Next.js 16 com "async props".
 
 ## [0.1.1] — 2025-11-02
 
 ### Camada 1 — Resumo executivo
+
 - Consolidado roteamento no **App Router** e criado **layout base** com cabeçalho e navegação.
 - Migrada a página **UI Preview** para `src/app/ui-preview` e removido `src/pages/`.
 
 ### Camada 2 — Áreas e tópicos
+
 - Navegação
   - Cabeçalho com links: Home `/`, UI Preview `/ui-preview`, Projetos `/projetos`, Perfil `/perfil/[slug]`.
 - Layout
@@ -73,6 +97,7 @@ Formato baseado em Keep a Changelog e organizado em camadas para inspeção prec
   - `apps/web/src/app/perfil/[slug]/page.tsx` (placeholder)
 
 ### Camada 3 — Referências a arquivos
+
 - `apps/web/src/app/layout.tsx` — cabeçalho e navegação base adicionados.
 - `apps/web/src/app/ui-preview/page.tsx` — migrado do Pages Router.
 - `apps/web/src/app/projetos/page.tsx` — nova rota placeholder.
@@ -80,28 +105,34 @@ Formato baseado em Keep a Changelog e organizado em camadas para inspeção prec
 - `apps/web/src/pages/ui-preview.tsx` — arquivo removido.
 
 ### Camada 4 — Notas comportamentais
+
 - Navegação usa `next/link` com estilos baseados em tokens.
 - Layout fixo no topo com `position: sticky` e barra inferior.
 - App agora usa apenas App Router; evita conflitos de roteamento.
 
 ### Added
+
 - Layout base com navegação no App Router.
 - Páginas placeholder de Projetos e Perfil dinâmico.
 
 ### Changed
+
 - UI Preview migrada para `src/app/ui-preview`.
 
 ### Removed
+
 - `src/pages/ui-preview.tsx` (Pages Router).
 
 ## [0.1.0] — 2025-11-01
 
 ### Camada 1 — Resumo executivo
+
 - Adicionado pacote `@devmarket/ui` com componentes base (Button, Card, Avatar, Tag, Grid, MediaGallery), tokens CSS e utilitário `cn`.
 - Integrado o pacote UI ao `apps/web` com transpile de workspace e página de preview (`/ui-preview`).
 - Corrigido bug de sobreposição do texto no botão em estado `loading`; spinner agora é inline e perfeitamente circular.
 
 ### Camada 2 — Áreas e tópicos
+
 - Componentes UI
   - `Button`: variantes `primary`, `secondary`, `ghost`, `destructive`, `outline`; tamanhos `sm`, `md`, `lg`; estado `loading` com spinner inline.
   - `Card`: variantes `bordered` e `elevated`; sub-componentes `Header`, `Body`, `Footer`.
@@ -123,6 +154,7 @@ Formato baseado em Keep a Changelog e organizado em camadas para inspeção prec
   - `docs/kanban/devmarket-kanban.md` marcou tarefas de UI como concluídas.
 
 ### Camada 3 — Referências a arquivos (diff-friendly)
+
 - Pacote UI
   - `packages/ui/src/styles/tokens.css` — tokens semânticos do design system.
   - `packages/ui/src/utils/cn.ts` — utilitário de classes.
@@ -144,6 +176,7 @@ Formato baseado em Keep a Changelog e organizado em camadas para inspeção prec
   - `docs/kanban/devmarket-kanban.md` — tarefas concluídas.
 
 ### Camada 4 — Notas comportamentais e compatibilidade
+
 - Acessibilidade
   - `Button`: mantém label visível em `loading`; spinner marcado como `aria-hidden` e estado do botão pode usar `aria-busy`.
 - Theming
@@ -153,16 +186,19 @@ Formato baseado em Keep a Changelog e organizado em camadas para inspeção prec
   - `sideEffects` garante que CSS seja incluído corretamente em bundlers.
 
 ### Added
+
 - Pacote `@devmarket/ui` com componentes base e tokens.
 - Página de preview `apps/web/src/pages/ui-preview.tsx`.
 - Import global de `tokens.css` no entry do UI.
 
 ### Changed
+
 - `apps/web/next.config.ts` adiciona `transpilePackages` para `@devmarket/ui`.
 - `apps/web/README.md` substituído por instruções do projeto e integração do UI.
 - `docs/dev_market_readme.md` expandido com seção do Design System e UI.
 
 ### Fixed
+
 - `Button` em `loading`: removido overlay absoluto, spinner inline e circular.
 
 ---
