@@ -13,9 +13,9 @@ kanban-plugin: board
 - [ ] Landing page marketing (copy + CTA)
 - [ ] Configurar ESLint/Prettier/Husky/lint-staged
 - [ ] Validar `.env` com `zod` em `packages/lib`
-- [ ] Inicializar Sanity Studio e definir `userProfile`/`project`
 - [ ] Criar Prisma schema (`User`, `Subscription`) e migrations
 - [ ] Integrar NextAuth (providers email/credentials) e páginas de login
+- [ ] Criar token Viewer (read-only) no Sanity e configurar `SANITY_READ_TOKEN` em `apps/web/.env.local`
 
 ## Sprint 0 — Fundações ✅
 
@@ -59,11 +59,25 @@ kanban-plugin: board
 
 ## Em Progresso
 
-- [ ] Inicializar Sanity Studio e definir `userProfile`/`project` — scaffolding concluído; aguarda env e init/dataset
-- [ ] Implementar leitura GROQ do `userProfile`
-- [ ] Webhook de revalidação (Sanity) para `/perfil/[slug]`
+- [ ] Configurar webhook de revalidação (Sanity → Next.js) para `/perfil/[slug]`
 
 ## Em Revisão
+
+- [ ] Leitura GROQ do `userProfile` e listagem de `projects` em `/perfil/[slug]` (validado localmente)
+- [ ] `loading.tsx` e `not-found.tsx` adicionados na rota `/perfil/[slug]`
+- [ ] Rota de webhook (`/api/webhooks/sanity`) implementada para revalidar `/perfil/[slug]`
+
+## Concluído — 2025-11-03
+
+- [x] Inicialização do Sanity Studio com `.env` e `sanity.config.ts` ajustados (`SANITY_STUDIO_*`)
+- [x] Studio rodando em `http://localhost:3333/` sem erros de `projectId`
+- [x] Publicação de documentos de teste (`userProfile`, `project`) e vínculo do `owner`
+- [x] Página “Projetos” com listagem pública (SSR + ISR)
+- [x] Grid de cards e filtros por `techTags` em `/projetos`
+- [x] Query GROQ `publicProjectsQuery` criada em `@devmarket/sanity`
+- [x] Link do owner apontando para `/perfil/[slug]`
+- [x] `@devmarket/sanity` adicionado como dependência workspace do `apps/web` e build ajustado
+- [x] Validação via GROQ no CDN (`production`): retorna `userProfile` e `project` públicos
 
 ## Concluído — 2025-11-02
 
