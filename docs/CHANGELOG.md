@@ -8,6 +8,69 @@ Formato baseado em Keep a Changelog e organizado em camadas para inspeção prec
 - Testes de componentes (`packages/ui`)
 - Storybook opcional para o Design System
 
+## [0.2.0] — 2025-01-15
+
+### Camada 1 — Resumo executivo
+
+- **Renderização completa de mídia** implementada em projetos e perfis: capas, galerias de imagens e listas de arquivos para download.
+- **Sprint 2 concluída** com soluções para cards vazios, erros de imagem inválida e inconsistências entre páginas.
+- **Queries GROQ expandidas** para incluir `coverUrl`, `mediaImages` e `mediaFiles` com fallbacks robustos.
+
+### Camada 2 — Áreas e tópicos
+
+- Queries Sanity
+  - `publicProjectsQuery` expandida com campos de mídia completos (`coverUrl`, `mediaImages`, `mediaFiles`)
+  - `userProfileBySlugQuery` atualizada para incluir projetos com mídia completa
+  - Lógica `coalesce()` para priorizar `coverImage` sobre primeiro item de `media`
+- Componentes UI
+  - `ProjectsGrid` com renderização de capa, galeria e arquivos
+  - `CoverImage` e `MediaGallery` com fallback `<img>` para compatibilidade
+  - Reutilização consistente entre páginas `/projetos` e `/perfil/[slug]`
+- Perfil Público
+  - Avatar, bio, skills (chips), links (lista clicável) renderizados
+  - Projetos exibidos com `ProjectsGrid` completo (capa + mídia + arquivos)
+- Configuração Next.js
+  - `remotePatterns` para `cdn.sanity.io` habilitado
+  - Transpile de `@devmarket/sanity` funcionando corretamente
+
+### Camada 3 — Referências a arquivos
+
+- `packages/sanity/src/queries.ts` — queries expandidas com campos de mídia
+- `apps/web/src/app/projetos/ProjectsGrid.tsx` — componente com fallbacks de imagem
+- `apps/web/src/app/perfil/[slug]/PerfilView.tsx` — renderização completa do perfil
+- `apps/web/src/app/perfil/[slug]/page.tsx` — tipos atualizados para projetos completos
+- `apps/web/next.config.ts` — `remotePatterns` para Sanity CDN
+- `docs/sprints/sprint-02-projetos-midia.md` — documentação de desafios e soluções
+
+### Camada 4 — Notas comportamentais e desafios resolvidos
+
+- **Cards vazios**: Query não incluía campos de mídia → Expandida com `coverUrl`, `mediaImages`, `mediaFiles`
+- **Erro "resource isn't a valid image"**: `next/image` tentava otimizar `.txt` → Fallback `<img>` implementado
+- **Pacote desatualizado**: Mudanças em queries não refletiam → Rebuild `pnpm -C packages/sanity build`
+- **Inconsistência páginas**: Perfil mostrava só títulos → Reutilização de `ProjectsGrid` com mídia completa
+- **Debug em produção**: Bloco de debug removido após validação → UI limpa mantida
+
+### Fixed
+
+- Cards de projeto vazios apesar de conteúdo cadastrado no Sanity
+- Erro `next/image` ao tentar otimizar arquivos não-imagem (`.txt`, `.pdf`)
+- Inconsistência entre renderização de projetos na página `/projetos` vs `/perfil/[slug]`
+- Queries desatualizadas não refletindo no app após mudanças no pacote `@devmarket/sanity`
+
+### Added
+
+- Renderização completa de mídia em cards de projeto (capa, galeria, arquivos)
+- Fallbacks `<img>` para compatibilidade com assets não-imagem
+- Perfil público com avatar, bio, skills, links e projetos completos
+- Debug temporário para diagnóstico de queries (removido após validação)
+- Documentação detalhada de desafios e soluções na Sprint 2
+
+### Changed
+
+- `publicProjectsQuery` e `userProfileBySlugQuery` expandidas com campos de mídia
+- `ProjectsGrid` reutilizado consistentemente entre páginas de projetos e perfil
+- Tipos TypeScript atualizados para incluir `coverUrl`, `mediaImages`, `mediaFiles`
+
 ### TypeScript / Sanity Studio
 
 - Resolvidos erros de TypeScript no Sanity Studio:

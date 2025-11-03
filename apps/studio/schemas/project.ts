@@ -23,6 +23,13 @@ export default defineType({
       to: [{ type: 'userProfile' }],
     }),
     defineField({
+      name: 'coverImage',
+      title: 'Cover Image',
+      type: 'image',
+      options: { hotspot: true },
+      description: 'Imagem de capa/perfil do projeto exibida nas listagens',
+    }),
+    defineField({
       name: 'media',
       title: 'Media (Sanity Assets)',
       type: 'array',
@@ -67,4 +74,10 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
   ],
+  preview: {
+    select: {
+      title: 'title',
+      media: 'coverImage',
+    },
+  },
 });

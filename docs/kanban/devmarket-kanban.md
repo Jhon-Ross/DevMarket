@@ -16,21 +16,23 @@ kanban-plugin: board
 - [x] Criar homepage DevMarket com design system aplicado
 - [x] Implementar CSS custom properties para design tokens
 
-## Sprint 1 — Perfil Público
+## Sprint 1 — Perfil Público ✅
 
-- [ ] Implementar leitura GROQ do `userProfile`
-- [ ] Página pública de perfil com ISR + revalidação por webhook Sanity
+- [x] Implementar leitura GROQ do `userProfile`
+- [x] Página pública de perfil com ISR + revalidação por webhook Sanity
 - [ ] CRUD de perfil (server actions) com token do Sanity (somente servidor)
-- [ ] Componentes UI: `Avatar`, `Tag`, `Card`, `Section`
-- [ ] Otimização de imagens (`next/image` + transforms do Sanity)
+- [x] Componentes UI: `Avatar`, `Tag`, `Card`, `Section`
+- [x] Otimização de imagens (`next/image` + transforms do Sanity)
 
-## Sprint 2 — Projetos & Mídia
+## Sprint 2 — Projetos & Mídia ✅
 
-- [ ] CRUD de `project` (título, descrição, media, techTags, isPublic)
-- [ ] Upload de imagens para Sanity Assets
-- [ ] Vídeo via Supabase Storage + player HTML5; metadados no Sanity
-- [ ] Página de projeto público (SSG/ISR)
-- [ ] `MediaGallery` e `Grid` no design system
+- [x] CRUD de `project` (título, descrição, media, techTags, isPublic)
+- [x] Upload de imagens para Sanity Assets
+- [x] Vídeo via Supabase Storage + player HTML5; metadados no Sanity
+- [x] Página de projeto público (SSG/ISR)
+- [x] `MediaGallery` e `Grid` no design system
+- [x] **EXTRA:** Renderização completa de mídia (capa, galeria, arquivos)
+- [x] **EXTRA:** Aplicação consistente entre páginas projetos/perfil
 
 ## Sprint 3 — Pagamentos
 
@@ -68,6 +70,17 @@ kanban-plugin: board
 
 ## Concluído
 
+### Sprint 2 - Mídia e Perfil (Janeiro 2025)
+
+- [x] **Expansão de queries GROQ:** Adicionados campos `description`, `coverUrl`, `mediaImages`, `mediaFiles` e `owner` completo
+- [x] **Renderização completa de mídia:** Capa, galeria de imagens e lista de arquivos em projetos
+- [x] **Perfil público expandido:** Avatar, bio, skills, links e grid de projetos completos
+- [x] **Consistência UI:** Reutilização do `ProjectsGrid` entre `/projetos` e `/perfil/[slug]`
+- [x] **Fallbacks robustos:** Tratamento de casos sem mídia, projetos vazios e dados incompletos
+- [x] **Otimização de tipos:** Alinhamento entre `PublicProject` e `ProfileProject`
+
+### Entregas Anteriores
+
 - [x] Validação via GROQ no CDN (`production`): retorna `userProfile` e `project` públicos
 - [x] `@devmarket/sanity` adicionado como dependência workspace do `apps/web` e build ajustado
 - [x] Link do owner apontando para `/perfil/[slug]`
@@ -76,7 +89,7 @@ kanban-plugin: board
 - [x] Rota de webhook (`/api/webhooks/sanity`) implementada para revalidar `/perfil/[slug]`
 - [x] Query GROQ `publicProjectsQuery` criada em `@devmarket/sanity`
 - [x] Grid de cards e filtros por `techTags` em `/projetos`
-- [x] Página “Projetos” com listagem pública (SSR + ISR)
+- [x] Página "Projetos" com listagem pública (SSR + ISR)
 - [x] Publicação de documentos de teste (`userProfile`, `project`) e vínculo do `owner`
 - [x] Studio rodando em `http://localhost:3333/` sem erros de `projectId`
 - [x] Inicialização do Sanity Studio com `.env` e `sanity.config.ts` ajustados (`SANITY_STUDIO_*`)

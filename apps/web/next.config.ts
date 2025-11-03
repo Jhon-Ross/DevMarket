@@ -5,6 +5,14 @@ const nextConfig: NextConfig = {
   transpilePackages: ['@devmarket/ui'],
   // Oculta o indicador/flutuante do Next em modo desenvolvimento
   devIndicators: false,
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'cdn.sanity.io',
+      },
+    ],
+  },
 };
 
 export default nextConfig;

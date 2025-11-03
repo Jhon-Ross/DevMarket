@@ -2,13 +2,23 @@
 
 Objetivo: entregar um MVP com Sanity (conteúdo) + Next.js + Prisma/Stripe (transacional), evoluindo em sprints curtas e focadas.
 
-Linha do tempo sugerida
+Linha do tempo e status
 
-- Sprint 0 (1 semana): Fundação do projeto, ambientes, schemas básicos do Sanity.
-- Sprint 1 (2 semanas): Perfil público (CRUD Sanity) + página SSR/SSG/ISR.
-- Sprint 2 (2 semanas): Cadastro de usuários e projetos; mídia com imagens (Sanity) e vídeo via Supabase Storage (player HTML5); listagens em cards.
-- Sprint 3 (1–2 semanas): Pagamentos e assinaturas (provedor em avaliação: Mercado Pago, PayPal ou Stripe), visibilidade Pública/Privada com gating pago e planos Dev/Empresa.
-- Sprint 4 (2 semanas): Hardening, QA, testes, segurança, CI/CD.
+- ✅ Sprint 0 (1 semana): Fundação do projeto, ambientes, schemas básicos do Sanity.
+- ✅ Sprint 1 (2 semanas): Perfil público (CRUD Sanity) + página SSR/SSG/ISR.
+- ✅ Sprint 2 (2 semanas): Cadastro de usuários e projetos; mídia com imagens (Sanity) e vídeo via Supabase Storage (player HTML5); listagens em cards.
+- 🔄 Sprint 3 (1–2 semanas): Pagamentos e assinaturas (provedor em avaliação: Mercado Pago, PayPal ou Stripe), visibilidade Pública/Privada com gating pago e planos Dev/Empresa.
+- ⏳ Sprint 4 (2 semanas): Hardening, QA, testes, segurança, CI/CD.
+
+## Status Atual (Janeiro 2025)
+
+**Sprints concluídas:** 0, 1, 2  
+**Próxima sprint:** 3 (Pagamentos)  
+**Principais entregas recentes:**
+
+- Renderização completa de mídia em projetos e perfis
+- Queries GROQ expandidas com fallbacks robustos
+- UI consistente entre páginas `/projetos` e `/perfil/[slug]`
 
 Planos (em avaliação)
 

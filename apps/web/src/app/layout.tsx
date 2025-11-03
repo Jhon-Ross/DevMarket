@@ -1,5 +1,9 @@
 import type { Metadata, Viewport } from 'next';
 import Link from 'next/link';
+import LanguageSelector from '../components/LanguageSelector';
+import ThemeToggle from '../components/ThemeToggle';
+import LocaleProvider from '../components/LocaleProvider';
+import NavLinks from '../components/NavLinks';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -25,62 +29,49 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           minHeight: '100vh',
         }}
       >
-        <header
-          style={{
-            borderBottom: '1px solid var(--border-default)',
-            background: 'var(--bg-muted)',
-            position: 'sticky',
-            top: 0,
-            zIndex: 10,
-          }}
-        >
-          <nav
+        <LocaleProvider>
+          <header
             style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              gap: 'var(--space-4)',
-              padding: 'var(--space-4) var(--space-6)',
-              maxWidth: 1200,
-              margin: '0 auto',
+              borderBottom: '1px solid var(--border-default)',
+              background: 'var(--bg-muted)',
+              position: 'sticky',
+              top: 0,
+              zIndex: 10,
             }}
           >
-            <Link
-              href="/"
+            <nav
               style={{
-                fontWeight: 700,
-                letterSpacing: '-0.02em',
-                color: 'var(--text-primary)',
-                textDecoration: 'none',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                gap: 'var(--space-4)',
+                padding: 'var(--space-4) var(--space-6)',
+                maxWidth: 1200,
+                margin: '0 auto',
               }}
             >
-              DevMarket
-            </Link>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-4)' }}>
               <Link
-                href="/ui-preview"
-                style={{ color: 'var(--text-secondary)', textDecoration: 'none' }}
+                href="/"
+                style={{
+                  fontWeight: 700,
+                  letterSpacing: '-0.02em',
+                  color: 'var(--text-primary)',
+                  textDecoration: 'none',
+                }}
               >
-                UI Preview
+                DevMarket
               </Link>
-              <Link
-                href="/projetos"
-                style={{ color: 'var(--text-secondary)', textDecoration: 'none' }}
-              >
-                Projetos
-              </Link>
-              <Link
-                href="/perfil/teste"
-                style={{ color: 'var(--text-secondary)', textDecoration: 'none' }}
-              >
-                Perfil
-              </Link>
-            </div>
-          </nav>
-        </header>
-        <main style={{ maxWidth: 1200, margin: '0 auto', padding: 'var(--space-6)' }}>
-          {children}
-        </main>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-4)' }}>
+                <NavLinks />
+                <LanguageSelector />
+                <ThemeToggle />
+              </div>
+            </nav>
+          </header>
+          <main style={{ maxWidth: 1200, margin: '0 auto', padding: 'var(--space-6)' }}>
+            {children}
+          </main>
+        </LocaleProvider>
       </body>
     </html>
   );

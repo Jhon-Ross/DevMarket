@@ -1,13 +1,16 @@
-import { sanityClient, publicProjectsQuery } from "@devmarket/sanity";
-import ProjectsGrid from "./ProjectsGrid";
+import { sanityClient, publicProjectsQuery } from '@devmarket/sanity';
+import ProjectsView from './ProjectsView';
 
 type PublicProject = {
   _id: string;
   title: string;
+  description?: string;
   slug: string;
   techTags?: string[];
-  owner?: { _id: string; name: string; slug: string } | null;
+  owner?: { _id: string; name: string; slug: string; avatarUrl?: string | null } | null;
   coverUrl?: string | null;
+  mediaImages?: string[];
+  mediaFiles?: { url: string; filename?: string }[];
 };
 
 async function getProjects(): Promise<PublicProject[]> {
@@ -15,20 +18,14 @@ async function getProjects(): Promise<PublicProject[]> {
   return Array.isArray(data) ? data : [];
 }
 
-export const revalidate = 300;
+export const revalidate = process.env.NODE_ENV === 'production' ? 300 : 0;
 
 export const metadata = {
-  title: "Projetos • DevMarket",
-  description: "Lista de projetos públicos criados por desenvolvedores na plataforma.",
+  title: 'Projetos • DevMarket',
+  description: 'Lista de projetos públicos criados por desenvolvedores na plataforma.',
 };
 
 export default async function ProjetosPage() {
   const projects = await getProjects();
-
-  return (
-    <section>
-      <h1>Projetos</h1>
-      {projects.length > 0 ? <ProjectsGrid projects={projects} /> : <p>Nenhum projeto público encontrado.</p>}
-    </section>
-  );
+  return <ProjectsView projects={projects} />;
 }
