@@ -57,7 +57,11 @@ kanban-plugin: board
 - [ ] Analytics básico de perfil (pageviews)
 - [ ] Busca por tags/skills
 - [ ] Página de listagem de devs com filtros
-- [ ] Landing page marketing (copy + CTA)
+- [ ] Homepage UX — definir estrutura e chaves i18n (`docs/planning/homepage-ux.md`)
+- [ ] Homepage — mapear CTAs para rotas e eventos (analytics)
+- [ ] Homepage — aplicar componentes `@devmarket/ui` (Section, Card, Grid, Button)
+- [ ] Homepage — configurar SEO/OG (title, description, og:image, canonical)
+- [ ] Homepage — instrumentar analytics (CTAs, scroll-depth)
 - [ ] Configurar ESLint/Prettier/Husky/lint-staged
 - [ ] Validar `.env` com `zod` em `packages/lib`
 - [ ] Criar Prisma schema (`User`, `Subscription`) e migrations
@@ -105,6 +109,14 @@ kanban-plugin: board
 - [x] Criar componentes UI base em `packages/ui` (Button, Card, Avatar, Tag, Grid, MediaGallery)
 - [x] Integrar `@devmarket/ui` ao `apps/web` com `transpilePackages` e página de preview `/ui-preview`
 - [x] Ajuste do botão em estado `loading` (spinner inline e formato circular)
+
+### Sprint 0 — i18n e UX (Novembro 2025)
+
+- [x] Internacionalização nas páginas **Sobre** e **Signup** (`LocaleProvider` com chaves `about.*` e `signup.*`).
+- [x] Correção da CTA em **Sobre**: `Button` sem `href`; navegação via `onClick` com `router.push('/signup')`.
+- [x] Tema escuro: contraste reforçado da variante **outline** (`globals.css`).
+- [x] Mapeamento de tokens do design system para variáveis globais do app em `globals.css` (light/dark).
+- [x] Dicionário expandido com chaves básicas de planos (`home.plans.*`).
 
 %% kanban:settings
 

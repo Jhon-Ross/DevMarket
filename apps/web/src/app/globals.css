@@ -64,6 +64,17 @@ img, svg {
   --focus-ring: 0 0 0 3px rgba(81,103,252,0.40);
 }
 
+/* Bridge UI Design System tokens to app theme (Light) */
+:root {
+  --color-bg: var(--bg-default);
+  --color-bg-subtle: var(--bg-subtle);
+  --color-text: var(--text-primary);
+  --color-muted: var(--text-muted);
+  --color-border: var(--border-default);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+}
+
 .dark {
   /* Neutros Dark Theme (contraste WCAG) */
   --bg-default: #0c1116;
@@ -78,6 +89,17 @@ img, svg {
   --accent: #5167FC;
   --accent-foreground: #ffffff;
   --accent-hover: #6366f1;
+}
+
+/* Bridge UI Design System tokens to app theme (Dark) */
+.dark {
+  --color-bg: var(--bg-default);
+  --color-bg-subtle: var(--bg-subtle);
+  --color-text: var(--text-primary);
+  --color-muted: var(--text-muted);
+  --color-border: var(--border-default);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
 }
 
 /* Base styles */
@@ -121,6 +143,12 @@ button {
 button:hover {
   border-color: var(--border-hover);
   box-shadow: var(--shadow-sm);
+}
+
+/* Improve contrast for outline buttons in dark mode */
+.dark .button-outline {
+  border-color: var(--border-hover);
+  color: var(--text-primary);
 }
 
 /* Utility classes */

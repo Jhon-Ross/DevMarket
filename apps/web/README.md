@@ -26,8 +26,8 @@ Abra `http://localhost:3000` no navegador.
 ### Internacionalização (i18n)
 
 - `LocaleProvider` expõe `useLocale()` e `t(key)` para traduções.
-- Textos traduzidos na Home, navegação, página de Projetos e UI Preview.
-- Dicionário em `apps/web/src/components/LocaleProvider.tsx` com chaves como `home.*`, `nav.*`, `projects.*`, `uiPreview.*`.
+- Textos traduzidos na Home, navegação, página de Projetos, UI Preview, **Sobre** e **Signup**.
+- Dicionário em `apps/web/src/components/LocaleProvider.tsx` com chaves como `home.*`, `nav.*`, `projects.*`, `uiPreview.*`, `about.*`, `signup.*`, e básicas para planos (`home.plans.*`).
 
 ## Integração com `@devmarket/ui`
 
@@ -76,3 +76,5 @@ export default function Page() {
 
 - O pacote `@devmarket/ui` importa `tokens.css` globalmente para expor as CSS variables.
 - `react` e `react-dom` são `peerDependencies` do pacote UI; mantenha versões compatíveis no workspace.
+- `Button` é um `<button>` e não suporta `href`. Para navegação, use `router.push('/rota')` (via `useRouter`) ou `<Link href="/rota">`.
+- Em tema escuro, a variante `outline` tem contraste reforçado via `apps/web/src/app/globals.css` (bordas e texto ajustados).

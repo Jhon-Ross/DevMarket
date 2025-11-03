@@ -134,11 +134,19 @@ Formato baseado em Keep a Changelog e organizado em camadas para inspeção prec
 - Tooling
   - `package.json` (raiz): `lint-staged` atualizado para execução compatível com Windows (pnpm workspace).
   - `.husky/pre-commit`: permanece chamando `pnpm -w exec lint-staged`.
+ - Web/UI
+   - Internacionalização expandida para páginas “Sobre” e “Signup” com `LocaleProvider`.
+   - CTA da página “Sobre” corrigida para usar `router.push('/signup')` via `onClick`.
+   - Tema escuro: contraste da variante `outline` reforçado no `globals.css`.
 
 ### Camada 3 — Referências a arquivos
 
 - `apps/web/src/app/layout.tsx` — remoção de `viewport` de `metadata` e criação de `export const viewport`.
 - `package.json` (raiz) — ajustes em `lint-staged` para `pnpm --dir apps/web exec eslint --fix` e `pnpm -w exec prettier --write`.
+ - `apps/web/src/app/sobre/page.tsx` — substituição de `href` em `Button` por navegação via `useRouter().push()`.
+ - `apps/web/src/app/signup/page.tsx` — textos conectados a `useLocale()`/`t(key)`.
+ - `apps/web/src/app/globals.css` — mapeamento de tokens e ajuste de contraste para `button-outline` em tema escuro.
+ - `apps/web/src/components/LocaleProvider.tsx` — dicionário expandido com `about.*`, `signup.*` e `home.plans.*` (básico).
 
 ### Camada 4 — Notas comportamentais
 
@@ -148,10 +156,13 @@ Formato baseado em Keep a Changelog e organizado em camadas para inspeção prec
 ### Fixed
 
 - Next.js: `Unsupported metadata viewport`.
+ - CTA da página “Sobre” (Button sem `href`; navegação via `router.push`).
+ - Baixo contraste do `button-outline` em tema escuro.
 
 ### Changed
 
 - `lint-staged` usa `pnpm --dir`/`pnpm -w exec` para compatibilidade em Windows.
+ - Documentação de i18n atualizada com páginas “Sobre” e “Signup”; dicionário inclui `home.plans.*` (básico).
 
 ## [0.1.2] — 2025-11-02
 
@@ -196,6 +207,8 @@ Formato baseado em Keep a Changelog e organizado em camadas para inspeção prec
 - TS2303/TS2459: conflito por alias `@sanity/*` com `@sanity/client` — resolvido removendo alias e recompilando.
 
 ### Added
+ - Traduções conectadas nas páginas “Sobre” e “Signup” via `LocaleProvider`.
+ - Chaves iniciais de planos na Home: `home.plans.*`.
 
 - Pacote `@devmarket/sanity` (client + queries) com build para `dist`.
 - Pacote `@devmarket/types` com interface `Perfil` e build para `dist`.

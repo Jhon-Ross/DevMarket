@@ -135,6 +135,7 @@ Boas práticas:
 - `apps/web/next.config.ts` inclui `transpilePackages: ['@devmarket/ui']` para transpilar o pacote da workspace.
 - `packages/ui/package.json` marca CSS como `sideEffects` e declara `react`/`react-dom` como `peerDependencies`.
 - `packages/ui/src/index.ts` importa `tokens.css` globalmente para disponibilizar variáveis no app consumidor.
+ - `apps/web/src/app/globals.css` mapeia tokens do design system para variáveis globais do app (light/dark), melhorando contraste em variantes como `button-outline`.
 
 ### Como usar
 
@@ -181,17 +182,26 @@ export default function Example() {
 - Tema: alterna entre `Light` e `Dark`; preferência persistida em `localStorage` e aplicada via classe `dark` no `html`.
 - Mensagens antigas de instrução removidas da Home.
 - Internacionalização conectada: `LocaleProvider` com `useLocale()`/`t(key)` e dicionários locais (`home.*`, `nav.*`, `projects.*`, `uiPreview.*`).
+ - Páginas “Sobre” e “Signup” também usam `t(key)`; textos alternam corretamente com o seletor de idioma.
 
 ### Indicadores de desenvolvimento do Next
 
 - Overlay desativado em desenvolvimento: `apps/web/next.config.ts` usa `devIndicators: false`.
 - Em produção (`next build && next start`), erros são exibidos via logs/console e status HTTP.
 
+### Internacionalização conectada (expansões)
+
+- Dicionário expandido com chaves `about.*` e `signup.*` para páginas “Sobre” e “Signup”.
+- Chaves básicas reservadas para planos na Home: `home.plans.*` (título/subtítulo/CTA), para futura ativação.
+
 ### Correções recentes
 
 - Botão em `loading`: spinner passou a ser renderizado inline (em vez de overlay absoluto) para evitar sobreposição de texto.
 - Spinner ajustado para forma perfeitamente circular (`border-radius: 50%`) e animação mais suave.
 - Página “Projetos” atualizada: grid de cards, filtros por `techTags`, owner com link.
+ - Páginas “Sobre” e “Signup” traduzidas com `LocaleProvider` (`about.*` e `signup.*`).
+ - CTA da página “Sobre” corrigida: `Button` usa `onClick` com `router.push('/signup')` (sem `href`).
+ - Tema escuro: variante `button-outline` com contraste reforçado via `apps/web/src/app/globals.css` (bordas e texto ajustados).
 
 ### Avisos corrigidos
 
