@@ -35,7 +35,7 @@ Como rodar o Studio
 Verificação via GROQ (pública)
 
 - `userProfile` publicado:
-  - Query: `*[_type == "userProfile" && defined(slug.current)]{ _id, name, "slug": slug.current }` 
+  - Query: `*[_type == "userProfile" && defined(slug.current)]{ _id, name, "slug": slug.current }`
 - `project` publicado com vínculo de `owner`:
   - Query: `*[_type == "project" && isPublic == true]{ _id, title, "slug": slug.current, "owner": owner->name, techTags }`
 - Dica: usar Sanity Vision no Studio para validar as consultas.
@@ -55,7 +55,7 @@ Revisão concluída — 2025-11-03
 - Validações adicionais:
   - Página `/projetos` exibe projetos públicos com SSR + ISR.
   - Grid de cards e filtros por `techTags` funcionando, com link para `/perfil/{slug}` do owner.
-- Próximos passos: configurar webhook de revalidação (Sanity → Next.js) e revisar metadados `viewport` em páginas com aviso.
+- Próximos passos: configurar webhook de revalidação (Sanity → Next.js).
 
 ## Webhook Sanity → Next.js (revalidação ISR)
 
@@ -97,7 +97,7 @@ Observações
 - Tokens do Sanity usados apenas no servidor (nunca no cliente).
 - `SUPABASE_SERVICE_ROLE_KEY` é estritamente server-side; para leitura pública, use `signed URLs` gerados no servidor.
 - Use ISR com webhooks para reduzir custos e manter conteúdo fresco.
- - Aviso Next.js: `Unsupported metadata viewport` em algumas rotas. Ajustar movendo `viewport` para `export const viewport` nas páginas afetadas.
+- Aviso Next.js: `Unsupported metadata viewport` — corrigido movendo `viewport` para `export const viewport` em `apps/web/src/app/layout.tsx`.
 
 ## Build e Linking (apps/web)
 

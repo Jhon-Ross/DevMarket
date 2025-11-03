@@ -29,6 +29,39 @@ Formato baseado em Keep a Changelog e organizado em camadas para inspeção prec
   - `format` → `prettier --write .`
   - `prepare` → `husky install`
 
+## [0.1.3] — 2025-11-03
+
+### Camada 1 — Resumo executivo
+
+- Corrigidos avisos de Next.js sobre `Unsupported metadata viewport` movendo `viewport` para `export const viewport` no `layout`.
+- Ajustado pre-commit para Windows com comandos `lint-staged` usando `pnpm --dir` e `pnpm -w exec`.
+
+### Camada 2 — Áreas e tópicos
+
+- Metadados e SEO
+  - `apps/web/src/app/layout.tsx`: `export const viewport` aplicado (largura e escala inicial).
+- Tooling
+  - `package.json` (raiz): `lint-staged` atualizado para execução compatível com Windows (pnpm workspace).
+  - `.husky/pre-commit`: permanece chamando `pnpm -w exec lint-staged`.
+
+### Camada 3 — Referências a arquivos
+
+- `apps/web/src/app/layout.tsx` — remoção de `viewport` de `metadata` e criação de `export const viewport`.
+- `package.json` (raiz) — ajustes em `lint-staged` para `pnpm --dir apps/web exec eslint --fix` e `pnpm -w exec prettier --write`.
+
+### Camada 4 — Notas comportamentais
+
+- Avisos de viewport deixam de aparecer nas rotas (`/`, `/projetos`, `/ui-preview`, dinâmicas).
+- Pre-commit executa sem falhas em ambientes Windows.
+
+### Fixed
+
+- Next.js: `Unsupported metadata viewport`.
+
+### Changed
+
+- `lint-staged` usa `pnpm --dir`/`pnpm -w exec` para compatibilidade em Windows.
+
 ## [0.1.2] — 2025-11-02
 
 ### Camada 1 — Resumo executivo

@@ -166,12 +166,13 @@ export default function Example() {
 
 - Botão em `loading`: spinner passou a ser renderizado inline (em vez de overlay absoluto) para evitar sobreposição de texto.
 - Spinner ajustado para forma perfeitamente circular (`border-radius: 50%`) e animação mais suave.
- - Página “Projetos” atualizada: grid de cards, filtros por `techTags`, owner com link.
+- Página “Projetos” atualizada: grid de cards, filtros por `techTags`, owner com link.
 
-### Avisos conhecidos
+### Avisos corrigidos
 
-- Next.js 16: avisos de `Unsupported metadata viewport` em algumas páginas (`/_not-found`, `/projetos`, `/`, `/ui-preview`).
-  - Mitigação futura: mover `viewport` para `export const viewport` nas páginas afetadas.
+- Next.js 16: aviso `Unsupported metadata viewport` removido.
+  - Correção: `export const viewport` no `apps/web/src/app/layout.tsx` (2025-11-03).
+  - Impacto: metadados válidos em todas as rotas (`/`, `/projetos`, `/ui-preview`, dinâmicas).
 
 ---
 
@@ -181,8 +182,8 @@ export default function Example() {
 - Lint: `ESLint` (Next.js Core Web Vitals + TypeScript) configurado em `apps/web`.
 - Pre-commit: `Husky` executa `lint-staged` para aplicar `eslint --fix` e `prettier --write` em arquivos alterados.
 - lint-staged:
-  - `apps/web/**/*.{ts,tsx,js,jsx}` → `pnpm -C apps/web eslint --fix`
-  - `**/*.{ts,tsx,js,jsx,css,scss,json,md}` → `prettier --write`
+  - `apps/web/**/*.{ts,tsx,js,jsx}` → `pnpm --dir apps/web exec eslint --fix`
+  - `**/*.{ts,tsx,js,jsx,css,scss,json,md}` → `pnpm -w exec prettier --write`
 
 ### Comandos úteis
 

@@ -20,10 +20,10 @@
   },
   "lint-staged": {
     "apps/web/**/*.{ts,tsx,js,jsx}": [
-      "pnpm -C apps/web eslint --fix"
+      "pnpm --dir apps/web exec eslint --fix"
     ],
     "**/*.{ts,tsx,js,jsx,css,scss,json,md}": [
-      "prettier --write"
+      "pnpm -w exec prettier --write"
     ]
   }
 }
