@@ -26,6 +26,11 @@ Formato baseado em Keep a Changelog e organizado em camadas para inspeção prec
 - Adicionada seção "Estratégia de mídia: Sanity (pequenas) + Supabase (grandes)" em `docs/dev_market_readme.md`, formalizando o uso de Sanity para imagens leves e Supabase Storage para arquivos maiores com signed URLs.
 - Atualizado `docs/setup/environment-setup.md` com variáveis de ambiente do Supabase e nota de segurança (service role apenas no servidor).
 - Expandido `.env.example` em `docs/dev_market_readme.md` com `SUPABASE_URL`, `SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`, `SUPABASE_MEDIA_BUCKET`.
+- Removidas recomendações de Cloudflare Stream/Mux; adotado vídeo via Supabase Storage com `signed URLs` e player HTML5, metadados no Sanity.
+- Documentada política de desenvolvimento local-first com deploy na Vercel, e validação de webhook em dev via `curl/Postman`.
+- Atualizado `docs/sprints/sprint-03-pagamentos.md` com planos Dev/Empresa, provedores em avaliação (Mercado Pago/PayPal/Stripe), webhook/IPN e gating por plano.
+- Atualizado `docs/planning/sprints-overview.md` para incluir resumo dos planos e provedor de pagamento em avaliação.
+- Ajustado `docs/kanban/devmarket-kanban.md` com tarefas de definição de planos e integração do provedor.
 
 ### Tooling / Qualidade
 

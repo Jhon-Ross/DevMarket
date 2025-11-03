@@ -77,8 +77,7 @@ Revisão concluída — 2025-11-03
 **Armazenamento de mídia**
 
 - Imagens: Assets do Sanity (CDN embutida).
-- Vídeos: Cloudflare Stream / Mux (recomendado) ou S3/R2 (metadados registrados no Sanity).
-- Alternativa: S3/R2 com signed URLs para arquivos grandes.
+- Vídeos e arquivos grandes: Supabase Storage com `signed URLs` e player HTML5; metadados registrados no Sanity. Sem ABR inicialmente.
 
 ### Estratégia de mídia: Sanity (pequenas) + Supabase (grandes)
 
@@ -94,13 +93,26 @@ Revisão concluída — 2025-11-03
   1. Usuário envia arquivo → server action chama Supabase com `SERVICE_ROLE_KEY` (apenas servidor).
   2. Após upload, gerar `signed URL` quando necessário exibir/baixar.
   3. Persistir ponte no Sanity (`_ref`/`supabaseKey`) para indexação/SEO e integração com páginas.
-- Vídeo: continuar recomendando Cloudflare Stream/Mux para streaming sob demanda; Supabase pode armazenar arquivos grandes, mas não otimiza streaming e egress como providers dedicados.
+- Vídeo com Sanity + Supabase:
+  - Upload: realizado server-side para Supabase Storage (chave `SERVICE_ROLE_KEY` apenas no servidor).
+  - Metadados: registrados no Sanity (fonte de verdade para páginas públicas e SEO).
+  - Exibição: player HTML5 usando `signed URLs` com expiração curta; sem ABR inicialmente.
+  - Evolução futura (sem provedores externos): pipeline de transcodificação com FFmpeg e múltiplas resoluções armazenadas no Supabase; seleção de fonte conforme rede.
 
 Boas práticas:
 
 - Defina limites de tamanho por tipo (ex.: imagens > 10 MB vão para Supabase).
 - Cache no frontend com `Cache-Control` adequado e validar egress mensal.
 - Para conteúdo privado, use regras de acesso em buckets e apenas `signed URLs`.
+
+---
+
+## Política de Desenvolvimento (Local-first + Deploy na Vercel)
+
+- Desenvolvimento: trabalhamos 100% local até validar funcionalmente; comportamento “realista” apenas após deploy.
+- Webhook em desenvolvimento: validar o handler localmente com `curl`/Postman (ex.: `curl -X POST "http://localhost:3000/api/webhooks/sanity" -H "Content-Type: application/json" -d "{\"slug\":\"maria\",\"secret\":\"$SANITY_WEBHOOK_SECRET\"}"`).
+- Configuração de webhook: somente em ambiente de preview/deploy (Vercel). Em `localhost`, o Sanity não consegue chamar seu host.
+- Segredos: configurar variáveis na Vercel (Production/Preview); nunca versionar tokens sensíveis.
 
 ---
 

@@ -28,16 +28,18 @@ kanban-plugin: board
 
 - [ ] CRUD de `project` (título, descrição, media, techTags, isPublic)
 - [ ] Upload de imagens para Sanity Assets
-- [ ] Integração de vídeo (Cloudflare Stream/Mux) e metadados no Sanity
+- [ ] Vídeo via Supabase Storage + player HTML5; metadados no Sanity
 - [ ] Página de projeto público (SSG/ISR)
 - [ ] `MediaGallery` e `Grid` no design system
 
 ## Sprint 3 — Pagamentos
 
-- [ ] Stripe Checkout (assinatura Pro)
-- [ ] Webhook Stripe para reconciliar `Subscription` no Postgres
-- [ ] Gating de features Pro (limites e destaques)
-- [ ] Páginas de conta/assinatura (status e gerenciamento)
+- [ ] Definir planos Dev/Empresa e respectivos limites/benefícios
+- [ ] Implementar tabela `Plan` e relação em Prisma (`Subscription -> Plan`)
+- [ ] Decidir provedor (Mercado Pago, PayPal ou Stripe) e integrar checkout
+- [ ] Webhook/IPN do provedor para reconciliar `Subscription` no Postgres
+- [ ] Gating de features por plano (limites, destaque, filtros avançados)
+- [ ] Páginas de conta/assinatura (status, upgrade/downgrade)
 
 ## Sprint 4 — Hardening & QA
 

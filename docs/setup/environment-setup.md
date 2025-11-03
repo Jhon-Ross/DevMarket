@@ -64,7 +64,7 @@ Endpoint (local/produção)
 - Rota: `apps/web/src/app/api/webhooks/sanity/route.ts`
 - Método: `POST`
 - URL (produção): `https://SEU_DOMINIO/api/webhooks/sanity?secret=SEU_SECRET`
-- URL (dev): usar túnel (`ngrok`, `cloudflared`) → `https://<tunnel>/api/webhooks/sanity?secret=SEU_SECRET`
+- URL (dev): validar localmente o handler com `curl`/Postman (ex.: `curl -X POST "http://localhost:3000/api/webhooks/sanity" -H "Content-Type: application/json" -d "{\"slug\":\"maria\",\"secret\":\"$SANITY_WEBHOOK_SECRET\"}"`). O webhook no Sanity será configurado apenas após deploy/preview (Vercel).
 
 Env (opcional)
 
@@ -98,6 +98,20 @@ Observações
 - `SUPABASE_SERVICE_ROLE_KEY` é estritamente server-side; para leitura pública, use `signed URLs` gerados no servidor.
 - Use ISR com webhooks para reduzir custos e manter conteúdo fresco.
 - Aviso Next.js: `Unsupported metadata viewport` — corrigido movendo `viewport` para `export const viewport` em `apps/web/src/app/layout.tsx`.
+
+### Política de Desenvolvimento
+
+- Local-first: desenvolvimento e validação acontecem 100% em ambiente local.
+- Webhook: em dev, simular com `curl`/Postman; configurar no Sanity somente após deploy/preview.
+- Deploy: Vercel será usada para hospedagem (Production/Preview) e gestão de variáveis de ambiente.
+
+### Política de Push (Kanban)
+
+- Foi adicionado um hook Husky `pre-push` que **bloqueia o push** se houver tarefas não concluídas em `Em Revisão` no Kanban (`docs/kanban/devmarket-kanban.md`).
+- O hook procura por itens com o padrão `- [ ]` dentro da seção `## Em Revisão`.
+- Para liberar o push:
+  - Concluir a revisão e mover os itens para `## Concluído`.
+  - Ou esvaziar a seção `## Em Revisão` temporariamente (recomendado apenas após validação).
 
 ## Build e Linking (apps/web)
 
