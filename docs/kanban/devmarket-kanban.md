@@ -72,11 +72,11 @@ kanban-plugin: board
 - [x] Inicialização do Sanity Studio com `.env` e `sanity.config.ts` ajustados (`SANITY_STUDIO_*`)
 - [x] Studio rodando em `http://localhost:3333/` sem erros de `projectId`
 - [x] Publicação de documentos de teste (`userProfile`, `project`) e vínculo do `owner`
-- [x] Página “Projetos” com listagem pública (SSR + ISR)
-- [x] Grid de cards e filtros por `techTags` em `/projetos`
-- [x] Query GROQ `publicProjectsQuery` criada em `@devmarket/sanity`
-- [x] Link do owner apontando para `/perfil/[slug]`
-- [x] `@devmarket/sanity` adicionado como dependência workspace do `apps/web` e build ajustado
+ - [x] Página “Projetos” com listagem pública (SSR + ISR)
+ - [x] Grid de cards e filtros por `techTags` em `/projetos`
+ - [x] Query GROQ `publicProjectsQuery` criada em `@devmarket/sanity`
+ - [x] Link do owner apontando para `/perfil/[slug]`
+ - [x] `@devmarket/sanity` adicionado como dependência workspace do `apps/web` e build ajustado
 - [x] Validação via GROQ no CDN (`production`): retorna `userProfile` e `project` públicos
 
 ## Concluído — 2025-11-02

@@ -16,7 +16,15 @@
                 "file": "kanban/devmarket-kanban.md",
                 "kanbanViewState": {
                   "kanban-plugin": "board",
-                  "list-collapse": [true, null, null, true, true, true, true]
+                  "list-collapse": [
+                    true,
+                    null,
+                    null,
+                    true,
+                    true,
+                    true,
+                    true
+                  ]
                 }
               },
               "icon": "lucide-trello",

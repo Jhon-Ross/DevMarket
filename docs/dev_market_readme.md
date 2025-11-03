@@ -21,6 +21,7 @@ DevMarket é uma plataforma onde desenvolvedores criam um perfil profissional (v
 ### 🔄 Em Progresso
 
 - Configuração de qualidade de código (ESLint/Prettier)
+- Configuração do webhook no painel do Sanity (URL, filtro e projeções)
 
 ### 📋 Próximos Passos
 
@@ -28,6 +29,28 @@ DevMarket é uma plataforma onde desenvolvedores criam um perfil profissional (v
 - Configuração do banco de dados (Prisma + PostgreSQL)
 - CRUD de perfis e projetos
 - Upload de mídia e assets
+
+### Sanity — Estado
+
+- Studio rodando em `http://localhost:3333/` com `.env` ajustado (`SANITY_STUDIO_PROJECT_ID`/`DATASET`).
+- Dataset ativo: `production`.
+- Documentos publicados e validados via GROQ:
+  - `userProfile`: `name = teste`, `slug = teste`.
+  - `project`: `title = teste`, `slug = teste`, `isPublic = true`, `techTags = ["teste"]`, `owner = teste`.
+- Implementado:
+  - Leitura GROQ em `/perfil/[slug]` com SSR/ISR e fallbacks (`loading`, `not-found`).
+  - Rota de webhook (`/api/webhooks/sanity`) para revalidar `/perfil/{slug}`.
+  - Página “Projetos” com listagem pública (SSR + ISR), grid de cards e filtros por `techTags`.
+    - Query GROQ `publicProjectsQuery` com `owner` resolvido e `coverUrl` a partir de `media[0]`.
+
+Referência: Kanban atualizado em `docs/kanban/devmarket-kanban.md`.
+
+Revisão concluída — 2025-11-03
+
+- Itens validados: inicialização do Studio, ambiente `.env`/`sanity.config.ts`, publicação de documentos e vínculo de `owner`, consultas GROQ no CDN.
+- Validação local:
+  - Página `/perfil/[slug]` renderiza dados públicos do Sanity para `slug = teste`.
+  - Página `/projetos` exibe o projeto público “teste”, com filtros por `techTags` e link para o perfil do owner.
 
 ---
 
@@ -143,6 +166,12 @@ export default function Example() {
 
 - Botão em `loading`: spinner passou a ser renderizado inline (em vez de overlay absoluto) para evitar sobreposição de texto.
 - Spinner ajustado para forma perfeitamente circular (`border-radius: 50%`) e animação mais suave.
+ - Página “Projetos” atualizada: grid de cards, filtros por `techTags`, owner com link.
+
+### Avisos conhecidos
+
+- Next.js 16: avisos de `Unsupported metadata viewport` em algumas páginas (`/_not-found`, `/projetos`, `/`, `/ui-preview`).
+  - Mitigação futura: mover `viewport` para `export const viewport` nas páginas afetadas.
 
 ---
 
