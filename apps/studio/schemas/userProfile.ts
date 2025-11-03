@@ -33,7 +33,7 @@ export default defineType({
       title: 'Links',
       type: 'array',
       of: [
-        defineType({
+        {
           name: 'link',
           type: 'object',
           fields: [
@@ -41,7 +41,7 @@ export default defineType({
             { name: 'url', title: 'URL', type: 'url' },
             { name: 'type', title: 'Type', type: 'string' },
           ],
-        }),
+        },
       ],
     }),
     defineField({

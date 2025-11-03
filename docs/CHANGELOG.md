@@ -8,6 +8,15 @@ Formato baseado em Keep a Changelog e organizado em camadas para inspeção prec
 - Testes de componentes (`packages/ui`)
 - Storybook opcional para o Design System
 
+### TypeScript / Sanity Studio
+
+- Resolvidos erros de TypeScript no Sanity Studio:
+  - Instalados `@types/react` e `@types/react-dom` como devDependencies
+  - Corrigidos schemas `project.ts` e `userProfile.ts` removendo `defineType()` aninhado
+  - Otimizado `apps/studio/tsconfig.json` com configurações modernas (ES2020, DOM.Iterable, allowJs, noEmit, isolatedModules, jsx: react-jsx)
+  - Compilação TypeScript sem erros: `tsc --noEmit` ✅
+  - Build do Sanity funcionando: `sanity build` ✅
+
 ### Docs
 
 - Ajustado `docs/sprints/sprint-01-perfil-publico.md` para rota `/perfil/[slug]` e revalidação correspondente.

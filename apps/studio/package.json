@@ -17,6 +17,8 @@
     "styled-components": "^6.1.19"
   },
   "devDependencies": {
-    "@sanity/cli": "^4.12.0"
+    "@sanity/cli": "^4.12.0",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.2"
   }
 }

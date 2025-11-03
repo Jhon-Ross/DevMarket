@@ -34,7 +34,7 @@ export default defineType({
       title: 'Supabase Assets (Large Files)',
       type: 'array',
       of: [
-        defineType({
+        {
           name: 'supabaseAsset',
           type: 'object',
           fields: [
@@ -43,7 +43,7 @@ export default defineType({
             { name: 'mime', title: 'MIME Type', type: 'string' },
             { name: 'size', title: 'Size (bytes)', type: 'number' },
           ],
-        }),
+        },
       ],
       description: 'Referências a arquivos grandes armazenados no Supabase',
     }),
