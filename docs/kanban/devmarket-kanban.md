@@ -4,69 +4,25 @@ kanban-plugin: board
 
 ## DevMarket — Kanban
 
-## Backlog
+## Sprints
 
-## Sprint 0 — Fundações ✅
-
-- [x] Criar monorepo com `apps/web`, `packages/ui`, `packages/sanity`, `packages/lib`, `packages/types`, `packages/config`
-- [x] Configurar TypeScript estrito e aliases (`@/*`, `@ui/*`, `@sanity/*`, `@lib/*`, `@types/*`)
-- [x] Definir tokens de design e tema Light/Dark base
-- [x] Implementar Next.js 16 com App Router e TypeScript
-- [x] Configurar pnpm workspace e estrutura de monorepo
-- [x] Criar homepage DevMarket com design system aplicado
-- [x] Implementar CSS custom properties para design tokens
-
-## Sprint 1 — Perfil Público ✅
-
-- [x] Implementar leitura GROQ do `userProfile`
-- [x] Página pública de perfil com ISR + revalidação por webhook Sanity
-- [ ] CRUD de perfil (server actions) com token do Sanity (somente servidor)
-- [x] Componentes UI: `Avatar`, `Tag`, `Card`, `Section`
-- [x] Otimização de imagens (`next/image` + transforms do Sanity)
-
-## Sprint 2 — Projetos & Mídia ✅
-
-- [x] CRUD de `project` (título, descrição, media, techTags, isPublic)
-- [x] Upload de imagens para Sanity Assets
-- [x] Vídeo via Supabase Storage + player HTML5; metadados no Sanity
-- [x] Página de projeto público (SSG/ISR)
-- [x] `MediaGallery` e `Grid` no design system
-- [x] **EXTRA:** Renderização completa de mídia (capa, galeria, arquivos)
-- [x] **EXTRA:** Aplicação consistente entre páginas projetos/perfil
-
-## Sprint 3 — Pagamentos
-
-- [ ] Definir planos Dev/Empresa e respectivos limites/benefícios
-- [ ] Implementar tabela `Plan` e relação em Prisma (`Subscription -> Plan`)
-- [ ] Decidir provedor (Mercado Pago, PayPal ou Stripe) e integrar checkout
-- [ ] Webhook/IPN do provedor para reconciliar `Subscription` no Postgres
-- [ ] Gating de features por plano (limites, destaque, filtros avançados)
-- [ ] Páginas de conta/assinatura (status, upgrade/downgrade)
-
-## Sprint 4 — Hardening & QA
-
-- [ ] Testes unitários (Vitest/Jest) e e2e (Playwright)
-- [ ] Rate limit, CORS e cabeçalhos de segurança
-- [ ] Logs, métricas e monitoramento de custos
-- [ ] CI/CD (GitHub Actions) e revisão de performance
+- ✅ Sprint 0 — Fundações
+  - Monorepo, Next.js 16 + TS, tokens de design, tema Light/Dark, homepage, aliases, servidor dev.
+- ✅ Sprint 1 — Perfil Público
+  - GROQ `userProfile`, página pública com ISR + webhook, UI base (Avatar/Tag/Card), otimização de imagens.
+- ✅ Sprint 2 — Projetos & Mídia
+  - CRUD `project`, imagens (Sanity) + vídeo (Supabase), páginas públicas e grid/cards, renderização completa de mídia.
+- 🔄 Sprint 3 — Pagamentos
+  - Planos Dev/Empresa, escolha do provedor (Mercado Pago/PayPal/Stripe), checkout e webhook/IPN.
+- ⏳ Sprint 4 — Hardening & QA
+  - Testes unit/e2e, segurança, logs/métricas, CI/CD e performance.
 
 ## Em Progresso
 
-- [ ] Configurar webhook de revalidação (Sanity → Next.js) para `/perfil/[slug]`
-- [ ] Implementar Storybook em `packages/ui` (opcional)
-- [ ] Analytics básico de perfil (pageviews)
-- [ ] Busca por tags/skills
-- [ ] Página de listagem de devs com filtros
-- [ ] Homepage UX — definir estrutura e chaves i18n (`docs/planning/homepage-ux.md`)
-- [ ] Homepage — mapear CTAs para rotas e eventos (analytics)
-- [ ] Homepage — aplicar componentes `@devmarket/ui` (Section, Card, Grid, Button)
-- [ ] Homepage — configurar SEO/OG (title, description, og:image, canonical)
-- [ ] Homepage — instrumentar analytics (CTAs, scroll-depth)
-- [ ] Configurar ESLint/Prettier/Husky/lint-staged
-- [ ] Validar `.env` com `zod` em `packages/lib`
-- [ ] Criar Prisma schema (`User`, `Subscription`) e migrations
-- [ ] Integrar NextAuth (providers email/credentials) e páginas de login
-- [ ] Criar token Viewer (read-only) no Sanity e configurar `SANITY_READ_TOKEN` em `apps/web/.env.local`
+- Configurar webhook de revalidação (Sanity → Next.js) para `/perfil/[slug]`.
+- Homepage UX — definir estrutura e chaves i18n (`docs/planning/homepage-ux.md`).
+- Criar Prisma schema (`User`, `Subscription`) e migrations.
+- Integrar NextAuth (email/credentials) e páginas de login.
 
 ## Em Revisão
 
@@ -74,54 +30,46 @@ kanban-plugin: board
 
 ## Concluído
 
-### Sprint 2 - Mídia e Perfil (Janeiro 2025)
+- [x] [Sprint 2] Expansão de queries GROQ: `description`, `coverUrl`, `mediaImages`, `mediaFiles`, `owner` completo.
+- [x] [Sprint 2] Renderização completa de mídia: capa, galeria e arquivos em projetos.
+- [x] [Sprint 2] Perfil público expandido: avatar, bio, skills, links e grid de projetos.
+- [x] [Sprint 2] Consistência UI: `ProjectsGrid` em `/projetos` e `/perfil/[slug]`.
+- [x] [Sprint 2] Fallbacks robustos: casos sem mídia e dados incompletos.
+- [x] [Sprint 2] Otimização de tipos: alinhamento `PublicProject` ↔ `ProfileProject`.
 
-- [x] **Expansão de queries GROQ:** Adicionados campos `description`, `coverUrl`, `mediaImages`, `mediaFiles` e `owner` completo
-- [x] **Renderização completa de mídia:** Capa, galeria de imagens e lista de arquivos em projetos
-- [x] **Perfil público expandido:** Avatar, bio, skills, links e grid de projetos completos
-- [x] **Consistência UI:** Reutilização do `ProjectsGrid` entre `/projetos` e `/perfil/[slug]`
-- [x] **Fallbacks robustos:** Tratamento de casos sem mídia, projetos vazios e dados incompletos
-- [x] **Otimização de tipos:** Alinhamento entre `PublicProject` e `ProfileProject`
+- [x] [Histórico] Validação via GROQ no CDN: perfis e projetos públicos.
+- [x] [Histórico] `@devmarket/sanity` integrado; build do `apps/web` ajustado.
+- [x] [Histórico] Link do owner para `/perfil/[slug]`.
+- [x] [Histórico] Leitura GROQ `userProfile` e listagem de `projects` em `/perfil/[slug]`.
+- [x] [Histórico] `loading.tsx` e `not-found.tsx` em `/perfil/[slug]`.
+- [x] [Histórico] Webhook `/api/webhooks/sanity` revalida `/perfil/[slug]`.
+- [x] [Histórico] Query `publicProjectsQuery` em `@devmarket/sanity`.
+- [x] [Histórico] Grid e filtros por `techTags` em `/projetos`.
+- [x] [Histórico] Página "Projetos" SSR/ISR.
+- [x] [Histórico] Documentos de teste (`userProfile`, `project`) com vínculo `owner`.
+- [x] [Histórico] Sanity Studio ok em `http://localhost:3333/`.
+- [x] [Histórico] `.env` e `sanity.config.ts` ajustados (`SANITY_STUDIO_*`).
+- [x] [Histórico] Estrutura do monorepo e aliases.
+- [x] [Histórico] Design system e tokens CSS (acessibilidade).
+- [x] [Histórico] Next.js 16 + TS + App Router.
+- [x] [Histórico] Homepage DevMarket funcional.
+- [x] [Histórico] Servidor de desenvolvimento rodando.
+- [x] [Histórico] Aliases TS configurados (@/_, @ui/_, @lib/*, etc.).
+- [x] [Histórico] pnpm workspace configurado.
+- [x] [Histórico] UI base em `packages/ui` (Button, Card, Avatar, Tag, Grid, MediaGallery).
+- [x] [Histórico] `@devmarket/ui` integrado; preview `/ui-preview`.
+- [x] [Histórico] Ajuste do botão `loading` (spinner circular).
 
-### Entregas Anteriores
-
-- [x] Validação via GROQ no CDN (`production`): retorna `userProfile` e `project` públicos
-- [x] `@devmarket/sanity` adicionado como dependência workspace do `apps/web` e build ajustado
-- [x] Link do owner apontando para `/perfil/[slug]`
-- [x] Leitura GROQ do `userProfile` e listagem de `projects` em `/perfil/[slug]` (validado localmente)
-- [x] `loading.tsx` e `not-found.tsx` adicionados na rota `/perfil/[slug]`
-- [x] Rota de webhook (`/api/webhooks/sanity`) implementada para revalidar `/perfil/[slug]`
-- [x] Query GROQ `publicProjectsQuery` criada em `@devmarket/sanity`
-- [x] Grid de cards e filtros por `techTags` em `/projetos`
-- [x] Página "Projetos" com listagem pública (SSR + ISR)
-- [x] Publicação de documentos de teste (`userProfile`, `project`) e vínculo do `owner`
-- [x] Studio rodando em `http://localhost:3333/` sem erros de `projectId`
-- [x] Inicialização do Sanity Studio com `.env` e `sanity.config.ts` ajustados (`SANITY_STUDIO_*`)
-- [x] Estrutura do monorepo (revisão de aliases e configurações)
-- [x] Design system e tokens CSS (validação de acessibilidade)
-- [x] Estrutura completa do monorepo criada
-- [x] Next.js 16 configurado com TypeScript e App Router
-- [x] Design tokens e tema Light/Dark implementados
-- [x] Homepage DevMarket funcional
-- [x] Servidor de desenvolvimento rodando
-- [x] Aliases TypeScript configurados (@/_, @ui/_, @lib/\*, etc.)
-- [x] pnpm workspace configurado
-- [x] Criar componentes UI base em `packages/ui` (Button, Card, Avatar, Tag, Grid, MediaGallery)
-- [x] Integrar `@devmarket/ui` ao `apps/web` com `transpilePackages` e página de preview `/ui-preview`
-- [x] Ajuste do botão em estado `loading` (spinner inline e formato circular)
-
-### Sprint 0 — i18n e UX (Novembro 2025)
-
-- [x] Internacionalização nas páginas **Sobre** e **Signup** (`LocaleProvider` com chaves `about.*` e `signup.*`).
-- [x] Correção da CTA em **Sobre**: `Button` sem `href`; navegação via `onClick` com `router.push('/signup')`.
-- [x] Tema escuro: contraste reforçado da variante **outline** (`globals.css`).
-- [x] Mapeamento de tokens do design system para variáveis globais do app em `globals.css` (light/dark).
-- [x] Dicionário expandido com chaves básicas de planos (`home.plans.*`).
+- [x] [Sprint 0] i18n em “Sobre” e “Signup” (`LocaleProvider` + chaves `about.*` e `signup.*`).
+- [x] [Sprint 0] Correção da CTA em “Sobre”: navegação via `router.push('/signup')`.
+- [x] [Sprint 0] Tema escuro: contraste reforçado para `Button` `outline`.
+- [x] [Sprint 0] Mapeamento de tokens do design system em `globals.css` (light/dark).
+- [x] [Sprint 0] Dicionário expandido com chaves de planos (`home.plans.*`).
 
 %% kanban:settings
 
 ```
-{"kanban-plugin":"board","list-collapse":[true,null,null,true,true,true,true]}
+{"kanban-plugin":"board","list-collapse":[false,false,false,false]}
 ```
 
 %%

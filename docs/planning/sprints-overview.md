@@ -19,6 +19,9 @@ Linha do tempo e status
 - Renderização completa de mídia em projetos e perfis
 - Queries GROQ expandidas com fallbacks robustos
 - UI consistente entre páginas `/projetos` e `/perfil/[slug]`
+- i18n nas páginas "Sobre" e "Signup"; CTA corrigida para `/signup`
+- Tema escuro com contraste reforçado para botões `outline`
+- Mapeamento de tokens do design system em `globals.css` (light/dark)
 
 Planos (em avaliação)
 
@@ -39,3 +42,9 @@ Critérios de sucesso gerais
 - Listagens de perfis/projetos em cards (nome, avatar, bio; título, descrição, links e mídia).
 - Visibilidade Pública/Privada funcional, com gating pago.
 - Stripe para monetização, com reconcílio por webhook.
+
+## Kanban
+
+Estrutura atual: colunas "Sprints", "Em Progresso", "Em Revisão", "Concluído".
+
+Arquivo: `docs/kanban/devmarket-kanban.md`.
