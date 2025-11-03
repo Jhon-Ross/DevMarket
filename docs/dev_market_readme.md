@@ -170,9 +170,22 @@ export default function Example() {
 
 ### Preview de UI
 
-- Página de preview: `http://localhost:3000/ui-preview` (rodar com `pnpm --filter web dev`).
-- Exibe exemplos de todos os componentes com variações e props.
-- Layout e navegação base disponíveis em todas as páginas (App Router).
+- Disponível apenas em desenvolvimento.
+- Acesse diretamente: `http://localhost:3000/ui-preview` (retorna 404 em produção).
+- Exibe exemplos de componentes com variações e props; textos traduzidos via `LocaleProvider`.
+
+### Controles de Interface (Idioma/Tema)
+
+- Localização: cabeçalho do site (lado direito), disponível em todas as páginas.
+- Idioma: alterna entre `PT` e `EN`; preferência persistida em `localStorage` e aplicada em `html` (`lang`/`data-locale`).
+- Tema: alterna entre `Light` e `Dark`; preferência persistida em `localStorage` e aplicada via classe `dark` no `html`.
+- Mensagens antigas de instrução removidas da Home.
+- Internacionalização conectada: `LocaleProvider` com `useLocale()`/`t(key)` e dicionários locais (`home.*`, `nav.*`, `projects.*`, `uiPreview.*`).
+
+### Indicadores de desenvolvimento do Next
+
+- Overlay desativado em desenvolvimento: `apps/web/next.config.ts` usa `devIndicators: false`.
+- Em produção (`next build && next start`), erros são exibidos via logs/console e status HTTP.
 
 ### Correções recentes
 

@@ -28,9 +28,23 @@ Formato baseado em Keep a Changelog e organizado em camadas para inspeção prec
 - Expandido `.env.example` em `docs/dev_market_readme.md` com `SUPABASE_URL`, `SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`, `SUPABASE_MEDIA_BUCKET`.
 - Removidas recomendações de Cloudflare Stream/Mux; adotado vídeo via Supabase Storage com `signed URLs` e player HTML5, metadados no Sanity.
 - Documentada política de desenvolvimento local-first com deploy na Vercel, e validação de webhook em dev via `curl/Postman`.
+- Adicionados controles de interface na Home: seletor de idioma (PT/EN) e alternância de tema (Light/Dark) no cabeçalho.
+- Removida mensagem de instrução sobre adicionar classe `dark` no `html`; agora o tema é alternado via botão dedicado.
 - Atualizado `docs/sprints/sprint-03-pagamentos.md` com planos Dev/Empresa, provedores em avaliação (Mercado Pago/PayPal/Stripe), webhook/IPN e gating por plano.
 - Atualizado `docs/planning/sprints-overview.md` para incluir resumo dos planos e provedor de pagamento em avaliação.
 - Ajustado `docs/kanban/devmarket-kanban.md` com tarefas de definição de planos e integração do provedor.
+
+- Atualizado `apps/web/README.md` com UI Preview apenas em desenvolvimento, acesso direto à rota e i18n via `LocaleProvider`.
+- Atualizado `docs/dev_market_readme.md` com gating do UI Preview (404 em produção), remoção do link da navegação e detalhes da i18n conectada (`useLocale()`/`t(key)`).
+
+### Web (Next.js)
+
+- Internacionalização conectada: `LocaleProvider` expandido com chaves para navegação, Home, Projetos e UI Preview.
+- `apps/web/src/app/projetos/ProjectsGrid.tsx` agora traduz "Filtros", "Todos" e o rótulo "por" via `t()`.
+- UI Preview restrita a desenvolvimento: `apps/web/src/app/ui-preview/page.tsx` retorna `notFound()` em produção e renderiza `UiPreviewClient` em dev.
+- Novo componente `apps/web/src/app/ui-preview/UiPreviewClient.tsx` aplicando `useLocale()` e `t()` em todos os textos visíveis.
+- Link "UI Preview" removido do cabeçalho em `apps/web/src/components/NavLinks.tsx`.
+- Confirmado `devIndicators: false` em `apps/web/next.config.ts` para esconder o overlay de desenvolvimento.
 
 ### Tooling / Qualidade
 
