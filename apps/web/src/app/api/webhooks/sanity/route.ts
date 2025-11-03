@@ -1,31 +1,44 @@
-import { revalidatePath } from "next/cache";
+import { revalidatePath } from 'next/cache';
 
-type WebhookPayload = {
-  _type?: string;
-  slug?: string;
-};
+function json(res: unknown, init?: ResponseInit) {
+  return new Response(JSON.stringify(res), {
+    headers: { 'content-type': 'application/json' },
+    ...init,
+  });
+}
 
-export async function POST(req: Request) {
+export async function POST(request: Request) {
   try {
-    // Secret opcional via query string, ex.: /api/webhooks/sanity?secret=... (configure no Sanity)
-    const url = new URL(req.url);
-    const secretParam = url.searchParams.get("secret");
-    const expectedSecret = process.env.SANITY_WEBHOOK_SECRET;
-    if (expectedSecret && secretParam !== expectedSecret) {
-      return new Response(JSON.stringify({ ok: false, error: "invalid secret" }), { status: 401 });
+    const url = new URL(request.url);
+    const secret = url.searchParams.get('secret');
+    const expected = process.env.SANITY_WEBHOOK_SECRET;
+
+    if (expected && secret !== expected) {
+      return json({ ok: false, error: 'invalid secret' }, { status: 401 });
     }
 
-    const body = (await req.json()) as WebhookPayload;
-    const slug = body.slug;
+    const body = (await request.json().catch(() => null)) as {
+      _type?: string;
+      slug?: string;
+    } | null;
+    if (!body || typeof body !== 'object') {
+      return json({ ok: false, error: 'invalid body' }, { status: 400 });
+    }
+
+    const type = body?._type;
+    const slug = body?.slug;
 
     if (!slug) {
-      return new Response(JSON.stringify({ ok: false, error: "missing slug" }), { status: 400 });
+      return json({ ok: false, error: 'missing slug' }, { status: 400 });
     }
 
-    revalidatePath(`/perfil/${slug}`);
+    if (type === 'userProfile' || type === 'project') {
+      // Para project, revalidamos a página do owner (perfil)
+      revalidatePath(`/perfil/${slug}`);
+    }
 
-    return Response.json({ ok: true, revalidated: `/perfil/${slug}` });
-  } catch (err) {
-    return new Response(JSON.stringify({ ok: false, error: (err as Error).message }), { status: 500 });
+    return json({ ok: true, revalidated: true, target: `/perfil/${slug}` });
+  } catch {
+    return json({ ok: false, error: 'internal error' }, { status: 500 });
   }
 }

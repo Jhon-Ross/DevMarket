@@ -62,24 +62,22 @@ kanban-plugin: board
 
 ## Em Revisão
 
-- [ ] Leitura GROQ do `userProfile` e listagem de `projects` em `/perfil/[slug]` (validado localmente)
-- [ ] `loading.tsx` e `not-found.tsx` adicionados na rota `/perfil/[slug]`
-- [ ] Rota de webhook (`/api/webhooks/sanity`) implementada para revalidar `/perfil/[slug]`
+// vazio — itens válidos movidos para Concluído
 
 ## Concluído
 
-- [x] Inicialização do Sanity Studio com `.env` e `sanity.config.ts` ajustados (`SANITY_STUDIO_*`)
-- [x] Studio rodando em `http://localhost:3333/` sem erros de `projectId`
-- [x] Publicação de documentos de teste (`userProfile`, `project`) e vínculo do `owner`
-- [x] Página “Projetos” com listagem pública (SSR + ISR)
-- [x] Grid de cards e filtros por `techTags` em `/projetos`
-- [x] Query GROQ `publicProjectsQuery` criada em `@devmarket/sanity`
-- [x] Link do owner apontando para `/perfil/[slug]`
-- [x] `@devmarket/sanity` adicionado como dependência workspace do `apps/web` e build ajustado
 - [x] Validação via GROQ no CDN (`production`): retorna `userProfile` e `project` públicos
-
-## Concluído
-
+- [x] `@devmarket/sanity` adicionado como dependência workspace do `apps/web` e build ajustado
+- [x] Link do owner apontando para `/perfil/[slug]`
+- [x] Leitura GROQ do `userProfile` e listagem de `projects` em `/perfil/[slug]` (validado localmente)
+- [x] `loading.tsx` e `not-found.tsx` adicionados na rota `/perfil/[slug]`
+- [x] Rota de webhook (`/api/webhooks/sanity`) implementada para revalidar `/perfil/[slug]`
+- [x] Query GROQ `publicProjectsQuery` criada em `@devmarket/sanity`
+- [x] Grid de cards e filtros por `techTags` em `/projetos`
+- [x] Página “Projetos” com listagem pública (SSR + ISR)
+- [x] Publicação de documentos de teste (`userProfile`, `project`) e vínculo do `owner`
+- [x] Studio rodando em `http://localhost:3333/` sem erros de `projectId`
+- [x] Inicialização do Sanity Studio com `.env` e `sanity.config.ts` ajustados (`SANITY_STUDIO_*`)
 - [x] Estrutura do monorepo (revisão de aliases e configurações)
 - [x] Design system e tokens CSS (validação de acessibilidade)
 - [x] Estrutura completa do monorepo criada
