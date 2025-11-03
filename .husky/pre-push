@@ -1,0 +1,5 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+echo "🔒 Pre-push: verificando 'Em Revisão' no Kanban..."
+node scripts/check-kanban-review-clean.js || exit 1
