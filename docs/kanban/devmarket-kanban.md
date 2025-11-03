@@ -48,7 +48,23 @@ kanban-plugin: board
 
 ## Em Progresso
 
+- [ ] Configurar webhook de revalidação (Sanity → Next.js) para `/perfil/[slug]`
+- [ ] Implementar Storybook em `packages/ui` (opcional)
+- [ ] Analytics básico de perfil (pageviews)
+- [ ] Busca por tags/skills
+- [ ] Página de listagem de devs com filtros
+- [ ] Landing page marketing (copy + CTA)
+- [ ] Configurar ESLint/Prettier/Husky/lint-staged
+- [ ] Validar `.env` com `zod` em `packages/lib`
+- [ ] Criar Prisma schema (`User`, `Subscription`) e migrations
+- [ ] Integrar NextAuth (providers email/credentials) e páginas de login
+- [ ] Criar token Viewer (read-only) no Sanity e configurar `SANITY_READ_TOKEN` em `apps/web/.env.local`
+
 ## Em Revisão
+
+- [ ] Leitura GROQ do `userProfile` e listagem de `projects` em `/perfil/[slug]` (validado localmente)
+- [ ] `loading.tsx` e `not-found.tsx` adicionados na rota `/perfil/[slug]`
+- [ ] Rota de webhook (`/api/webhooks/sanity`) implementada para revalidar `/perfil/[slug]`
 
 ## Concluído
 
@@ -61,30 +77,6 @@ kanban-plugin: board
 - [x] Link do owner apontando para `/perfil/[slug]`
 - [x] `@devmarket/sanity` adicionado como dependência workspace do `apps/web` e build ajustado
 - [x] Validação via GROQ no CDN (`production`): retorna `userProfile` e `project` públicos
-- [x] Navegação e layout base implementados
-- [x] Atualizado `.gitignore` e validado build do `apps/web` (Next.js 16)
-- [x] Tipagem estrita "async props" aplicada em `apps/web/src/app/perfil/[slug]/page.tsx`
-- [x] ISR básico configurado em `perfil/[slug]` (`revalidate = 60` e `generateStaticParams` vazio)
-- [x] Criado pacote `@devmarket/sanity` (client + queries) com `tsconfig` e build para `dist`
-- [x] Criado pacote `@devmarket/types` com tipo `Perfil` e build para `dist`
-- [x] Corrigidos erros TypeScript no monorepo:
-  - TS2307: imports relativos `./client`/`./queries` — ajustado para ESM com extensão `.js`
-  - TS2688: tipos `react`/`react-dom` ausentes — fixado `types: ["node"]` nos `tsconfig` dos pacotes
-  - TS2303/TS2459: conflito por alias `@sanity/*` — removido alias do `tsconfig.base.json` e instalada `typescript` no workspace
-- [x] Configurar webhook de revalidação (Sanity → Next.js) para `/perfil/[slug]`
-- [x] Leitura GROQ do `userProfile` e listagem de `projects` em `/perfil/[slug]`
-- [x] `loading.tsx` e `not-found.tsx` adicionados na rota `/perfil/[slug]`
-- [x] Rota de webhook (`/api/webhooks/sanity`) implementada para revalidar `/perfil/[slug]`
-- [x] Implementar Storybook em `packages/ui` (opcional)
-- [x] Analytics básico de perfil (pageviews)
-- [x] Busca por tags/skills
-- [x] Página de listagem de devs com filtros
-- [x] Landing page marketing (copy + CTA)
-- [x] Configurar ESLint/Prettier/Husky/lint-staged
-- [x] Validar `.env` com `zod` em `packages/lib`
-- [x] Criar Prisma schema (`User`, `Subscription`) e migrations
-- [x] Integrar NextAuth (providers email/credentials) e páginas de login
-- [x] Criar token Viewer (read-only) no Sanity e configurar `SANITY_READ_TOKEN` em `apps/web/.env.local`
 
 ## Concluído
 
