@@ -59,6 +59,10 @@ kanban-plugin: board
 
 ## Em Progresso
 
+- [ ] Inicializar Sanity Studio e definir `userProfile`/`project` — scaffolding concluído; aguarda env e init/dataset
+- [ ] Implementar leitura GROQ do `userProfile`
+- [ ] Webhook de revalidação (Sanity) para `/perfil/[slug]`
+
 ## Em Revisão
 
 ## Concluído — 2025-11-02
