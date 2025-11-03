@@ -4,21 +4,23 @@
     "type": "split",
     "children": [
       {
-        "id": "006a0f766e2da6f4",
+        "id": "319ac3bed8f449eb",
         "type": "tabs",
         "children": [
           {
-            "id": "e088423a6c90800a",
+            "id": "96165af60f853ad5",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "kanban",
               "state": {
-                "file": "sprints/sprint-00-fundacoes.md",
-                "mode": "source",
-                "source": false
+                "file": "kanban/devmarket-kanban.md",
+                "kanbanViewState": {
+                  "kanban-plugin": "board",
+                  "list-collapse": [true, null, null, true, true, true, true]
+                }
               },
-              "icon": "lucide-file",
-              "title": "sprint-00-fundacoes"
+              "icon": "lucide-trello",
+              "title": "devmarket-kanban"
             }
           }
         ]
@@ -170,12 +172,12 @@
       "obsidian-kanban:Criar um novo quadro": false
     }
   },
-  "active": "e088423a6c90800a",
+  "active": "96165af60f853ad5",
   "lastOpenFiles": [
-    "CHANGELOG.md",
-    "dev_market_readme.md",
     "kanban/devmarket-kanban.md",
     "sprints/sprint-00-fundacoes.md",
+    "CHANGELOG.md",
+    "dev_market_readme.md",
     "setup/environment-setup.md",
     "checklists/release-checklist.md",
     "exemplo/README.md",

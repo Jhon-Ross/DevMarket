@@ -57,6 +57,28 @@ DevMarket é uma plataforma onde desenvolvedores criam um perfil profissional (v
 - Vídeos: Cloudflare Stream / Mux (recomendado) ou S3/R2 (metadados registrados no Sanity).
 - Alternativa: S3/R2 com signed URLs para arquivos grandes.
 
+### Estratégia de mídia: Sanity (pequenas) + Supabase (grandes)
+
+- Objetivo: usar o melhor de cada serviço. Sanity para imagens leves e com transformações; Supabase Storage para arquivos grandes e anexos.
+- Sanity — usar para `avatar`, `thumbnails`, `banners`, `logos` e imagens até ~5–10 MB.
+  - Vantagens: CDN do Sanity, transforms (resize, crop), integração fácil com `next/image`.
+- Supabase Storage — usar para imagens/arquivos maiores (>= 10 MB), PDFs/ZIPs, binários pesados.
+  - Entrega: preferir `signed URLs` com TTL curto (ex.: 1h) gerados no servidor.
+  - Organização sugerida: bucket `media` com pastas `images/large`, `files`, `raw`.
+  - Segurança: nunca expor `SERVICE_ROLE_KEY`; geração de URLs sempre server-side.
+- Metadados/fonte de verdade: manter referência no Sanity (ex.: `supabaseKey`/`bucket`/`mime/size`), permitindo GROQ para páginas públicas.
+- Fluxo recomendado (upload grande):
+  1. Usuário envia arquivo → server action chama Supabase com `SERVICE_ROLE_KEY` (apenas servidor).
+  2. Após upload, gerar `signed URL` quando necessário exibir/baixar.
+  3. Persistir ponte no Sanity (`_ref`/`supabaseKey`) para indexação/SEO e integração com páginas.
+- Vídeo: continuar recomendando Cloudflare Stream/Mux para streaming sob demanda; Supabase pode armazenar arquivos grandes, mas não otimiza streaming e egress como providers dedicados.
+
+Boas práticas:
+
+- Defina limites de tamanho por tipo (ex.: imagens > 10 MB vão para Supabase).
+- Cache no frontend com `Cache-Control` adequado e validar egress mensal.
+- Para conteúdo privado, use regras de acesso em buckets e apenas `signed URLs`.
+
 ---
 
 ## Design System e UI (`packages/ui`)
@@ -364,6 +386,10 @@ S3_BUCKET=devmarket-media
 S3_REGION=sa-east-1
 S3_ACCESS_KEY_ID=...
 S3_SECRET_ACCESS_KEY=...
+SUPABASE_URL=https://your-project-id.supabase.co
+SUPABASE_ANON_KEY=public-anon-key
+SUPABASE_SERVICE_ROLE_KEY=server-only-secret
+SUPABASE_MEDIA_BUCKET=media
 ```
 
 ---

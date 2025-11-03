@@ -14,6 +14,9 @@ Formato baseado em Keep a Changelog e organizado em camadas para inspeção prec
 - Atualizado `docs/dev_market_readme.md` com status da navegação/layout e exemplo do Card usando `CardHeader/CardBody/CardFooter`.
 - Publicado `README.md` na raiz com apresentação comercial e seção de Parcerias.
 - Atualizado `docs/kanban/devmarket-kanban.md`: coluna "Em Revisão" esvaziada e itens consolidados em "Concluído".
+- Adicionada seção "Estratégia de mídia: Sanity (pequenas) + Supabase (grandes)" em `docs/dev_market_readme.md`, formalizando o uso de Sanity para imagens leves e Supabase Storage para arquivos maiores com signed URLs.
+- Atualizado `docs/setup/environment-setup.md` com variáveis de ambiente do Supabase e nota de segurança (service role apenas no servidor).
+- Expandido `.env.example` em `docs/dev_market_readme.md` com `SUPABASE_URL`, `SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`, `SUPABASE_MEDIA_BUCKET`.
 
 ### Tooling / Qualidade
 

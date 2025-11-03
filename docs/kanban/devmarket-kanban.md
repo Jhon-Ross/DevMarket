@@ -59,14 +59,11 @@ kanban-plugin: board
 
 ## Em Progresso
 
-- [ ] Configurar ESLint/Prettier/Husky para qualidade de código
-
 ## Em Revisão
-
-- Nenhum item no momento — últimos itens movidos para "Concluído".
 
 ## Concluído — 2025-11-02
 
+- [ ] Configurar ESLint/Prettier/Husky para qualidade de código
 - [x] Navegação e layout base implementados (release 0.1.1 — 2025-11-02)
 - [x] Atualizado `.gitignore` e validado build do `apps/web` (Next.js 16)
 - [x] Tipagem estrita "async props" aplicada em `apps/web/src/app/perfil/[slug]/page.tsx`
