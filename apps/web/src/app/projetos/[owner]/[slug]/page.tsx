@@ -70,7 +70,7 @@ export default async function ProjectDetailPage({
     ];
     for (const name of possibleCookies) {
       try {
-        if (store.get(name)) store.delete(name);
+        if ((await store).get(name)) (await store).delete(name);
       } catch {}
     }
     session = null;

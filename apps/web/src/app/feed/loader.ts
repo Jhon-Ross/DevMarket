@@ -24,8 +24,9 @@ type SanityProject = {
 
 export async function loadFeedFromSanity(): Promise<FeedItem[]> {
   try {
-    const projects = await sanityClient.fetch<SanityProject[]>(publicProjectsQuery);
-    return projects.map((p) => ({
+    const projects = await sanityClient.fetch<SanityProject[] | null>(publicProjectsQuery);
+    const list = Array.isArray(projects) ? projects : [];
+    return list.map((p) => ({
       id: p._id,
       type: 'project',
       title: p.title,
@@ -42,7 +43,7 @@ export async function loadFeedFromSanity(): Promise<FeedItem[]> {
             role: 'dev',
           }
         : undefined,
-      cta: [{ label: 'Ver detalhes', href: `/projetos/${p.owner?.slug}/${p.slug}` }],
+      cta: [{ label: 'Ver detalhes', href: `/projetos/${p.owner?.slug ?? 'perfil'}/${p.slug}` }],
     }));
   } catch (e) {
     console.error('[feed] loadFeedFromSanity error:', e);
