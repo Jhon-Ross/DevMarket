@@ -2,6 +2,8 @@
 import { useEffect, useState } from 'react';
 
 export default function ThemeToggle() {
+  // Remove render com base em montagem para evitar setState em efeito (lint)
+
   const [theme, setTheme] = useState<'light' | 'dark'>(() => {
     if (typeof window === 'undefined') return 'light';
     try {
@@ -29,9 +31,11 @@ export default function ThemeToggle() {
     } catch {}
   };
 
+  // Labels estáticos evitam mismatch entre SSR e cliente
+
   return (
     <button
-      aria-label={theme === 'dark' ? 'Tema escuro ativo' : 'Tema claro ativo'}
+      aria-label={'Alternar tema'}
       onClick={toggle}
       style={{
         display: 'inline-flex',
@@ -43,9 +47,11 @@ export default function ThemeToggle() {
         background: 'var(--bg-default)',
         color: 'var(--text-primary)',
       }}
-      title={theme === 'dark' ? 'Trocar para tema claro' : 'Trocar para tema escuro'}
+      title={'Alternar tema'}
     >
-      {theme === 'dark' ? '🌙' : '☀️'}
+      <span aria-hidden suppressHydrationWarning>
+        {theme === 'dark' ? '🌙' : '☀️'}
+      </span>
     </button>
   );
 }

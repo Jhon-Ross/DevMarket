@@ -11,10 +11,16 @@
             "id": "96165af60f853ad5",
             "type": "leaf",
             "state": {
-              "type": "graph",
-              "state": {},
-              "icon": "lucide-git-fork",
-              "title": "Visualização em gráfico"
+              "type": "kanban",
+              "state": {
+                "file": "kanban/devmarket-kanban.md",
+                "kanbanViewState": {
+                  "kanban-plugin": "board",
+                  "list-collapse": [false, false, false]
+                }
+              },
+              "icon": "lucide-trello",
+              "title": "devmarket-kanban"
             }
           }
         ]

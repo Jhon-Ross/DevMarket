@@ -2,31 +2,27 @@
 kanban-plugin: board
 ---
 
-## DevMarket — Kanban
-
 ## Sprints
 
-- ✅ Sprint 0 — Fundações
+- [ ] ✅ Sprint 0 — Fundações
   - Monorepo, Next.js 16 + TS, tokens de design, tema Light/Dark, homepage, aliases, servidor dev.
-- ✅ Sprint 1 — Perfil Público
+- [ ] ✅ Sprint 1 — Perfil Público
   - GROQ `userProfile`, página pública com ISR + webhook, UI base (Avatar/Tag/Card), otimização de imagens.
-- ✅ Sprint 2 — Projetos & Mídia
+- [ ] ✅ Sprint 2 — Projetos & Mídia
   - CRUD `project`, imagens (Sanity) + vídeo (Supabase), páginas públicas e grid/cards, renderização completa de mídia.
-- 🔄 Sprint 3 — Pagamentos
+- [ ] 🔄 Sprint 3 — Pagamentos
   - Planos Dev/Empresa, escolha do provedor (Mercado Pago/PayPal/Stripe), checkout e webhook/IPN.
-- ⏳ Sprint 4 — Hardening & QA
+- [ ] ⏳ Sprint 4 — Hardening & QA
   - Testes unit/e2e, segurança, logs/métricas, CI/CD e performance.
 
 ## Em Progresso
 
-- Configurar webhook de revalidação (Sanity → Next.js) para `/perfil/[slug]`.
-- Homepage UX — definir estrutura e chaves i18n (`docs/planning/homepage-ux.md`).
-- Criar Prisma schema (`User`, `Subscription`) e migrations.
-- Integrar NextAuth (email/credentials) e páginas de login.
+- [ ] Configurar webhook de revalidação (Sanity → Next.js) para `/perfil/[slug]`.
+- [ ] Homepage UX — definir estrutura e chaves i18n (`docs/planning/homepage-ux.md`).
+- [ ] Criar Prisma schema (`User`, `Subscription`) e migrations.
+- [ ] Integrar NextAuth (email/credentials) e páginas de login.
 
 ## Em Revisão
-
-// vazio — itens válidos movidos para Concluído
 
 ## Concluído
 
@@ -36,7 +32,6 @@ kanban-plugin: board
 - [x] [Sprint 2] Consistência UI: `ProjectsGrid` em `/projetos` e `/perfil/[slug]`.
 - [x] [Sprint 2] Fallbacks robustos: casos sem mídia e dados incompletos.
 - [x] [Sprint 2] Otimização de tipos: alinhamento `PublicProject` ↔ `ProfileProject`.
-
 - [x] [Histórico] Validação via GROQ no CDN: perfis e projetos públicos.
 - [x] [Histórico] `@devmarket/sanity` integrado; build do `apps/web` ajustado.
 - [x] [Histórico] Link do owner para `/perfil/[slug]`.
@@ -54,12 +49,11 @@ kanban-plugin: board
 - [x] [Histórico] Next.js 16 + TS + App Router.
 - [x] [Histórico] Homepage DevMarket funcional.
 - [x] [Histórico] Servidor de desenvolvimento rodando.
-- [x] [Histórico] Aliases TS configurados (@/_, @ui/_, @lib/*, etc.).
+- [x] [Histórico] Aliases TS configurados (@/_, @ui/_, @lib/\*, etc.).
 - [x] [Histórico] pnpm workspace configurado.
 - [x] [Histórico] UI base em `packages/ui` (Button, Card, Avatar, Tag, Grid, MediaGallery).
 - [x] [Histórico] `@devmarket/ui` integrado; preview `/ui-preview`.
 - [x] [Histórico] Ajuste do botão `loading` (spinner circular).
-
 - [x] [Sprint 0] i18n em “Sobre” e “Signup” (`LocaleProvider` + chaves `about.*` e `signup.*`).
 - [x] [Sprint 0] Correção da CTA em “Sobre”: navegação via `router.push('/signup')`.
 - [x] [Sprint 0] Tema escuro: contraste reforçado para `Button` `outline`.
@@ -69,7 +63,7 @@ kanban-plugin: board
 %% kanban:settings
 
 ```
-{"kanban-plugin":"board","list-collapse":[false,false,false,false]}
+{"kanban-plugin":"board","list-collapse":[false,false,false]}
 ```
 
 %%
