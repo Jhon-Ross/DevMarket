@@ -35,7 +35,7 @@ export default function LoginPage() {
       return;
     }
     // Preferimos o callbackUrl informado pela rota protegida
-    const target = callbackUrl || (res as any)?.url || '/';
+    const target = callbackUrl || (typeof res?.url === 'string' ? res.url : '/');
     router.replace(target);
   };
 

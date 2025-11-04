@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import { notFound, redirect } from 'next/navigation';
+import { redirect } from 'next/navigation';
 import { sanityClient } from '@devmarket/sanity';
 import AppLink from '@/components/AppLink';
 import { Card, CardHeader, CardBody, CardFooter, Grid, Tag, Button, Avatar } from '@devmarket/ui';
@@ -47,7 +47,11 @@ async function fetchProject(owner: string, slug: string): Promise<ProjectDoc | n
   }
 }
 
-export default async function ProjectDetailPage({ params }: { params: { owner: string; slug: string } }) {
+export default async function ProjectDetailPage({
+  params,
+}: {
+  params: { owner: string; slug: string };
+}) {
   const { owner, slug } = params;
   let session = null as Awaited<ReturnType<typeof getServerSession>> | null;
   try {
@@ -66,7 +70,7 @@ export default async function ProjectDetailPage({ params }: { params: { owner: s
     ];
     for (const name of possibleCookies) {
       try {
-        if ((await store).get(name)) (await store).delete(name);
+        if (store.get(name)) store.delete(name);
       } catch {}
     }
     session = null;
@@ -85,8 +89,8 @@ export default async function ProjectDetailPage({ params }: { params: { owner: s
           </CardHeader>
           <CardBody>
             <p>
-              O projeto "{slug}" do perfil "{owner}" pode estar pendente de moderação ou ainda não foi
-              publicado como público.
+              O projeto &quot;{slug}&quot; do perfil &quot;{owner}&quot; pode estar pendente de
+              moderação ou ainda não foi publicado como público.
             </p>
             <p style={{ color: 'var(--color-muted)' }}>
               Quando o projeto estiver público, esta página exibirá os detalhes completos.
