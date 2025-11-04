@@ -11,7 +11,7 @@ export default function LanguageSelector() {
 
   return (
     <button
-      aria-label={locale === 'pt' ? 'Idioma: Português' : 'Language: English'}
+      aria-label={'Alternar idioma'}
       onClick={toggleLocale}
       style={{
         display: 'inline-flex',
@@ -23,12 +23,12 @@ export default function LanguageSelector() {
         background: 'var(--bg-default)',
         color: 'var(--text-primary)',
       }}
-      title={locale === 'pt' ? 'Trocar para English' : 'Switch to Português'}
+      title={'Alternar idioma'}
     >
       <span role="img" aria-label="globo">
         🌐
       </span>
-      {locale.toUpperCase()}
+      <span suppressHydrationWarning>{locale.toUpperCase()}</span>
     </button>
   );
 }
