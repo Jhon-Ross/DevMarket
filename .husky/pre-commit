@@ -1,1 +1,5 @@
-pnpm -w exec lint-staged
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+echo "🔧 Pre-commit: executando lint-staged (eslint + prettier)"
+npx lint-staged || exit 1

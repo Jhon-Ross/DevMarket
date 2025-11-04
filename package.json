@@ -6,7 +6,7 @@
     "web:dev": "pnpm -C apps/web dev",
     "web:build": "pnpm -C apps/web build",
     "web:start": "pnpm -C apps/web start",
-    "lint": "pnpm -C apps/web lint",
+    "lint": "npm --prefix apps/web run lint",
     "format": "prettier --write .",
     "prepare": "husky install",
     "changelog": "node scripts/update-changelog.js"
@@ -21,10 +21,10 @@
   },
   "lint-staged": {
     "apps/web/**/*.{ts,tsx,js,jsx}": [
-      "pnpm --dir apps/web exec eslint --fix"
+      "npm --prefix apps/web run lint -- --fix"
     ],
     "**/*.{ts,tsx,js,jsx,css,scss,json,md}": [
-      "pnpm -w exec prettier --write"
+      "npx prettier --write"
     ]
   },
   "dependencies": {
