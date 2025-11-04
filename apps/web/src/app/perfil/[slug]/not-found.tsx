@@ -1,5 +1,5 @@
 'use client';
-import Link from 'next/link';
+import AppLink from '../../../components/AppLink';
 import { useLocale } from '../../../components/LocaleProvider';
 
 export default function NotFound() {
@@ -16,7 +16,7 @@ export default function NotFound() {
       <h1 style={{ color: 'var(--text-primary)' }}>{title}</h1>
       <p style={{ color: 'var(--text-secondary)' }}>{desc}</p>
       <div style={{ marginTop: 'var(--space-4)' }}>
-        <Link
+        <AppLink
           href="/"
           style={{
             display: 'inline-block',
@@ -28,7 +28,7 @@ export default function NotFound() {
           }}
         >
           {back}
-        </Link>
+        </AppLink>
       </div>
     </section>
   );

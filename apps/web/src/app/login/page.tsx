@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { signIn } from 'next-auth/react';
 import { useLocale } from '@/components/LocaleProvider';
-import Link from 'next/link';
+import AppLink from '@/components/AppLink';
 import { Button, Card, Grid, CardHeader, CardBody, CardFooter } from '@devmarket/ui';
 
 export default function LoginPage() {
@@ -109,12 +109,12 @@ export default function LoginPage() {
           <CardFooter
             style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
           >
-            <Link
+            <AppLink
               href="/signup"
               style={{ color: 'var(--text-primary)', textDecoration: 'underline' }}
             >
               {t('auth.login.toSignup') || 'Não tem conta? Cadastre-se'}
-            </Link>
+            </AppLink>
             <Button type="submit" loading={loading}>
               {loading
                 ? t('common.loading') || 'Carregando...'

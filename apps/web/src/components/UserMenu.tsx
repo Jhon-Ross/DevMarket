@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect, useRef, useState } from 'react';
-import Link from 'next/link';
+import AppLink from './AppLink';
 import { useSession, signOut } from 'next-auth/react';
 
 function getInitials(name?: string | null, email?: string | null) {
@@ -87,7 +87,7 @@ export default function UserMenu() {
             zIndex: 20,
           }}
         >
-          <Link
+          <AppLink
             href="/perfil/meu"
             style={{
               display: 'block',
@@ -99,8 +99,8 @@ export default function UserMenu() {
             onClick={() => setOpen(false)}
           >
             Meu Perfil
-          </Link>
-          <Link
+          </AppLink>
+          <AppLink
             href="/projetos/novo"
             style={{
               display: 'block',
@@ -112,7 +112,7 @@ export default function UserMenu() {
             onClick={() => setOpen(false)}
           >
             Novo Projeto
-          </Link>
+          </AppLink>
           <button
             type="button"
             onClick={() => {

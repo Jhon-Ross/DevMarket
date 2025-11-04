@@ -9,8 +9,9 @@ export interface TagProps extends React.HTMLAttributes<HTMLSpanElement> {
 }
 
 export function Tag({ variant = "default", className, children, ...rest }: TagProps) {
+  const isClickable = typeof rest.onClick === "function";
   return (
-    <span className={cn("tag", `tag-${variant}`, className)} {...rest}>
+    <span className={cn("tag", `tag-${variant}`, isClickable && "tag-clickable", className)} {...rest}>
       {children}
     </span>
   );

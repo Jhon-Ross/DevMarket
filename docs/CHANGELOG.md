@@ -475,3 +475,29 @@ Mantemos este arquivo como registro de mudanças. Para detalhes e exemplos, cons
 ### Notas
 
 - Build de produção segue com verificação; o dev server (`pnpm web:dev`) foi utilizado para validação visual do Feed.
+## 2025-11-04 — Proteções de Auth, Página de Detalhes de Projeto e Configuração Sanity
+
+- Adicionada rota de detalhes do projeto: `apps/web/src/app/projetos/[owner]/[slug]/page.tsx`.
+  - Busca dados do projeto via `@devmarket/sanity` (SSR).
+  - Fallback amigável quando o projeto não está público ou não existe (mensagem e links de retorno).
+- Correção de erro Next.js: removido `'use server'` da página de detalhes para evitar
+  “A 'use server' file can only export async functions, found object”.
+- Proteção de sessão na página de detalhes:
+  - Verificação com `getServerSession(authOptions)`.
+  - Redireciona não autenticados para `/login?callbackUrl=/projetos/{owner}/{slug}`.
+  - Tratamento resiliente de `[next-auth][JWT_SESSION_ERROR]` (decriptação falhou):
+    - Limpeza de cookies do NextAuth (session, csrf, pkce) e tratamento como não autenticado.
+- Feed público preservado:
+  - CTA “Ver detalhes” aponta para `/projetos/{ownerSlug}/{projectSlug}` gerado em `feed/loader.ts`.
+  - Interações (ex.: futuras “curtir”, “comentar”) serão condicionadas à sessão.
+- Configuração de ambiente:
+  - `apps/web/.env.local` agora inclui `NEXTAUTH_URL` e `NEXTAUTH_SECRET` estáveis para dev.
+  - Adicionadas chaves `SANITY_PROJECT_ID`, `SANITY_DATASET` e `SANITY_API_READ_TOKEN` para o cliente Sanity.
+  - Observação: sem `SANITY_PROJECT_ID`, o cliente lança “Configuration must contain `projectId`”.
+
+### Arquivos alterados/adicionei
+
+- `apps/web/src/app/projetos/[owner]/[slug]/page.tsx` — nova página, proteção de sessão, fallback e limpeza de cookies.
+- `apps/web/.env.local` — variáveis de ambiente para NextAuth e Sanity em desenvolvimento.
+- `apps/web/README.md` — documentação das mudanças e recomendações de ambiente.
+- `docs/CHANGELOG.md` — este registro.

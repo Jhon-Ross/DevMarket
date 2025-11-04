@@ -1,5 +1,5 @@
 'use client';
-import Link from 'next/link';
+import AppLink from './AppLink';
 import { useLocale } from './LocaleProvider';
 import { useSession } from 'next-auth/react';
 
@@ -8,18 +8,17 @@ export default function NavLinks() {
   const { data: session } = useSession();
   return (
     <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-4)' }}>
-      <Link
+      <AppLink
         href="/feed"
-        prefetch={false}
         style={{ color: 'var(--text-secondary)', textDecoration: 'none' }}
       >
         <span suppressHydrationWarning>{t('nav.projects')}</span>
-      </Link>
+      </AppLink>
       {!session?.user ? (
         <>
-          <Link href="/login" style={{ color: 'var(--text-secondary)', textDecoration: 'none' }}>
+          <AppLink href="/login" style={{ color: 'var(--text-secondary)', textDecoration: 'none' }}>
             <span suppressHydrationWarning>{t('nav.login')}</span>
-          </Link>
+          </AppLink>
         </>
       ) : null}
     </div>

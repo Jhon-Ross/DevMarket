@@ -101,6 +101,7 @@ export default function Page() {
 - NextAuth: provedor `Credentials` com `PrismaAdapter`.
 - Páginas protegidas:
   - `/perfil/meu` e `/projetos/novo` usam `getServerSession(authOptions)`.
+  - `/projetos/[owner]/[slug]` (detalhes do projeto) também verifica sessão para interação.
   - Em erro `JWT_SESSION_ERROR` (falha de decriptação), tratam como não autenticado e redirecionam para `/login` com `callbackUrl` apropriado.
 - Login com `callbackUrl`:
   - `apps/web/src/app/login/page.tsx` decodifica e prioriza `callbackUrl` ao navegar após `signIn`.
@@ -118,6 +119,17 @@ export default function Page() {
 - Garanta `NEXTAUTH_URL=http://localhost:3000` e um `NEXTAUTH_SECRET` estável em `apps/web/.env.local`.
 - Evite múltiplos processos de `next dev`; se trocar o `NEXTAUTH_SECRET`, pare o servidor, limpe cookies de sessão e reinicie.
 - Valide a sessão em `http://localhost:3000/api/auth/session` após login.
+- Sanity Client (SSR): configure `SANITY_PROJECT_ID`, `SANITY_DATASET` (ex.: `production`) e, se necessário, `SANITY_API_READ_TOKEN` em `apps/web/.env.local`.
+- Erro comum: “Configuration must contain `projectId`” indica `SANITY_PROJECT_ID` ausente.
+
+## Atualizações (Novembro/2025)
+
+- Página de detalhes do projeto criada em `apps/web/src/app/projetos/[owner]/[slug]/page.tsx`.
+  - Busca dados via `@devmarket/sanity`; fallback amigável se o projeto não estiver público.
+  - Proteção de sessão com redirecionamento ao Login quando necessário.
+  - Limpeza de cookies NextAuth em falhas de decriptação de JWT, evitando loops.
+- Feed público mantido: o CTA “Ver detalhes” navega para `/projetos/{ownerSlug}/{projectSlug}`.
+- `.env.local` ajustado para incorporar variáveis de NextAuth e Sanity no ambiente de desenvolvimento.
 
 ### Dicas de Desenvolvimento
 

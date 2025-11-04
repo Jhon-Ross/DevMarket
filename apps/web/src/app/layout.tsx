@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-import Link from 'next/link';
+import AppLink from '../components/AppLink';
 import LanguageSelector from '../components/LanguageSelector';
 import ThemeToggle from '../components/ThemeToggle';
 import LocaleProvider from '../components/LocaleProvider';
@@ -53,7 +53,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 margin: '0 auto',
               }}
             >
-              <Link
+              <AppLink
                 href="/"
                 style={{
                   fontWeight: 700,
@@ -63,7 +63,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 }}
               >
                 DevMarket
-              </Link>
+              </AppLink>
               <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-4)' }}>
                 <NavLinks />
                 <LanguageSelector />

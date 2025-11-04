@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
+import AppLink from '@/components/AppLink';
 import { useLocale } from '@/components/LocaleProvider';
 import { Card, CardHeader, CardBody, Tag, Grid, Avatar } from '@devmarket/ui';
 
@@ -74,12 +74,12 @@ export default function ProjectsGrid({ projects }: { projects: PublicProject[] }
                   <Avatar name={p.owner.name} src={p.owner.avatarUrl ?? undefined} size="sm" />
                   <span>
                     {t('projects.by')}{' '}
-                    <Link
+                    <AppLink
                       href={`/perfil/${p.owner.slug}`}
                       style={{ color: 'var(--text-secondary)' }}
                     >
                       {p.owner.name}
-                    </Link>
+                    </AppLink>
                   </span>
                 </div>
               ) : null}

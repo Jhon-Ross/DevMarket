@@ -130,7 +130,8 @@ a:hover {
 }
 
 /* Button base styles */
-button {
+button,
+[role="button"] {
   font-family: inherit;
   border-radius: var(--radius-md);
   border: 1px solid var(--border-default);
@@ -140,9 +141,15 @@ button {
   transition: all 0.2s ease;
 }
 
+[role="button"]:hover,
 button:hover {
   border-color: var(--border-hover);
   box-shadow: var(--shadow-sm);
+}
+
+button:disabled,
+[role="button"][aria-disabled="true"] {
+  cursor: not-allowed;
 }
 
 /* Improve contrast for outline buttons in dark mode */

@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
+import AppLink from '@/components/AppLink';
 import { Card, CardHeader, CardBody, CardFooter, Avatar, Tag, Button } from '@devmarket/ui';
 
 export type FeedItemType = 'project' | 'event' | 'news' | 'interest';
@@ -50,9 +50,9 @@ export default function FeedItemCard({ item }: { item: FeedItem }) {
           )}
           <div style={{ display: 'grid' }}>
             {item.author?.slug ? (
-              <Link href={`/perfil/${item.author.slug}`} style={{ fontWeight: 700 }}>
-                {item.author.name}
-              </Link>
+          <AppLink href={`/perfil/${item.author.slug}`} style={{ fontWeight: 700 }}>
+            {item.author.name}
+          </AppLink>
             ) : (
               <strong>{item.author?.name}</strong>
             )}
@@ -95,9 +95,9 @@ export default function FeedItemCard({ item }: { item: FeedItem }) {
           {typeof item.likes === 'number' ? <Button variant="ghost">❤️ {item.likes}</Button> : null}
           {/* CTAs contextuais */}
           {item.cta?.map((c) => (
-            <Link key={c.href} href={c.href} style={{ textDecoration: 'none' }}>
+            <AppLink key={c.href} href={c.href} style={{ textDecoration: 'none' }}>
               <Button variant="ghost">↗️ {c.label}</Button>
-            </Link>
+            </AppLink>
           ))}
         </div>
       </CardFooter>
