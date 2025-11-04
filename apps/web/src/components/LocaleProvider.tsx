@@ -28,6 +28,22 @@ const dict: Dict = {
     pt: 'Veja projetos em ação, código real e resultados que demonstram a qualidade do trabalho.',
     en: 'See projects in action, real code, and results that demonstrate work quality.',
   },
+  // Home — Showcase
+  'home.showcase.title': { pt: 'Showcase', en: 'Showcase' },
+  'home.showcase.examples.title': { pt: 'Exemplos em destaque', en: 'Featured examples' },
+  'home.showcase.examples.1': {
+    pt: 'App de Finanças com gráficos em tempo real',
+    en: 'Finance App with real-time charts',
+  },
+  'home.showcase.examples.2': {
+    pt: 'Plataforma de Cursos com vídeo e quizzes',
+    en: 'Courses platform with video and quizzes',
+  },
+  'home.showcase.examples.3': {
+    pt: 'E-commerce com checkout e processamento de pedidos',
+    en: 'E-commerce with checkout and order processing',
+  },
+  'home.showcase.cta': { pt: 'Ver mais exemplos', en: 'See more examples' },
   // Home — Social Proof
   'home.social.title': { pt: 'Quem usa e recomenda', en: 'Who uses and recommends' },
   'home.social.quotes.1': {

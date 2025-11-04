@@ -156,6 +156,52 @@ export default function Home() {
         </Grid>
       </section>
 
+      {/* Showcase */}
+      <section style={{ marginBottom: 'var(--space-8)' }}>
+        <h2
+          style={{
+            marginBottom: 'var(--space-2)',
+            color: 'var(--text-primary)',
+            textAlign: 'center',
+          }}
+        >
+          {t('home.showcase.title')}
+        </h2>
+        <p
+          style={{
+            color: 'var(--text-secondary)',
+            textAlign: 'center',
+            marginBottom: 'var(--space-4)',
+          }}
+        >
+          {t('home.showcase.examples.title')}
+        </p>
+        <Grid columns={3} gap="md">
+          <Card elevated>
+            <CardBody style={{ color: 'var(--text-secondary)', lineHeight: 1.6 }}>
+              {t('home.showcase.examples.1')}
+            </CardBody>
+          </Card>
+
+          <Card elevated>
+            <CardBody style={{ color: 'var(--text-secondary)', lineHeight: 1.6 }}>
+              {t('home.showcase.examples.2')}
+            </CardBody>
+          </Card>
+
+          <Card elevated>
+            <CardBody style={{ color: 'var(--text-secondary)', lineHeight: 1.6 }}>
+              {t('home.showcase.examples.3')}
+            </CardBody>
+          </Card>
+        </Grid>
+        <div style={{ display: 'flex', justifyContent: 'center', marginTop: 'var(--space-4)' }}>
+          <Button variant="outline" onClick={() => router.push('/sobre')}>
+            {t('home.showcase.cta')}
+          </Button>
+        </div>
+      </section>
+
       {/* Como funciona */}
       <section style={{ marginBottom: 'var(--space-8)' }}>
         <h2
