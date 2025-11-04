@@ -124,6 +124,38 @@ export default function Home() {
         </Grid>
       </section>
 
+      {/* Social Proof */}
+      <section style={{ marginBottom: 'var(--space-8)' }}>
+        <h2
+          style={{
+            marginBottom: 'var(--space-4)',
+            color: 'var(--text-primary)',
+            textAlign: 'center',
+          }}
+        >
+          {t('home.social.title')}
+        </h2>
+        <Grid columns={3} gap="md">
+          <Card elevated>
+            <CardBody style={{ color: 'var(--text-secondary)', lineHeight: 1.6 }}>
+              {t('home.social.quotes.1')}
+            </CardBody>
+          </Card>
+
+          <Card elevated>
+            <CardBody style={{ color: 'var(--text-secondary)', lineHeight: 1.6 }}>
+              {t('home.social.quotes.2')}
+            </CardBody>
+          </Card>
+
+          <Card elevated>
+            <CardBody style={{ color: 'var(--text-secondary)', lineHeight: 1.6 }}>
+              {t('home.social.quotes.3')}
+            </CardBody>
+          </Card>
+        </Grid>
+      </section>
+
       {/* Como funciona */}
       <section style={{ marginBottom: 'var(--space-8)' }}>
         <h2

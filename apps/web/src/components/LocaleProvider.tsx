@@ -28,6 +28,20 @@ const dict: Dict = {
     pt: 'Veja projetos em ação, código real e resultados que demonstram a qualidade do trabalho.',
     en: 'See projects in action, real code, and results that demonstrate work quality.',
   },
+  // Home — Social Proof
+  'home.social.title': { pt: 'Quem usa e recomenda', en: 'Who uses and recommends' },
+  'home.social.quotes.1': {
+    pt: '“Finalmente um lugar onde meu portfólio fala por si.”',
+    en: '“Finally a place where my portfolio speaks for itself.”',
+  },
+  'home.social.quotes.2': {
+    pt: '“Encontramos devs com projetos reais e contratação foi muito mais assertiva.”',
+    en: '“We found devs with real projects and hiring was far more accurate.”',
+  },
+  'home.social.quotes.3': {
+    pt: '“Publicar com mídia rica fez toda diferença na visibilidade.”',
+    en: '“Publishing with rich media made all the difference in visibility.”',
+  },
   // Home — Como funciona
   'home.how.title': { pt: 'Como funciona', en: 'How it works' },
   'home.how.step1.title': { pt: 'Crie seu perfil', en: 'Create your profile' },
