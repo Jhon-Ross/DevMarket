@@ -29,3 +29,6 @@ apps/web/out/
 # Tool caches
 .cache/
 apps/web/.cache/
+
+# Prisma (SQLite dev)
+prisma/dev.db

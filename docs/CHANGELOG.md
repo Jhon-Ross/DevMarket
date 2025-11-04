@@ -134,19 +134,19 @@ Formato baseado em Keep a Changelog e organizado em camadas para inspeção prec
 - Tooling
   - `package.json` (raiz): `lint-staged` atualizado para execução compatível com Windows (pnpm workspace).
   - `.husky/pre-commit`: permanece chamando `pnpm -w exec lint-staged`.
- - Web/UI
-   - Internacionalização expandida para páginas “Sobre” e “Signup” com `LocaleProvider`.
-   - CTA da página “Sobre” corrigida para usar `router.push('/signup')` via `onClick`.
-   - Tema escuro: contraste da variante `outline` reforçado no `globals.css`.
+- Web/UI
+  - Internacionalização expandida para páginas “Sobre” e “Signup” com `LocaleProvider`.
+  - CTA da página “Sobre” corrigida para usar `router.push('/signup')` via `onClick`.
+  - Tema escuro: contraste da variante `outline` reforçado no `globals.css`.
 
 ### Camada 3 — Referências a arquivos
 
 - `apps/web/src/app/layout.tsx` — remoção de `viewport` de `metadata` e criação de `export const viewport`.
 - `package.json` (raiz) — ajustes em `lint-staged` para `pnpm --dir apps/web exec eslint --fix` e `pnpm -w exec prettier --write`.
- - `apps/web/src/app/sobre/page.tsx` — substituição de `href` em `Button` por navegação via `useRouter().push()`.
- - `apps/web/src/app/signup/page.tsx` — textos conectados a `useLocale()`/`t(key)`.
- - `apps/web/src/app/globals.css` — mapeamento de tokens e ajuste de contraste para `button-outline` em tema escuro.
- - `apps/web/src/components/LocaleProvider.tsx` — dicionário expandido com `about.*`, `signup.*` e `home.plans.*` (básico).
+- `apps/web/src/app/sobre/page.tsx` — substituição de `href` em `Button` por navegação via `useRouter().push()`.
+- `apps/web/src/app/signup/page.tsx` — textos conectados a `useLocale()`/`t(key)`.
+- `apps/web/src/app/globals.css` — mapeamento de tokens e ajuste de contraste para `button-outline` em tema escuro.
+- `apps/web/src/components/LocaleProvider.tsx` — dicionário expandido com `about.*`, `signup.*` e `home.plans.*` (básico).
 
 ### Camada 4 — Notas comportamentais
 
@@ -156,13 +156,13 @@ Formato baseado em Keep a Changelog e organizado em camadas para inspeção prec
 ### Fixed
 
 - Next.js: `Unsupported metadata viewport`.
- - CTA da página “Sobre” (Button sem `href`; navegação via `router.push`).
- - Baixo contraste do `button-outline` em tema escuro.
+- CTA da página “Sobre” (Button sem `href`; navegação via `router.push`).
+- Baixo contraste do `button-outline` em tema escuro.
 
 ### Changed
 
 - `lint-staged` usa `pnpm --dir`/`pnpm -w exec` para compatibilidade em Windows.
- - Documentação de i18n atualizada com páginas “Sobre” e “Signup”; dicionário inclui `home.plans.*` (básico).
+- Documentação de i18n atualizada com páginas “Sobre” e “Signup”; dicionário inclui `home.plans.*` (básico).
 
 ## [0.1.2] — 2025-11-02
 
@@ -207,8 +207,9 @@ Formato baseado em Keep a Changelog e organizado em camadas para inspeção prec
 - TS2303/TS2459: conflito por alias `@sanity/*` com `@sanity/client` — resolvido removendo alias e recompilando.
 
 ### Added
- - Traduções conectadas nas páginas “Sobre” e “Signup” via `LocaleProvider`.
- - Chaves iniciais de planos na Home: `home.plans.*`.
+
+- Traduções conectadas nas páginas “Sobre” e “Signup” via `LocaleProvider`.
+- Chaves iniciais de planos na Home: `home.plans.*`.
 
 - Pacote `@devmarket/sanity` (client + queries) com build para `dist`.
 - Pacote `@devmarket/types` com interface `Perfil` e build para `dist`.
@@ -344,3 +345,58 @@ Formato baseado em Keep a Changelog e organizado em camadas para inspeção prec
 ---
 
 Mantemos este arquivo como registro de mudanças. Para detalhes e exemplos, consulte `docs/dev_market_readme.md` e o preview em `http://localhost:3000/ui-preview`.
+
+## [0.1.4] — 2025-11-04
+
+### Camada 1 — Resumo executivo
+
+- Corrigido erro de runtime no Login (chaves i18n ausentes) e componentes inválidos.
+- Página de Login refatorada com `CardHeader`, `CardBody`, `CardFooter` e inputs consistentes.
+- Adicionado link “Entrar” ao cabeçalho para acesso rápido à autenticação.
+- Documentação atualizada (README do app web) e Kanban refletindo entregas e próximos passos.
+
+### Camada 2 — Áreas e tópicos
+
+- Internacionalização
+  - `LocaleProvider` expandido com `auth.login.*`, `auth.email`, `auth.password`, `common.loading`, `common.redirecting`.
+- UI/Login
+  - Removidos imports inexistentes do UI (`Text`, `Input`, `Spacer`); inputs via HTML com estilos alinhados aos tokens.
+  - Layout do Card centralizado, botão “Entrar” no `CardFooter`, link para cadastro estilizado.
+- Navegação
+  - `NavLinks` recebeu item “Entrar” (`nav.login`) com tradução PT/EN.
+- Autenticação
+  - `pages.signIn` do NextAuth aponta para `/login` (Credentials).
+- Documentação
+  - `apps/web/README.md` ganhou seção “Autenticação e Cadastro” com fluxos e dicas.
+  - `docs/kanban/devmarket-kanban.md` atualizado: itens de Login/i18n/nav em “Concluído” e próximos passos de UX.
+
+### Camada 3 — Referências a arquivos
+
+- `apps/web/src/components/LocaleProvider.tsx` — chaves `auth.*` e `common.*` adicionadas.
+- `apps/web/src/app/login/page.tsx` — remoção de componentes inexistentes do UI e refatoração do layout.
+- `apps/web/src/components/NavLinks.tsx` — adicionado link “Entrar” usando `t('nav.login')`.
+- `apps/web/src/app/api/auth/[...nextauth]/route.ts` — `pages.signIn: '/login'`.
+- `apps/web/README.md` — nova seção de autenticação/cadastro.
+- `docs/kanban/devmarket-kanban.md` — ajustes de status e tarefas.
+
+### Camada 4 — Notas comportamentais e desafios resolvidos
+
+- Erro "Invalid element type: undefined" resolvido ao substituir `Text`/`Input`/`Spacer` por HTML.
+- Chaves i18n ausentes causavam `TypeError` ao acessar `dict[key]` → adicionadas.
+- UI do Login ganhou alinhamento consistente, foco acessível e link discreto para cadastro.
+
+### Fixed
+
+- Runtime `TypeError` por chaves i18n ausentes no Login.
+- Componente inválido no Login ao importar itens inexistentes do `@devmarket/ui`.
+
+### Added
+
+- Link “Entrar” na navegação principal.
+- Chaves i18n `auth.*` e `common.*` no `LocaleProvider`.
+- Documentação de Autenticação/Cadastro no README do app web.
+
+### Changed
+
+- Layout do Login refatorado com subcomponentes do `Card` e inputs em coluna.
+- Kanban atualizado com entregas e próximos passos de UX para Login.

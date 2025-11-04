@@ -20,7 +20,7 @@ kanban-plugin: board
 - [ ] Configurar webhook de revalidação (Sanity → Next.js) para `/perfil/[slug]`.
 - [ ] Homepage UX — definir estrutura e chaves i18n (`docs/planning/homepage-ux.md`).
 - [ ] Criar Prisma schema (`User`, `Subscription`) e migrations.
-- [ ] Integrar NextAuth (email/credentials) e páginas de login.
+- [ ] Melhorias de UX no Login: toggle de visibilidade da senha, mensagens de erro consistentes.
 
 ## Em Revisão
 
@@ -59,6 +59,11 @@ kanban-plugin: board
 - [x] [Sprint 0] Tema escuro: contraste reforçado para `Button` `outline`.
 - [x] [Sprint 0] Mapeamento de tokens do design system em `globals.css` (light/dark).
 - [x] [Sprint 0] Dicionário expandido com chaves de planos (`home.plans.*`).
+- [x] [Auth] Login funcional com `Credentials`: rota `/login` e `pages.signIn` configurada.
+- [x] [Auth] Dicionário i18n expandido com `auth.*` e `common.*` para evitar erros de runtime.
+- [x] [UI] Refatoração do layout do Login com `CardHeader`, `CardBody`, `CardFooter` e inputs alinhados.
+- [x] [UI] Remoção de imports inexistentes (`Text`, `Input`, `Spacer`) do `@devmarket/ui` e uso de HTML.
+- [x] [Nav] Link “Entrar” adicionado ao cabeçalho (`NavLinks.tsx`) usando `t('nav.login')`.
 
 %% kanban:settings
 

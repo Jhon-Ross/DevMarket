@@ -1,16 +1,20 @@
 'use client';
 import React, { useState } from 'react';
 import { Button, Card, CardHeader, CardBody, CardFooter } from '@devmarket/ui';
+import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 import { useLocale } from '@/components/LocaleProvider';
 
 export default function SignupPage() {
   const { t } = useLocale();
+  const router = useRouter();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirm, setConfirm] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState(false);
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -25,9 +29,30 @@ export default function SignupPage() {
     }
     try {
       setLoading(true);
-      // TODO: integrar com NextAuth/endpoint de cadastro
-      await new Promise((r) => setTimeout(r, 800));
-      alert(t('signup.success'));
+      const res = await fetch('/api/auth/signup', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ name, email, password }),
+      });
+      const data = await res.json();
+      if (!res.ok || !data?.ok) {
+        const code = data?.error || 'unknown_error';
+        if (code === 'email_taken') {
+          setError(t('signup.error.emailTaken') || 'Email já cadastrado');
+        } else {
+          setError(t('signup.error.generic') || 'Erro ao cadastrar');
+        }
+        return;
+      }
+      const login = await signIn('credentials', { email, password, redirect: false });
+      if (login?.error) {
+        setError(login.error);
+        return;
+      }
+      setSuccess(true);
+      setTimeout(() => router.push('/'), 1500);
+    } catch (e) {
+      setError(t('signup.error.generic') || 'Erro ao cadastrar');
     } finally {
       setLoading(false);
     }
@@ -147,6 +172,13 @@ export default function SignupPage() {
             </CardFooter>
           </form>
         </CardBody>
+        {success && (
+          <div style={{ padding: 'var(--space-4)' }}>
+            <p role="status" style={{ color: 'var(--success-600)' }}>
+              {t('signup.success')} — {t('common.redirecting') || 'Redirecionando...'}
+            </p>
+          </div>
+        )}
       </Card>
     </main>
   );

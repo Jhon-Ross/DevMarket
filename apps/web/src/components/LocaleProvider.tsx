@@ -122,6 +122,7 @@ const dict: Dict = {
   'nav.uiPreview': { pt: 'Preview de UI', en: 'UI Preview' },
   'nav.projects': { pt: 'Projetos', en: 'Projects' },
   'nav.profile': { pt: 'Perfil', en: 'Profile' },
+  'nav.login': { pt: 'Entrar', en: 'Sign in' },
   // Projetos
   'projects.title': { pt: 'Projetos', en: 'Projects' },
   'projects.empty': { pt: 'Nenhum projeto público encontrado.', en: 'No public projects found.' },
@@ -197,6 +198,17 @@ const dict: Dict = {
   'signup.error.mismatch': { pt: 'Senhas não coincidem.', en: 'Passwords do not match.' },
   'signup.submit': { pt: 'Criar conta', en: 'Create account' },
   'signup.success': { pt: 'Cadastro enviado! (mock)', en: 'Signup submitted! (mock)' },
+  // Auth / Login
+  'auth.login.title': { pt: 'Entrar', en: 'Sign in' },
+  'auth.login.submit': { pt: 'Entrar', en: 'Sign in' },
+  'auth.login.toSignup': { pt: 'Não tem conta? Cadastre-se', en: "Don't have an account? Sign up" },
+  'auth.email': { pt: 'Email', en: 'Email' },
+  'auth.email.placeholder': { pt: 'seu@email.com', en: 'you@example.com' },
+  'auth.password': { pt: 'Senha', en: 'Password' },
+  'auth.password.placeholder': { pt: '••••••••', en: '••••••••' },
+  // Common
+  'common.loading': { pt: 'Carregando...', en: 'Loading...' },
+  'common.redirecting': { pt: 'Redirecionando...', en: 'Redirecting...' },
   // Perfil
   'profile.title': { pt: 'Perfil:', en: 'Profile:' },
   'profile.projects': { pt: 'Projetos públicos', en: 'Public projects' },

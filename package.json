@@ -13,10 +13,11 @@
   },
   "devDependencies": {
     "@types/node": "^20",
-    "typescript": "^5.9.3",
     "husky": "^9.1.7",
     "lint-staged": "^15.2.10",
-    "prettier": "^3.3.3"
+    "prettier": "^3.3.3",
+    "prisma": "^6.18.0",
+    "typescript": "^5.9.3"
   },
   "lint-staged": {
     "apps/web/**/*.{ts,tsx,js,jsx}": [
@@ -25,5 +26,8 @@
     "**/*.{ts,tsx,js,jsx,css,scss,json,md}": [
       "pnpm -w exec prettier --write"
     ]
+  },
+  "dependencies": {
+    "@prisma/client": "^6.18.0"
   }
 }

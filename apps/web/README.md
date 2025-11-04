@@ -78,3 +78,26 @@ export default function Page() {
 - `react` e `react-dom` são `peerDependencies` do pacote UI; mantenha versões compatíveis no workspace.
 - `Button` é um `<button>` e não suporta `href`. Para navegação, use `router.push('/rota')` (via `useRouter`) ou `<Link href="/rota">`.
 - Em tema escuro, a variante `outline` tem contraste reforçado via `apps/web/src/app/globals.css` (bordas e texto ajustados).
+
+## Autenticação e Cadastro
+
+- Fluxo: `next-auth` com provedor `Credentials` (email/senha) e `PrismaAdapter`.
+- Página de Login: `/login` — usa `CardHeader`, `CardBody` e `CardFooter` do `@devmarket/ui`.
+  - Inputs estilizados com HTML padrão (o pacote UI não fornece `Input`/`Text`/`Spacer`).
+  - Botão "Entrar" no `CardFooter` com estado `loading` usando `Button` do UI.
+  - Link para cadastro: `{t('auth.login.toSignup')}` → navega para `/signup`.
+- Página de Cadastro: `/signup` — validação simples (campos obrigatórios e confirmação de senha).
+- Internacionalização:
+  - Chaves adicionadas em `LocaleProvider`: `auth.login.*`, `auth.email`, `auth.password`, `common.loading`, `common.redirecting`.
+  - Evita erros de chave ausente e mantém PT/EN.
+- Navegação:
+  - Link "Entrar" adicionado ao cabeçalho em `apps/web/src/components/NavLinks.tsx` via `t('nav.login')`.
+- Integração com NextAuth:
+  - `apps/web/src/app/api/auth/[...nextauth]/route.ts` define `pages.signIn = '/login'`.
+  - Login programático: `await signIn('credentials', { email, password, redirect: false })`.
+
+### Dicas de Desenvolvimento
+
+- Se aparecer `Runtime Error: invalid element type`, confira se o componente existe em `@devmarket/ui`.
+  - Substituímos `Text`, `Input`, `Spacer` por elementos HTML para compatibilidade.
+- Ao adicionar novos textos às páginas de auth, sempre inclua as chaves no `LocaleProvider`.

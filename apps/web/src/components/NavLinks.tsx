@@ -12,6 +12,9 @@ export default function NavLinks() {
       <Link href="/perfil/teste" style={{ color: 'var(--text-secondary)', textDecoration: 'none' }}>
         <span suppressHydrationWarning>{t('nav.profile')}</span>
       </Link>
+      <Link href="/login" style={{ color: 'var(--text-secondary)', textDecoration: 'none' }}>
+        <span suppressHydrationWarning>{t('nav.login')}</span>
+      </Link>
     </div>
   );
 }

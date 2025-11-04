@@ -8,11 +8,17 @@ export type AnalyticsEvent =
 export function track(event: AnalyticsEvent, payload?: Record<string, unknown>) {
   try {
     // Console para debug local
-    // eslint-disable-next-line no-console
+
     console.log('[analytics]', event, payload || {});
     // dataLayer (se disponível)
-    if (typeof window !== 'undefined' && (window as any).dataLayer) {
-      (window as any).dataLayer.push({ event, ...(payload || {}) });
+    if (typeof window !== 'undefined') {
+      type DataLayerWindow = Window & {
+        dataLayer?: { push: (data: Record<string, unknown>) => void };
+      };
+      const w = window as unknown as DataLayerWindow;
+      if (w.dataLayer) {
+        w.dataLayer.push({ event, ...(payload || {}) });
+      }
     }
   } catch {}
 }
