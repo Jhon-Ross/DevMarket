@@ -84,7 +84,14 @@ export default function Home() {
           {t('home.subtitle')}
         </p>
 
-        <div style={{ display: 'flex', gap: 'var(--space-4)', justifyContent: 'center', flexWrap: 'wrap' }}>
+        <div
+          style={{
+            display: 'flex',
+            gap: 'var(--space-4)',
+            justifyContent: 'center',
+            flexWrap: 'wrap',
+          }}
+        >
           <Button onClick={handleStart}>{t('home.ctaStart')}</Button>
           <Button variant="outline" onClick={handleLearn}>
             {t('home.ctaLearn')}
@@ -119,52 +126,66 @@ export default function Home() {
 
       {/* Planos */}
       <section style={{ marginBottom: 'var(--space-8)' }}>
-        <h2 style={{ marginBottom: 'var(--space-4)', color: 'var(--text-primary)', textAlign: 'center' }}>
-          Planos
+        <h2
+          style={{
+            marginBottom: 'var(--space-4)',
+            color: 'var(--text-primary)',
+            textAlign: 'center',
+          }}
+        >
+          {t('home.plans.title')}
         </h2>
         <Grid columns={3} gap="md">
           <Card elevated>
-            <CardHeader style={{ fontWeight: 600 }}>Dev Free</CardHeader>
+            <CardHeader style={{ fontWeight: 600 }}>{t('home.plans.devFree.title')}</CardHeader>
             <CardBody style={{ color: 'var(--text-secondary)' }}>
               <ul style={{ paddingLeft: 18, margin: 0 }}>
-                <li>Perfil básico</li>
-                <li>Até 3 projetos</li>
-                <li>1 vídeo</li>
+                <li>{t('home.plans.devFree.benefit1')}</li>
+                <li>{t('home.plans.devFree.benefit2')}</li>
+                <li>{t('home.plans.devFree.benefit3')}</li>
               </ul>
             </CardBody>
-            <CardFooter style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <span style={{ color: 'var(--success-600)' }}>Grátis</span>
-              <Button onClick={() => router.push('/signup')}>Começar</Button>
+            <CardFooter
+              style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+            >
+              <span style={{ color: 'var(--success-600)' }}>{t('home.plans.devFree.price')}</span>
+              <Button onClick={() => router.push('/signup')}>{t('home.ctaStart')}</Button>
             </CardFooter>
           </Card>
 
           <Card elevated>
-            <CardHeader style={{ fontWeight: 600 }}>Dev Pro</CardHeader>
+            <CardHeader style={{ fontWeight: 600 }}>{t('home.plans.devPro.title')}</CardHeader>
             <CardBody style={{ color: 'var(--text-secondary)' }}>
               <ul style={{ paddingLeft: 18, margin: 0 }}>
-                <li>Perfil completo</li>
-                <li>Vídeos ilimitados</li>
-                <li>Destaque no ranking</li>
+                <li>{t('home.plans.devPro.benefit1')}</li>
+                <li>{t('home.plans.devPro.benefit2')}</li>
+                <li>{t('home.plans.devPro.benefit3')}</li>
               </ul>
             </CardBody>
-            <CardFooter style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <span style={{ color: 'var(--text-primary)' }}>R$ 19,90/mês</span>
-              <Button onClick={() => router.push('/signup')}>Assinar</Button>
+            <CardFooter
+              style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+            >
+              <span style={{ color: 'var(--text-primary)' }}>{t('home.plans.devPro.price')}</span>
+              <Button onClick={() => router.push('/signup')}>{t('home.ctaStart')}</Button>
             </CardFooter>
           </Card>
 
           <Card elevated>
-            <CardHeader style={{ fontWeight: 600 }}>Dev Premium</CardHeader>
+            <CardHeader style={{ fontWeight: 600 }}>{t('home.plans.devPremium.title')}</CardHeader>
             <CardBody style={{ color: 'var(--text-secondary)' }}>
               <ul style={{ paddingLeft: 18, margin: 0 }}>
-                <li>Tudo do Pro</li>
-                <li>Insights de visitas</li>
-                <li>Suporte prioritário</li>
+                <li>{t('home.plans.devPremium.benefit1')}</li>
+                <li>{t('home.plans.devPremium.benefit2')}</li>
+                <li>{t('home.plans.devPremium.benefit3')}</li>
               </ul>
             </CardBody>
-            <CardFooter style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <span style={{ color: 'var(--text-primary)' }}>R$ 39,90/mês</span>
-              <Button onClick={() => router.push('/signup')}>Assinar</Button>
+            <CardFooter
+              style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+            >
+              <span style={{ color: 'var(--text-primary)' }}>
+                {t('home.plans.devPremium.price')}
+              </span>
+              <Button onClick={() => router.push('/signup')}>{t('home.ctaStart')}</Button>
             </CardFooter>
           </Card>
         </Grid>
