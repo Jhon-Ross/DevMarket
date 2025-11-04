@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -25,7 +25,10 @@ export type FeedItem = {
 };
 
 function TypeBadge({ type }: { type: FeedItemType }) {
-  const map: Record<FeedItemType, { label: string; variant?: 'primary' | 'success' | 'warning' | 'danger' }> = {
+  const map: Record<
+    FeedItemType,
+    { label: string; variant?: 'primary' | 'success' | 'warning' | 'danger' }
+  > = {
     project: { label: 'Projeto', variant: 'primary' },
     event: { label: 'Evento', variant: 'success' },
     news: { label: 'Notícia', variant: 'warning' },

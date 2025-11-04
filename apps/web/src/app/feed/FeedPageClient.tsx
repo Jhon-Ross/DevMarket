@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import React from 'react';
 import { Grid, Tag } from '@devmarket/ui';
 import '@devmarket/ui';
@@ -10,14 +10,14 @@ const demoFeed: FeedItem[] = [
     type: 'project',
     title: 'Grimório de UI',
     description: 'Biblioteca de componentes com tokens semânticos e acessibilidade.',
-    imageUrl: 'https://cdn.sanity.io/images/demo/production/project-1.jpg',
+    imageUrl: '/globe.svg',
     techTags: ['Next.js', 'TypeScript', 'Design System'],
     likes: 128,
     createdAt: '2025-11-03T14:12:00Z',
     author: {
       name: 'Luan Dev',
       slug: 'luan-dev',
-      avatarUrl: 'https://cdn.sanity.io/images/demo/production/luan-avatar.png',
+      avatarUrl: null,
       role: 'dev',
     },
     cta: [{ label: 'Ver detalhes', href: '/projetos/luan-dev/grimorio-de-ui' }],
@@ -27,12 +27,12 @@ const demoFeed: FeedItem[] = [
     type: 'event',
     title: 'Hiring Day — Vagas para Frontend',
     description: 'Encontro online para apresentar vagas, tirar dúvidas e coletar portfólios.',
-    imageUrl: 'https://cdn.sanity.io/images/demo/production/event-1.jpg',
+    imageUrl: '/globe.svg',
     createdAt: '2025-11-03T15:00:00Z',
     author: {
       name: 'TechCorp',
       slug: 'techcorp',
-      avatarUrl: 'https://cdn.sanity.io/images/demo/production/company-techcorp.png',
+      avatarUrl: null,
       role: 'company',
     },
     cta: [
@@ -45,12 +45,12 @@ const demoFeed: FeedItem[] = [
     type: 'news',
     title: 'DevMarket News — Suporte a Portfólios com Mídia Rica',
     description: 'Agora você pode anexar vídeos, imagens e arquivos aos projetos públicos.',
-    imageUrl: 'https://cdn.sanity.io/images/demo/production/news-1.jpg',
+    imageUrl: '/globe.svg',
     createdAt: '2025-11-02T11:20:00Z',
     author: {
       name: 'DevMarket',
       slug: 'devmarket',
-      avatarUrl: 'https://cdn.sanity.io/images/demo/production/devmarket.png',
+      avatarUrl: null,
       role: 'company',
     },
     cta: [{ label: 'Saber mais', href: '/sobre' }],
@@ -64,7 +64,7 @@ const demoFeed: FeedItem[] = [
     author: {
       name: 'Ana Code',
       slug: 'ana-code',
-      avatarUrl: 'https://cdn.sanity.io/images/demo/production/ana-avatar.png',
+      avatarUrl: null,
       role: 'dev',
     },
     techTags: ['React', 'Charts', 'UX'],
@@ -73,11 +73,12 @@ const demoFeed: FeedItem[] = [
   },
 ];
 
-export default function FeedPageClient() {
+export default function FeedPageClient({ items }: { items?: FeedItem[] }) {
+  const source = items && items.length ? items : demoFeed;
   const [activeType, setActiveType] = React.useState<FeedItemType | 'all'>('all');
   const filtered = React.useMemo(
-    () => (activeType === 'all' ? demoFeed : demoFeed.filter((i) => i.type === activeType)),
-    [activeType]
+    () => (activeType === 'all' ? source : source.filter((i) => i.type === activeType)),
+    [activeType, source]
   );
 
   return (
@@ -90,19 +91,34 @@ export default function FeedPageClient() {
       {/* Filtros por tipo */}
       <div style={{ marginTop: 'var(--space-4)' }}>
         <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center' }}>
-          <Tag variant={activeType === 'all' ? 'primary' : undefined} onClick={() => setActiveType('all')}>
+          <Tag
+            variant={activeType === 'all' ? 'primary' : undefined}
+            onClick={() => setActiveType('all')}
+          >
             Todos
           </Tag>
-          <Tag variant={activeType === 'project' ? 'primary' : undefined} onClick={() => setActiveType('project')}>
+          <Tag
+            variant={activeType === 'project' ? 'primary' : undefined}
+            onClick={() => setActiveType('project')}
+          >
             Projetos
           </Tag>
-          <Tag variant={activeType === 'event' ? 'primary' : undefined} onClick={() => setActiveType('event')}>
+          <Tag
+            variant={activeType === 'event' ? 'primary' : undefined}
+            onClick={() => setActiveType('event')}
+          >
             Eventos
           </Tag>
-          <Tag variant={activeType === 'news' ? 'primary' : undefined} onClick={() => setActiveType('news')}>
+          <Tag
+            variant={activeType === 'news' ? 'primary' : undefined}
+            onClick={() => setActiveType('news')}
+          >
             Notícias
           </Tag>
-          <Tag variant={activeType === 'interest' ? 'primary' : undefined} onClick={() => setActiveType('interest')}>
+          <Tag
+            variant={activeType === 'interest' ? 'primary' : undefined}
+            onClick={() => setActiveType('interest')}
+          >
             Interesses
           </Tag>
         </div>
