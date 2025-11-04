@@ -2,13 +2,42 @@
 import React, { useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { useLocale } from '../components/LocaleProvider';
-import { Button, Card, CardHeader, CardBody, CardFooter, Grid } from '@devmarket/ui';
+import {
+  Button,
+  Card,
+  CardHeader,
+  CardBody,
+  CardFooter,
+  Grid,
+  Avatar,
+  MediaGallery,
+  Tag,
+} from '@devmarket/ui';
+import AppLink from '@/components/AppLink';
 import { track } from '@/lib/analytics';
 
 export default function Home() {
   const { t } = useLocale();
   const router = useRouter();
   const showcaseRef = useRef<HTMLDivElement | null>(null);
+  const testimonials = [
+    {
+      quote: () => t('home.social.quotes.1'),
+      profile: { name: 'Ana Dev', slug: 'ana-dev', avatarUrl: 'https://i.pravatar.cc/80?img=32' },
+    },
+    {
+      quote: () => t('home.social.quotes.2'),
+      profile: {
+        name: 'Bruno Code',
+        slug: 'bruno-code',
+        avatarUrl: 'https://i.pravatar.cc/80?img=15',
+      },
+    },
+    {
+      quote: () => t('home.social.quotes.3'),
+      profile: { name: 'Carla JS', slug: 'carla-js', avatarUrl: 'https://i.pravatar.cc/80?img=27' },
+    },
+  ];
 
   const handleStart = () => {
     track('home_cta_start_click', { href: '/signup' });
@@ -136,23 +165,19 @@ export default function Home() {
           {t('home.social.title')}
         </h2>
         <Grid columns={3} gap="md">
-          <Card elevated>
-            <CardBody style={{ color: 'var(--text-secondary)', lineHeight: 1.6 }}>
-              {t('home.social.quotes.1')}
-            </CardBody>
-          </Card>
-
-          <Card elevated>
-            <CardBody style={{ color: 'var(--text-secondary)', lineHeight: 1.6 }}>
-              {t('home.social.quotes.2')}
-            </CardBody>
-          </Card>
-
-          <Card elevated>
-            <CardBody style={{ color: 'var(--text-secondary)', lineHeight: 1.6 }}>
-              {t('home.social.quotes.3')}
-            </CardBody>
-          </Card>
+          {testimonials.map((item) => (
+            <Card key={item.profile.slug} elevated>
+              <CardBody style={{ color: 'var(--text-secondary)', lineHeight: 1.6 }}>
+                {item.quote()}
+              </CardBody>
+              <CardFooter style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                <Avatar name={item.profile.name} src={item.profile.avatarUrl} size="sm" />
+                <span style={{ color: 'var(--text-primary)', fontWeight: 600 }}>
+                  {item.profile.name}
+                </span>
+              </CardFooter>
+            </Card>
+          ))}
         </Grid>
       </section>
 
@@ -176,25 +201,77 @@ export default function Home() {
         >
           {t('home.showcase.examples.title')}
         </p>
-        <Grid columns={3} gap="md">
-          <Card elevated>
-            <CardBody style={{ color: 'var(--text-secondary)', lineHeight: 1.6 }}>
-              {t('home.showcase.examples.1')}
-            </CardBody>
-          </Card>
 
-          <Card elevated>
-            <CardBody style={{ color: 'var(--text-secondary)', lineHeight: 1.6 }}>
-              {t('home.showcase.examples.2')}
-            </CardBody>
-          </Card>
+        {/* Render cards with image + caption to keep everything aligned */}
+        {(() => {
+          const showcaseItems = [
+            {
+              src: 'https://picsum.photos/id/1015/800/600',
+              alt: t('home.showcase.examples.1'),
+              caption: t('home.showcase.examples.1'),
+            },
+            {
+              src: 'https://picsum.photos/id/1039/800/600',
+              alt: t('home.showcase.examples.2'),
+              caption: t('home.showcase.examples.2'),
+            },
+            {
+              src: 'https://picsum.photos/id/1042/800/600',
+              alt: t('home.showcase.examples.3'),
+              caption: t('home.showcase.examples.3'),
+            },
+          ];
 
-          <Card elevated>
-            <CardBody style={{ color: 'var(--text-secondary)', lineHeight: 1.6 }}>
-              {t('home.showcase.examples.3')}
-            </CardBody>
-          </Card>
-        </Grid>
+          return (
+            <Grid columns={3} gap="md">
+              {showcaseItems.map((item) => (
+                <AppLink href="/projetos" key={item.src} style={{ textDecoration: 'none' }}>
+                  <Card
+                    elevated
+                    style={{
+                      cursor: 'pointer',
+                      transition: 'transform 0.15s ease',
+                      willChange: 'transform',
+                    }}
+                    onMouseEnter={(e) => (e.currentTarget.style.transform = 'translateY(-2px)')}
+                    onMouseLeave={(e) => (e.currentTarget.style.transform = 'none')}
+                  >
+                    <div
+                      style={{
+                        overflow: 'hidden',
+                        borderRadius: 8,
+                        aspectRatio: '16 / 9',
+                        width: '100%',
+                      }}
+                    >
+                      <img
+                        src={item.src}
+                        alt={item.alt}
+                        style={{
+                          width: '100%',
+                          height: '100%',
+                          objectFit: 'cover',
+                          display: 'block',
+                        }}
+                      />
+                    </div>
+                    <CardBody
+                      style={{
+                        color: 'var(--text-secondary)',
+                        textAlign: 'center',
+                        paddingTop: 'var(--space-3)',
+                        paddingBottom: 'var(--space-3)',
+                      }}
+                    >
+                      {item.caption}
+                    </CardBody>
+                  </Card>
+                </AppLink>
+              ))}
+            </Grid>
+          );
+        })()}
+
         <div style={{ display: 'flex', justifyContent: 'center', marginTop: 'var(--space-4)' }}>
           <Button variant="outline" onClick={() => router.push('/sobre')}>
             {t('home.showcase.cta')}
@@ -249,56 +326,240 @@ export default function Home() {
           {t('home.plans.title')}
         </h2>
         <Grid columns={3} gap="md">
-          <Card elevated>
-            <CardHeader style={{ fontWeight: 600 }}>{t('home.plans.devFree.title')}</CardHeader>
-            <CardBody style={{ color: 'var(--text-secondary)' }}>
-              <ul style={{ paddingLeft: 18, margin: 0 }}>
-                <li>{t('home.plans.devFree.benefit1')}</li>
-                <li>{t('home.plans.devFree.benefit2')}</li>
-                <li>{t('home.plans.devFree.benefit3')}</li>
-              </ul>
-            </CardBody>
-            <CardFooter
+          {/* Dev Free */}
+          <Card
+            bordered
+            style={{
+              transition: 'transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease',
+              border: '1px solid rgba(17,24,39,0.08)',
+              borderRadius: 12,
+              boxShadow: '0 2px 8px rgba(17,24,39,0.06)',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'translateY(-2px)';
+              e.currentTarget.style.boxShadow = '0 8px 24px rgba(17,24,39,0.08)';
+              e.currentTarget.style.borderColor = 'rgba(17,24,39,0.12)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'none';
+              e.currentTarget.style.boxShadow = '0 2px 8px rgba(17,24,39,0.06)';
+              e.currentTarget.style.borderColor = 'rgba(17,24,39,0.08)';
+            }}
+          >
+            <CardHeader
               style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
             >
-              <span style={{ color: 'var(--success-600)' }}>{t('home.plans.devFree.price')}</span>
-              <Button onClick={() => router.push('/signup')}>{t('home.ctaStart')}</Button>
+              <strong style={{ fontWeight: 700 }}>{t('home.plans.devFree.title')}</strong>
+              <span style={{ fontSize: 12, color: 'var(--color-muted)' }}>Ideal para começar</span>
+            </CardHeader>
+            <CardBody style={{ display: 'grid', gap: 12, minHeight: 220 }}>
+              <div
+                style={{
+                  fontSize: 26,
+                  fontWeight: 700,
+                  letterSpacing: '0',
+                  color: 'var(--text-primary)',
+                  fontVariantNumeric: 'tabular-nums',
+                  fontFeatureSettings: '"tnum" on, "lnum" on',
+                }}
+              >
+                {t('home.plans.devFree.price')}
+              </div>
+              <ul
+                style={{
+                  listStyle: 'none',
+                  padding: 0,
+                  margin: 0,
+                  display: 'grid',
+                  gap: 8,
+                  color: 'var(--text-secondary)',
+                }}
+              >
+                <li style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <span aria-hidden style={{ color: '#10b981', fontWeight: 700 }}>
+                    ✓
+                  </span>
+                  {t('home.plans.devFree.benefit1')}
+                </li>
+                <li style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <span aria-hidden style={{ color: '#10b981', fontWeight: 700 }}>
+                    ✓
+                  </span>
+                  {t('home.plans.devFree.benefit2')}
+                </li>
+                <li style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <span aria-hidden style={{ color: '#10b981', fontWeight: 700 }}>
+                    ✓
+                  </span>
+                  {t('home.plans.devFree.benefit3')}
+                </li>
+              </ul>
+            </CardBody>
+            <CardFooter style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+              <Button
+                size="lg"
+                variant="outline"
+                style={{ minWidth: 220 }}
+                onClick={() => router.push('/signup')}
+              >
+                {t('home.ctaStart')}
+              </Button>
             </CardFooter>
           </Card>
 
-          <Card elevated>
-            <CardHeader style={{ fontWeight: 600 }}>{t('home.plans.devPro.title')}</CardHeader>
-            <CardBody style={{ color: 'var(--text-secondary)' }}>
-              <ul style={{ paddingLeft: 18, margin: 0 }}>
-                <li>{t('home.plans.devPro.benefit1')}</li>
-                <li>{t('home.plans.devPro.benefit2')}</li>
-                <li>{t('home.plans.devPro.benefit3')}</li>
-              </ul>
-            </CardBody>
-            <CardFooter
+          {/* Dev Pro (Mais popular) */}
+          <Card
+            elevated
+            style={{
+              transition: 'transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease',
+              border: '1px solid rgba(79,70,229,0.35)',
+              borderRadius: 12,
+              boxShadow: '0 6px 24px rgba(79,70,229,0.15)',
+              background: 'linear-gradient(180deg, rgba(79,70,229,0.06), transparent 60%)',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'translateY(-3px)';
+              e.currentTarget.style.boxShadow = '0 16px 36px rgba(79,70,229,0.22)';
+              e.currentTarget.style.borderColor = 'rgba(79,70,229,0.55)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'none';
+              e.currentTarget.style.boxShadow = '0 6px 24px rgba(79,70,229,0.15)';
+              e.currentTarget.style.borderColor = 'rgba(79,70,229,0.35)';
+            }}
+          >
+            <CardHeader
               style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
             >
-              <span style={{ color: 'var(--text-primary)' }}>{t('home.plans.devPro.price')}</span>
-              <Button onClick={() => router.push('/signup')}>{t('home.ctaStart')}</Button>
+              <strong style={{ fontWeight: 700 }}>{t('home.plans.devPro.title')}</strong>
+              <Tag variant="primary">Mais popular</Tag>
+            </CardHeader>
+            <CardBody style={{ display: 'grid', gap: 12, minHeight: 220 }}>
+              <div
+                style={{
+                  fontSize: 30,
+                  fontWeight: 700,
+                  letterSpacing: '0',
+                  color: 'var(--text-primary)',
+                  fontVariantNumeric: 'tabular-nums',
+                  fontFeatureSettings: '"tnum" on, "lnum" on',
+                }}
+              >
+                {t('home.plans.devPro.price')}
+              </div>
+              <ul
+                style={{
+                  listStyle: 'none',
+                  padding: 0,
+                  margin: 0,
+                  display: 'grid',
+                  gap: 8,
+                  color: 'var(--text-secondary)',
+                }}
+              >
+                <li style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <span aria-hidden style={{ color: '#10b981', fontWeight: 700 }}>
+                    ✓
+                  </span>
+                  {t('home.plans.devPro.benefit1')}
+                </li>
+                <li style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <span aria-hidden style={{ color: '#10b981', fontWeight: 700 }}>
+                    ✓
+                  </span>
+                  {t('home.plans.devPro.benefit2')}
+                </li>
+                <li style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <span aria-hidden style={{ color: '#10b981', fontWeight: 700 }}>
+                    ✓
+                  </span>
+                  {t('home.plans.devPro.benefit3')}
+                </li>
+              </ul>
+              <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+                <Tag variant="success">Suporte</Tag>
+                <Tag>Destaque</Tag>
+              </div>
+            </CardBody>
+            <CardFooter style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+              <Button size="lg" style={{ minWidth: 220 }} onClick={() => router.push('/signup')}>
+                {t('home.ctaStart')}
+              </Button>
             </CardFooter>
           </Card>
 
-          <Card elevated>
-            <CardHeader style={{ fontWeight: 600 }}>{t('home.plans.devPremium.title')}</CardHeader>
-            <CardBody style={{ color: 'var(--text-secondary)' }}>
-              <ul style={{ paddingLeft: 18, margin: 0 }}>
-                <li>{t('home.plans.devPremium.benefit1')}</li>
-                <li>{t('home.plans.devPremium.benefit2')}</li>
-                <li>{t('home.plans.devPremium.benefit3')}</li>
-              </ul>
-            </CardBody>
-            <CardFooter
-              style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
-            >
-              <span style={{ color: 'var(--text-primary)' }}>
+          {/* Dev Premium */}
+          <Card
+            elevated
+            style={{
+              transition: 'transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease',
+              border: '1px solid rgba(17,24,39,0.10)',
+              borderRadius: 12,
+              boxShadow: '0 4px 14px rgba(17,24,39,0.08)',
+              background: 'linear-gradient(180deg, rgba(245,158,11,0.05), transparent 60%)',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'translateY(-2px)';
+              e.currentTarget.style.boxShadow = '0 12px 28px rgba(17,24,39,0.12)';
+              e.currentTarget.style.borderColor = 'rgba(17,24,39,0.14)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'none';
+              e.currentTarget.style.boxShadow = '0 4px 14px rgba(17,24,39,0.08)';
+              e.currentTarget.style.borderColor = 'rgba(17,24,39,0.10)';
+            }}
+          >
+            <CardHeader style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              <strong style={{ fontWeight: 700 }}>{t('home.plans.devPremium.title')}</strong>
+              <Tag variant="warning">Empresas</Tag>
+            </CardHeader>
+            <CardBody style={{ display: 'grid', gap: 12, minHeight: 220 }}>
+              <div
+                style={{
+                  fontSize: 28,
+                  fontWeight: 700,
+                  letterSpacing: '0',
+                  color: 'var(--text-primary)',
+                  fontVariantNumeric: 'tabular-nums',
+                  fontFeatureSettings: '"tnum" on, "lnum" on',
+                }}
+              >
                 {t('home.plans.devPremium.price')}
-              </span>
-              <Button onClick={() => router.push('/signup')}>{t('home.ctaStart')}</Button>
+              </div>
+              <ul
+                style={{
+                  listStyle: 'none',
+                  padding: 0,
+                  margin: 0,
+                  display: 'grid',
+                  gap: 8,
+                  color: 'var(--text-secondary)',
+                }}
+              >
+                <li style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <span aria-hidden style={{ color: '#10b981', fontWeight: 700 }}>
+                    ✓
+                  </span>
+                  {t('home.plans.devPremium.benefit1')}
+                </li>
+                <li style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <span aria-hidden style={{ color: '#10b981', fontWeight: 700 }}>
+                    ✓
+                  </span>
+                  {t('home.plans.devPremium.benefit2')}
+                </li>
+                <li style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <span aria-hidden style={{ color: '#10b981', fontWeight: 700 }}>
+                    ✓
+                  </span>
+                  {t('home.plans.devPremium.benefit3')}
+                </li>
+              </ul>
+            </CardBody>
+            <CardFooter style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+              <Button size="lg" style={{ minWidth: 220 }} onClick={() => router.push('/signup')}>
+                {t('home.ctaStart')}
+              </Button>
             </CardFooter>
           </Card>
         </Grid>

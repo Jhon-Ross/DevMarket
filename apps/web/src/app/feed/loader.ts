@@ -43,6 +43,7 @@ export async function loadFeedFromSanity(): Promise<FeedItem[]> {
             role: 'dev',
           }
         : undefined,
+      // Label renderizada com i18n no client; mantém fallback aqui
       cta: [{ label: 'Ver detalhes', href: `/projetos/${p.owner?.slug ?? 'perfil'}/${p.slug}` }],
     }));
   } catch (e) {

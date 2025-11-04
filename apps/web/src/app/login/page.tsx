@@ -57,6 +57,41 @@ export default function LoginPage() {
         <form onSubmit={onSubmit}>
           <CardBody>
             <Grid columns={1} gap="md">
+              {/* Alert de erro de login */}
+              {(() => {
+                const errorCode = error || search?.get('error') || null;
+                if (!errorCode) return null;
+                const isCredentials = errorCode === 'CredentialsSignin';
+                const title = isCredentials
+                  ? t('auth.error.credentials.title')
+                  : t('auth.error.generic.title');
+                const desc = isCredentials
+                  ? t('auth.error.credentials.desc')
+                  : t('auth.error.generic.desc');
+                return (
+                  <div
+                    role="alert"
+                    aria-live="polite"
+                    style={{
+                      display: 'grid',
+                      gridTemplateColumns: '24px 1fr',
+                      gap: 10,
+                      padding: '12px 14px',
+                      borderRadius: 'var(--radius-md)',
+                      border: '1px solid var(--danger-300)',
+                      background: 'var(--bg-default)',
+                    }}
+                  >
+                    <span aria-hidden="true" style={{ fontSize: 18 }}>
+                      ⚠️
+                    </span>
+                    <div>
+                      <strong style={{ color: 'var(--danger-600)' }}>{title}</strong>
+                      <p style={{ margin: '6px 0 0', color: 'var(--text-secondary)' }}>{desc}</p>
+                    </div>
+                  </div>
+                );
+              })()}
               <label style={{ display: 'grid', gap: 6 }}>
                 <span>{t('auth.email') || 'Email'}</span>
                 <input
@@ -99,11 +134,6 @@ export default function LoginPage() {
                   onBlur={(e) => (e.currentTarget.style.outline = '')}
                 />
               </label>
-              {error ? (
-                <p role="alert" style={{ color: 'var(--danger-600)' }}>
-                  {error}
-                </p>
-              ) : null}
             </Grid>
           </CardBody>
           <CardFooter

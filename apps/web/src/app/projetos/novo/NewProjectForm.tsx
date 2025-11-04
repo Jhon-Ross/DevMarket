@@ -2,9 +2,11 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Card, CardHeader, CardBody, CardFooter, Grid, Button } from '@devmarket/ui';
+import { useLocale } from '@/components/LocaleProvider';
 
 export default function NewProjectForm() {
   const router = useRouter();
+  const { t } = useLocale();
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [techTags, setTechTags] = useState('');
@@ -18,7 +20,7 @@ export default function NewProjectForm() {
     setError(null);
     setSuccess(null);
     if (!title.trim()) {
-      setError('Informe um título.');
+      setError(t('newProject.form.error.missingTitle'));
       return;
     }
     setLoading(true);
@@ -38,15 +40,15 @@ export default function NewProjectForm() {
       });
       const data = await res.json();
       if (!res.ok || !data?.ok) {
-        setError(data?.error || 'Erro ao criar projeto');
+        setError(data?.error || t('newProject.form.error.create'));
         return;
       }
-      setSuccess('Projeto enviado para moderação.');
+      setSuccess(t('newProject.form.success'));
       setTimeout(() => {
         router.push(`/perfil/${data.ownerSlug || 'meu'}`);
       }, 1200);
     } catch (e) {
-      setError('Erro interno ao criar projeto');
+      setError(t('newProject.form.error.internal'));
     } finally {
       setLoading(false);
     }
@@ -55,17 +57,17 @@ export default function NewProjectForm() {
   return (
     <Card elevated>
       <CardHeader>
-        <strong>Novo Projeto</strong>
+        <strong>{t('newProject.title')}</strong>
       </CardHeader>
       <form onSubmit={onSubmit}>
         <CardBody>
           <Grid columns={2} gap="md">
             <label style={{ display: 'grid', gap: 6 }}>
-              <span>Título</span>
+              <span>{t('newProject.form.title')}</span>
               <input
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                placeholder="Ex.: Dashboard de Vendas"
+                placeholder={t('newProject.form.titlePlaceholder')}
                 required
                 style={{
                   width: '100%',
@@ -78,11 +80,11 @@ export default function NewProjectForm() {
               />
             </label>
             <label style={{ display: 'grid', gap: 6 }}>
-              <span>Tags de tecnologia (separadas por vírgula)</span>
+              <span>{t('newProject.form.techTags')}</span>
               <input
                 value={techTags}
                 onChange={(e) => setTechTags(e.target.value)}
-                placeholder="Next.js, TypeScript, Stripe"
+                placeholder={t('newProject.form.techTagsPlaceholder')}
                 style={{
                   width: '100%',
                   padding: '10px 12px',
@@ -94,11 +96,11 @@ export default function NewProjectForm() {
               />
             </label>
             <label style={{ display: 'grid', gap: 6 }}>
-              <span>Descrição</span>
+              <span>{t('newProject.form.description')}</span>
               <textarea
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
-                placeholder="Resumo do projeto, objetivo, desafios e resultados."
+                placeholder={t('newProject.form.descriptionPlaceholder')}
                 rows={5}
                 style={{
                   width: '100%',
@@ -111,11 +113,11 @@ export default function NewProjectForm() {
               />
             </label>
             <label style={{ display: 'grid', gap: 6 }}>
-              <span>Imagem de capa (URL)</span>
+              <span>{t('newProject.form.coverUrl')}</span>
               <input
                 value={coverUrl}
                 onChange={(e) => setCoverUrl(e.target.value)}
-                placeholder="https://..."
+                placeholder={t('newProject.form.coverUrlPlaceholder')}
                 style={{
                   width: '100%',
                   padding: '10px 12px',
@@ -128,15 +130,19 @@ export default function NewProjectForm() {
             </label>
           </Grid>
           {error ? (
-            <p role="alert" style={{ color: 'var(--danger-600)' }}>{error}</p>
+            <p role="alert" style={{ color: 'var(--danger-600)' }}>
+              {error}
+            </p>
           ) : null}
           {success ? (
-            <p role="status" style={{ color: 'var(--success-600)' }}>{success}</p>
+            <p role="status" style={{ color: 'var(--success-600)' }}>
+              {success}
+            </p>
           ) : null}
         </CardBody>
         <CardFooter style={{ display: 'flex', justifyContent: 'flex-end' }}>
           <Button type="submit" loading={loading}>
-            Enviar para moderação
+            {t('newProject.form.submit')}
           </Button>
         </CardFooter>
       </form>

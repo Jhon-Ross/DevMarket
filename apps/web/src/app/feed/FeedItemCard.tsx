@@ -23,6 +23,13 @@ export type FeedItem = {
     role?: 'dev' | 'company';
   };
   cta?: { label: string; href: string }[];
+  comments?: {
+    id: string;
+    author: string;
+    content: string;
+    createdAt?: string;
+    avatarUrl?: string | null;
+  }[];
 };
 
 function TypeBadge({ type }: { type: FeedItemType }) {
@@ -41,7 +48,31 @@ function TypeBadge({ type }: { type: FeedItemType }) {
 }
 
 export default function FeedItemCard({ item }: { item: FeedItem }) {
-  const { locale } = useLocale();
+  const { locale, t } = useLocale();
+  const [likes, setLikes] = React.useState(item.likes ?? 0);
+  const [fire, setFire] = React.useState(0);
+  const [rocket, setRocket] = React.useState(0);
+  const [showComments, setShowComments] = React.useState(false);
+  const [comments, setComments] = React.useState(item.comments ?? []);
+  const [draft, setDraft] = React.useState('');
+
+  const onReact = (type: 'like' | 'fire' | 'rocket') => {
+    if (type === 'like') setLikes((v) => v + 1);
+    if (type === 'fire') setFire((v) => v + 1);
+    if (type === 'rocket') setRocket((v) => v + 1);
+  };
+
+  const onSubmitComment = () => {
+    const content = draft.trim();
+    if (!content) return;
+    const now = new Date().toISOString();
+    setComments((arr) => [
+      ...arr,
+      { id: `${item.id}-c${arr.length + 1}`, author: 'Você', content, createdAt: now },
+    ]);
+    setDraft('');
+    setShowComments(true);
+  };
   return (
     <Card elevated>
       <CardHeader>
@@ -91,17 +122,68 @@ export default function FeedItemCard({ item }: { item: FeedItem }) {
             ))}
           </div>
         ) : null}
+        {/* Comentários (preview) */}
+        {showComments ? (
+          <div style={{ marginTop: 12, display: 'grid', gap: 8 }}>
+            {comments.map((c) => (
+              <div key={c.id} style={{ display: 'flex', gap: 8 }}>
+                {c.avatarUrl ? (
+                  <Avatar src={c.avatarUrl} alt={c.author} size="sm" />
+                ) : (
+                  <Avatar name={c.author} size="sm" />
+                )}
+                <div style={{ display: 'grid' }}>
+                  <strong style={{ fontSize: 12 }}>{c.author}</strong>
+                  <p style={{ margin: 0 }}>{c.content}</p>
+                  {c.createdAt ? (
+                    <time
+                      dateTime={c.createdAt}
+                      style={{ color: 'var(--color-muted)', fontSize: 10 }}
+                    >
+                      {new Date(c.createdAt).toLocaleString(locale === 'pt' ? 'pt-BR' : 'en-US')}
+                    </time>
+                  ) : null}
+                </div>
+              </div>
+            ))}
+            <div style={{ display: 'flex', gap: 8 }}>
+              <input
+                value={draft}
+                onChange={(e) => setDraft(e.target.value)}
+                placeholder={t('feed.comments.placeholder')}
+                style={{
+                  flex: 1,
+                  padding: '8px 10px',
+                  borderRadius: 8,
+                  border: '1px solid var(--border-default)',
+                }}
+              />
+              <Button onClick={onSubmitComment}>{t('feed.comments.submit')}</Button>
+            </div>
+          </div>
+        ) : null}
       </CardBody>
 
       <CardFooter>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
-          {typeof item.likes === 'number' ? <Button variant="ghost">❤️ {item.likes}</Button> : null}
+          <Button variant="ghost" onClick={() => onReact('like')}>
+            ❤️ {likes}
+          </Button>
+          <Button variant="ghost" onClick={() => onReact('fire')}>
+            🔥 {fire}
+          </Button>
+          <Button variant="ghost" onClick={() => onReact('rocket')}>
+            🚀 {rocket}
+          </Button>
           {/* CTAs contextuais */}
           {item.cta?.map((c) => (
             <AppLink key={c.href} href={c.href} style={{ textDecoration: 'none' }}>
-              <Button variant="ghost">↗️ {c.label}</Button>
+              <Button variant="ghost">↗️ {c.label || t('feed.cta.viewDetails')}</Button>
             </AppLink>
           ))}
+          <Button variant="ghost" onClick={() => setShowComments((v) => !v)}>
+            💬 {t('feed.comments.toggle')} ({comments.length})
+          </Button>
         </div>
       </CardFooter>
     </Card>

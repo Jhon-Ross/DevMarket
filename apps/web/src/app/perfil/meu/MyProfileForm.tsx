@@ -1,6 +1,7 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import { Card, CardHeader, CardBody, CardFooter, Grid, Button } from '@devmarket/ui';
+import { useLocale } from '@/components/LocaleProvider';
 
 type ProfilePayload = {
   name?: string;
@@ -11,6 +12,7 @@ type ProfilePayload = {
 };
 
 export default function MyProfileForm() {
+  const { t } = useLocale();
   const [name, setName] = useState('');
   const [bio, setBio] = useState('');
   const [avatarUrl, setAvatarUrl] = useState('');
@@ -77,12 +79,12 @@ export default function MyProfileForm() {
       });
       const data = await res.json();
       if (!res.ok || !data?.ok) {
-        setError(data?.error || 'Erro ao salvar perfil');
+        setError(data?.error || t('myProfile.form.error.save'));
         return;
       }
-      setSuccess('Perfil atualizado.');
+      setSuccess(t('myProfile.form.success'));
     } catch (e) {
-      setError('Erro interno ao salvar perfil');
+      setError(t('myProfile.form.error.internalSave'));
     } finally {
       setLoading(false);
     }
@@ -91,17 +93,17 @@ export default function MyProfileForm() {
   return (
     <Card elevated>
       <CardHeader>
-        <strong>Meu Perfil</strong>
+        <strong>{t('myProfile.title')}</strong>
       </CardHeader>
       <form onSubmit={onSubmit}>
         <CardBody>
           <Grid columns={2} gap="md">
             <label style={{ display: 'grid', gap: 6 }}>
-              <span>Nome</span>
+              <span>{t('myProfile.form.name')}</span>
               <input
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                placeholder="Seu nome público"
+                placeholder={t('myProfile.form.namePlaceholder')}
                 style={{
                   width: '100%',
                   padding: '10px 12px',
@@ -113,11 +115,11 @@ export default function MyProfileForm() {
               />
             </label>
             <label style={{ display: 'grid', gap: 6 }}>
-              <span>Avatar (URL da imagem)</span>
+              <span>{t('myProfile.form.avatarUrl')}</span>
               <input
                 value={avatarUrl}
                 onChange={(e) => setAvatarUrl(e.target.value)}
-                placeholder="https://..."
+                placeholder={t('myProfile.form.avatarUrlPlaceholder')}
                 style={{
                   width: '100%',
                   padding: '10px 12px',
@@ -129,11 +131,11 @@ export default function MyProfileForm() {
               />
             </label>
             <label style={{ display: 'grid', gap: 6 }}>
-              <span>Bio</span>
+              <span>{t('myProfile.form.bio')}</span>
               <textarea
                 value={bio}
                 onChange={(e) => setBio(e.target.value)}
-                placeholder="Resumo sobre você, foco, interesses."
+                placeholder={t('myProfile.form.bioPlaceholder')}
                 rows={5}
                 style={{
                   width: '100%',
@@ -146,11 +148,11 @@ export default function MyProfileForm() {
               />
             </label>
             <label style={{ display: 'grid', gap: 6 }}>
-              <span>Skills (separadas por vírgula)</span>
+              <span>{t('myProfile.form.skills')}</span>
               <input
                 value={skills}
                 onChange={(e) => setSkills(e.target.value)}
-                placeholder="React, Next.js, TypeScript"
+                placeholder={t('myProfile.form.skillsPlaceholder')}
                 style={{
                   width: '100%',
                   padding: '10px 12px',
@@ -162,11 +164,11 @@ export default function MyProfileForm() {
               />
             </label>
             <label style={{ display: 'grid', gap: 6 }}>
-              <span>Links (um por linha, formato: Título|URL|Tipo)</span>
+              <span>{t('myProfile.form.links')}</span>
               <textarea
                 value={links}
                 onChange={(e) => setLinks(e.target.value)}
-                placeholder={"GitHub|https://github.com/seuuser|github\nSite|https://seusite.com|website"}
+                placeholder={t('myProfile.form.linksPlaceholder')}
                 rows={5}
                 style={{
                   width: '100%',
@@ -180,15 +182,19 @@ export default function MyProfileForm() {
             </label>
           </Grid>
           {error ? (
-            <p role="alert" style={{ color: 'var(--danger-600)' }}>{error}</p>
+            <p role="alert" style={{ color: 'var(--danger-600)' }}>
+              {error}
+            </p>
           ) : null}
           {success ? (
-            <p role="status" style={{ color: 'var(--success-600)' }}>{success}</p>
+            <p role="status" style={{ color: 'var(--success-600)' }}>
+              {success}
+            </p>
           ) : null}
         </CardBody>
         <CardFooter style={{ display: 'flex', justifyContent: 'flex-end' }}>
           <Button type="submit" loading={loading}>
-            Salvar Perfil
+            {t('myProfile.form.submit')}
           </Button>
         </CardFooter>
       </form>

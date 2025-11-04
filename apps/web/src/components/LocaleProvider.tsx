@@ -129,6 +129,43 @@ const dict: Dict = {
   'projects.filters': { pt: 'Filtros', en: 'Filters' },
   'projects.all': { pt: 'Todos', en: 'All' },
   'projects.by': { pt: 'por', en: 'by' },
+  // Novo Projeto
+  'newProject.title': { pt: 'Novo Projeto', en: 'New Project' },
+  'newProject.desc': {
+    pt: 'Publique seu projeto. Ele começará com status pendente para moderação.',
+    en: 'Publish your project. It will start pending for moderation.',
+  },
+  'newProject.form.title': { pt: 'Título', en: 'Title' },
+  'newProject.form.titlePlaceholder': {
+    pt: 'Ex.: Dashboard de Vendas',
+    en: 'e.g., Sales Dashboard',
+  },
+  'newProject.form.techTags': {
+    pt: 'Tags de tecnologia (separadas por vírgula)',
+    en: 'Tech tags (comma-separated)',
+  },
+  'newProject.form.techTagsPlaceholder': {
+    pt: 'Next.js, TypeScript, Stripe',
+    en: 'Next.js, TypeScript, Stripe',
+  },
+  'newProject.form.description': { pt: 'Descrição', en: 'Description' },
+  'newProject.form.descriptionPlaceholder': {
+    pt: 'Resumo do projeto, objetivo, desafios e resultados.',
+    en: 'Project summary, purpose, challenges, and results.',
+  },
+  'newProject.form.coverUrl': { pt: 'Imagem de capa (URL)', en: 'Cover image (URL)' },
+  'newProject.form.coverUrlPlaceholder': { pt: 'https://...', en: 'https://...' },
+  'newProject.form.submit': { pt: 'Enviar para moderação', en: 'Submit for moderation' },
+  'newProject.form.error.missingTitle': { pt: 'Informe um título.', en: 'Please provide a title.' },
+  'newProject.form.error.create': { pt: 'Erro ao criar projeto', en: 'Error creating project' },
+  'newProject.form.error.internal': {
+    pt: 'Erro interno ao criar projeto',
+    en: 'Internal error creating project',
+  },
+  'newProject.form.success': {
+    pt: 'Projeto enviado para moderação.',
+    en: 'Project submitted for moderation.',
+  },
   // Perfil público
   'profile.title': { pt: 'Perfil de', en: 'Profile of' },
   'profile.skills': { pt: 'Skills', en: 'Skills' },
@@ -147,6 +184,35 @@ const dict: Dict = {
     pt: 'Edite seu perfil público. Publicações de projetos entram como "pendentes" para moderação.',
     en: 'Edit your public profile. Project publications enter as "pending" for moderation.',
   },
+  'myProfile.form.name': { pt: 'Nome', en: 'Name' },
+  'myProfile.form.namePlaceholder': { pt: 'Seu nome público', en: 'Your public name' },
+  'myProfile.form.avatarUrl': { pt: 'Avatar (URL da imagem)', en: 'Avatar (image URL)' },
+  'myProfile.form.avatarUrlPlaceholder': { pt: 'https://...', en: 'https://...' },
+  'myProfile.form.bio': { pt: 'Bio', en: 'Bio' },
+  'myProfile.form.bioPlaceholder': {
+    pt: 'Resumo sobre você, foco, interesses.',
+    en: 'Summary about you, focus, interests.',
+  },
+  'myProfile.form.skills': { pt: 'Skills (separadas por vírgula)', en: 'Skills (comma-separated)' },
+  'myProfile.form.skillsPlaceholder': {
+    pt: 'React, Next.js, TypeScript',
+    en: 'React, Next.js, TypeScript',
+  },
+  'myProfile.form.links': {
+    pt: 'Links (um por linha, formato: Título|URL|Tipo)',
+    en: 'Links (one per line, format: Title|URL|Type)',
+  },
+  'myProfile.form.linksPlaceholder': {
+    pt: 'GitHub|https://github.com/seuuser|github\nSite|https://seusite.com|website',
+    en: 'GitHub|https://github.com/youruser|github\nWebsite|https://yourwebsite.com|website',
+  },
+  'myProfile.form.submit': { pt: 'Salvar Perfil', en: 'Save Profile' },
+  'myProfile.form.error.save': { pt: 'Erro ao salvar perfil', en: 'Error saving profile' },
+  'myProfile.form.error.internalSave': {
+    pt: 'Erro interno ao salvar perfil',
+    en: 'Internal error saving profile',
+  },
+  'myProfile.form.success': { pt: 'Perfil atualizado.', en: 'Profile updated.' },
   // Feed
   'feed.title': { pt: 'Feed', en: 'Feed' },
   'feed.subtitle': {
@@ -162,6 +228,13 @@ const dict: Dict = {
   'feed.type.event': { pt: 'Evento', en: 'Event' },
   'feed.type.news': { pt: 'Notícia', en: 'News' },
   'feed.type.interest': { pt: 'Interesse', en: 'Interest' },
+  'feed.action.like': { pt: 'Curtir', en: 'Like' },
+  'feed.action.fire': { pt: 'Fogo', en: 'Fire' },
+  'feed.action.rocket': { pt: 'Foguete', en: 'Rocket' },
+  'feed.comments.toggle': { pt: 'Ver comentários', en: 'View comments' },
+  'feed.comments.placeholder': { pt: 'Escreva um comentário...', en: 'Write a comment...' },
+  'feed.comments.submit': { pt: 'Publicar', en: 'Post' },
+  'feed.cta.viewDetails': { pt: 'Ver detalhes', en: 'View details' },
   // UI Preview
   'uiPreview.title': { pt: 'Preview de UI', en: 'UI Preview' },
   'uiPreview.section.button': { pt: 'Botão', en: 'Button' },
@@ -241,6 +314,17 @@ const dict: Dict = {
   'auth.email.placeholder': { pt: 'seu@email.com', en: 'you@example.com' },
   'auth.password': { pt: 'Senha', en: 'Password' },
   'auth.password.placeholder': { pt: '••••••••', en: '••••••••' },
+  // Auth — Errors
+  'auth.error.credentials.title': { pt: 'Credenciais inválidas', en: 'Invalid credentials' },
+  'auth.error.credentials.desc': {
+    pt: 'Email ou senha incorretos. Verifique os dados e tente novamente.',
+    en: 'Incorrect email or password. Check your details and try again.',
+  },
+  'auth.error.generic.title': { pt: 'Falha ao entrar', en: 'Sign-in failed' },
+  'auth.error.generic.desc': {
+    pt: 'Ocorreu um erro ao entrar. Tente novamente em instantes.',
+    en: 'An error occurred while signing in. Please try again shortly.',
+  },
   // Common
   'common.loading': { pt: 'Carregando...', en: 'Loading...' },
   'common.redirecting': { pt: 'Redirecionando...', en: 'Redirecting...' },

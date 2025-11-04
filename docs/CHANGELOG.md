@@ -8,6 +8,34 @@ Formato baseado em Keep a Changelog e organizado em camadas para inspeção prec
 - Testes de componentes (`packages/ui`)
 - Storybook opcional para o Design System
 
+## [0.1.6] — 2025-11-04
+
+### Camada 1 — Resumo executivo
+
+- Home refinada com cards de Showcase alinhados e responsivos (16:9) com hover sutil e navegação para `/projetos`.
+- Cards de Planos redesenhados com visual profissional (hierarquia clara, espaçamentos consistentes, hover/elevação, destaque para o Pro) e CTAs centralizados.
+- Tipografia dos preços ajustada para estilo clean e tecnológico (números tabulares, peso moderado), removendo microcopy dos rodapés.
+
+### Camada 2 — Áreas e tópicos
+
+- Showcase
+  - Substituição de `MediaGallery` por `Grid` de `Card` com imagens 16:9 e caption central.
+  - Cards clicáveis para `/projetos` com transição de hover (`translateY(-2px)`).
+- Planos
+  - Free/Pro/Premium com listas de benefícios mais legíveis (marcadores ✓), espaçamentos e alinhamento de CTA.
+  - Destaque visual do Pro (borda/acento, sombra aprimorada, gradiente sutil).
+  - Botões maiores (`size="lg"`) e centralizados; microcopy dos rodapés removida.
+  - Tipografia de preços com `font-variant-numeric: tabular-nums` e peso `700` para leitura limpa.
+
+### Camada 3 — Referências a arquivos
+
+- `apps/web/src/app/page.tsx` — ajustes em Showcase e seção de Planos (layout, hover, CTA, tipografia).
+- `docs/CHANGELOG.md` — registro destas alterações.
+
+### Notas de validação
+
+- Visual verificado em `http://localhost:3000/`: cards de Showcase clicáveis e alinhados; Planos com CTAs centralizados, listas com ✓ e tipografia clean.
+
 ## [0.2.1] — 2025-11-04
 
 ### Camada 1 — Resumo executivo
@@ -430,6 +458,7 @@ Mantemos este arquivo como registro de mudanças. Para detalhes e exemplos, cons
 
 - Layout do Login refatorado com subcomponentes do `Card` e inputs em coluna.
 - Kanban atualizado com entregas e próximos passos de UX para Login.
+
 ## [0.1.4] — 2025-11-04
 
 ### Web (Next.js)
@@ -439,13 +468,14 @@ Mantemos este arquivo como registro de mudanças. Para detalhes e exemplos, cons
 - Integrado `SessionProvider` via `AuthProvider` no `layout.tsx` para habilitar leitura de sessão em componentes client.
 - Corrigido redirecionamento pós-login: `apps/web/src/app/login/page.tsx` agora decodifica e prioriza `callbackUrl` ao navegar após `signIn`.
 - Protegidas páginas sensíveis (`/perfil/meu`, `/projetos/novo`) com `getServerSession(authOptions)` e `try/catch` para tratar `JWT_SESSION_ERROR` como não autenticado, redirecionando para `/login` com `callbackUrl` apropriado.
- - Removidas páginas mock: `/perfil/mock` e `/projetos/mock`. Conteúdo de Projetos migrado para rota final `/projetos`.
+- Removidas páginas mock: `/perfil/mock` e `/projetos/mock`. Conteúdo de Projetos migrado para rota final `/projetos`.
 
 ### Notas de validação
 
 - Acesse `/perfil/meu` sem sessão para confirmar redirecionamento para `/login?callbackUrl=%2Fperfil%2Fmeu` e retorno pós-login.
 - Com sessão ativa, o menu de usuário aparece no cabeçalho com itens funcionais; "Sair" encerra a sessão e volta para a Home.
 - APIs protegidas retornam `401` sem cookies; após login, `/api/auth/session` deve refletir dados do usuário.
+
 ## [0.1.5] — 2025-11-04
 
 ### Camada 1 — Resumo executivo
@@ -475,6 +505,7 @@ Mantemos este arquivo como registro de mudanças. Para detalhes e exemplos, cons
 ### Notas
 
 - Build de produção segue com verificação; o dev server (`pnpm web:dev`) foi utilizado para validação visual do Feed.
+
 ## 2025-11-04 — Proteções de Auth, Página de Detalhes de Projeto e Configuração Sanity
 
 - Adicionada rota de detalhes do projeto: `apps/web/src/app/projetos/[owner]/[slug]/page.tsx`.
