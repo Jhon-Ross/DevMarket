@@ -1,7 +1,17 @@
 'use client';
 import React from 'react';
 import { useRouter } from 'next/navigation';
-import { Button, Card, CardHeader, CardBody, CardFooter, Grid, Avatar, Tag, MediaGallery } from '@devmarket/ui';
+import {
+  Button,
+  Card,
+  CardHeader,
+  CardBody,
+  CardFooter,
+  Grid,
+  Avatar,
+  Tag,
+  MediaGallery,
+} from '@devmarket/ui';
 import { useLocale } from '@/components/LocaleProvider';
 
 export default function SobrePage() {
@@ -11,36 +21,46 @@ export default function SobrePage() {
     <main style={{ padding: 'var(--space-8)', maxWidth: 1200, margin: '0 auto' }}>
       <header style={{ textAlign: 'center', marginBottom: 'var(--space-8)' }}>
         <h1 style={{ color: 'var(--text-primary)' }}>{t('about.title')}</h1>
-        <p style={{ color: 'var(--text-secondary)', maxWidth: 720, margin: '0 auto' }}>{t('about.subtitle')}</p>
+        <p style={{ color: 'var(--text-secondary)', maxWidth: 720, margin: '0 auto' }}>
+          {t('about.subtitle')}
+        </p>
       </header>
 
       {/* Destaques */}
       <section style={{ marginBottom: 'var(--space-8)' }}>
-        <Grid columns={3} gap="md">
+        <Grid columns={3} gap="md" className="grid-sm-1 grid-md-2 grid-lg-3">
           <Card elevated>
             <CardHeader>
               <strong>{t('about.highlights.portfolios.title')}</strong>
             </CardHeader>
-            <CardBody style={{ color: 'var(--text-secondary)' }}>{t('about.highlights.portfolios.desc')}</CardBody>
+            <CardBody style={{ color: 'var(--text-secondary)' }}>
+              {t('about.highlights.portfolios.desc')}
+            </CardBody>
           </Card>
           <Card elevated>
             <CardHeader>
               <strong>{t('about.highlights.audience.title')}</strong>
             </CardHeader>
-            <CardBody style={{ color: 'var(--text-secondary)' }}>{t('about.highlights.audience.desc')}</CardBody>
+            <CardBody style={{ color: 'var(--text-secondary)' }}>
+              {t('about.highlights.audience.desc')}
+            </CardBody>
           </Card>
           <Card elevated>
             <CardHeader>
               <strong>{t('about.highlights.design.title')}</strong>
             </CardHeader>
-            <CardBody style={{ color: 'var(--text-secondary)' }}>{t('about.highlights.design.desc')}</CardBody>
+            <CardBody style={{ color: 'var(--text-secondary)' }}>
+              {t('about.highlights.design.desc')}
+            </CardBody>
           </Card>
         </Grid>
       </section>
 
       {/* Showcase de projetos (exemplos) */}
       <section style={{ marginBottom: 'var(--space-8)' }}>
-        <h2 style={{ marginBottom: 'var(--space-4)', color: 'var(--text-primary)' }}>{t('about.showcase.title')}</h2>
+        <h2 style={{ marginBottom: 'var(--space-4)', color: 'var(--text-primary)' }}>
+          {t('about.showcase.title')}
+        </h2>
         <MediaGallery
           items={[
             { src: 'https://picsum.photos/id/1015/500/350', alt: 'Projeto 1' },
@@ -52,8 +72,10 @@ export default function SobrePage() {
 
       {/* Exemplos de portfólio */}
       <section style={{ marginBottom: 'var(--space-8)' }}>
-        <h2 style={{ marginBottom: 'var(--space-4)', color: 'var(--text-primary)' }}>{t('about.portfolios.title')}</h2>
-        <Grid columns={3} gap="md">
+        <h2 style={{ marginBottom: 'var(--space-4)', color: 'var(--text-primary)' }}>
+          {t('about.portfolios.title')}
+        </h2>
+        <Grid columns={3} gap="md" className="grid-sm-1 grid-md-2 grid-lg-3">
           {[
             { name: 'Ana Dev', skills: ['React', 'TypeScript', 'Node.js'] },
             { name: 'Bruno Code', skills: ['Python', 'Django', 'PostgreSQL'] },
@@ -81,7 +103,9 @@ export default function SobrePage() {
 
       {/* Call-to-action final */}
       <section style={{ textAlign: 'center' }}>
-        <Button onClick={() => router.push('/signup')}>{t('about.cta')}</Button>
+        <Button className="button-fluid-sm" onClick={() => router.push('/signup')}>
+          {t('about.cta')}
+        </Button>
       </section>
     </main>
   );

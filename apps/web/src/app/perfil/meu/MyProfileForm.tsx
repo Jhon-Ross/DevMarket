@@ -97,7 +97,7 @@ export default function MyProfileForm() {
       </CardHeader>
       <form onSubmit={onSubmit}>
         <CardBody>
-          <Grid columns={2} gap="md">
+          <Grid columns={2} gap="md" className="grid-sm-1 grid-md-2">
             <label style={{ display: 'grid', gap: 6 }}>
               <span>{t('myProfile.form.name')}</span>
               <input
@@ -192,8 +192,10 @@ export default function MyProfileForm() {
             </p>
           ) : null}
         </CardBody>
-        <CardFooter style={{ display: 'flex', justifyContent: 'flex-end' }}>
-          <Button type="submit" loading={loading}>
+        <CardFooter
+          style={{ display: 'flex', justifyContent: 'flex-end', gap: 12, flexWrap: 'wrap' }}
+        >
+          <Button className="button-fluid-sm" type="submit" loading={loading}>
             {t('myProfile.form.submit')}
           </Button>
         </CardFooter>

@@ -158,7 +158,12 @@ export default async function ProjectDetailPage({
 
           {/* Mídias anexas (imagens) */}
           {project.mediaImages?.length ? (
-            <Grid columns={2} gap="md" style={{ marginTop: 'var(--space-6)' }}>
+            <Grid
+              columns={2}
+              gap="md"
+              className="grid-sm-1 grid-md-2"
+              style={{ marginTop: 'var(--space-6)' }}
+            >
               {project.mediaImages.map((url) => (
                 <Image
                   key={url}
@@ -190,12 +195,16 @@ export default async function ProjectDetailPage({
           ) : null}
         </CardBody>
 
-        <CardFooter style={{ display: 'flex', gap: 12 }}>
+        <CardFooter style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
           <AppLink href={`/perfil/${project.owner?.slug ?? owner}`}>
-            <Button variant="ghost">↩️ Voltar ao perfil</Button>
+            <Button className="button-fluid-sm" variant="ghost">
+              ↩️ Voltar ao perfil
+            </Button>
           </AppLink>
           <AppLink href="/projetos">
-            <Button variant="ghost">Todos os projetos</Button>
+            <Button className="button-fluid-sm" variant="ghost">
+              Todos os projetos
+            </Button>
           </AppLink>
         </CardFooter>
       </Card>

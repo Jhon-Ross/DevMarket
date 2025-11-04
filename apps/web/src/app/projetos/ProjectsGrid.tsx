@@ -55,7 +55,7 @@ export default function ProjectsGrid({ projects }: { projects: PublicProject[] }
         </div>
       </div>
 
-      <Grid columns={3} gap="sm">
+      <Grid columns={3} gap="sm" className="grid-sm-1 grid-md-2 grid-lg-3">
         {filtered.map((p) => (
           <Card key={p._id} elevated>
             <CardHeader>
