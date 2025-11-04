@@ -72,10 +72,10 @@ export default function UiPreviewClient() {
             <div
               key={i}
               style={{
-                background: '#f8fafc',
-                border: '1px solid #e2e8f0',
-                padding: 12,
-                borderRadius: 8,
+                background: 'var(--color-bg-subtle)',
+                border: '1px solid var(--color-border)',
+                padding: 'var(--space-3)',
+                borderRadius: 'var(--radius-md)',
               }}
             >
               {t('uiPreview.grid.item')} {i + 1}

@@ -8,6 +8,36 @@ Formato baseado em Keep a Changelog e organizado em camadas para inspeção prec
 - Testes de componentes (`packages/ui`)
 - Storybook opcional para o Design System
 
+## [0.2.1] — 2025-11-04
+
+### Camada 1 — Resumo executivo
+
+- Corrigida herança do tema escuro entre páginas ao evitar que `@devmarket/ui` sobrescreva `:root`.
+- UI agora referencia tokens do app via bridging, mantendo o dark mode consistente em `/signup`, `/projetos/mock`, `/perfil/mock` e Home.
+
+### Camada 2 — Áreas e tópicos
+
+- Design System / Tokens
+  - `packages/ui/src/styles/tokens.css`: variáveis `--color-*` mapeadas para tokens do app (`--bg-*`, `--text-*`, `--border-*`, `--accent`, etc.) com fallbacks seguros.
+- Web (Next.js)
+  - Validação de navegação: dark mode permanece ao alternar entre as rotas citadas.
+  - Observações de dev: erros `net::ERR_BLOCKED_BY_ORB` do CDN não impactam UI.
+
+### Camada 3 — Referências a arquivos
+
+- `packages/ui/src/styles/tokens.css` — bridging de tokens do UI → App.
+- `apps/web/src/app/globals.css` — mantém tokens semânticos do app.
+- `apps/web/README.md` e `README.md` (raiz) — documentação atualizada sobre tema e herança.
+
+### Fixed
+
+- Tema escuro “voltando” após navegação para páginas de Perfil/Projetos.
+- Inconsistência de contraste causada por import global de tokens do UI sobrescrevendo `:root`.
+
+### Changed
+
+- `tokens.css` do UI atualizado para não impor valores de `:root` e sim referenciar tokens do app.
+
 ## [0.2.0] — 2025-01-15
 
 ### Camada 1 — Resumo executivo

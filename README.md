@@ -27,6 +27,7 @@ Conecte seu talento ao mercado. O DevMarket é uma plataforma para desenvolvedor
 ## Parcerias 🤝
 
 A DevMarket está em busca de empresas parceiras que queiram abraçar a causa e ajudar a impulsionar a ideia do projeto.
+
 - Benefícios: co-branding, acesso antecipado a funcionalidades, destaque em campanhas e conexão direta com talentos.
 - Objetivo: construir uma rede que valorize o trabalho de devs e amplie oportunidades reais no mercado.
 - Interessados: entre em contato para alinharmos objetivos e formatos de colaboração. ✉️
@@ -54,10 +55,10 @@ A DevMarket está em busca de empresas parceiras que queiram abraçar a causa e 
 
 ## Como funciona 🔎
 
-1) Crie/edite seu perfil e projetos (CMS Sanity)
-2) O DevMarket renderiza páginas rápidas e estáveis
-3) Publicou no CMS? A página é revalidada automaticamente
-4) Mostre seu link para o mundo 🌍
+1. Crie/edite seu perfil e projetos (CMS Sanity)
+2. O DevMarket renderiza páginas rápidas e estáveis
+3. Publicou no CMS? A página é revalidada automaticamente
+4. Mostre seu link para o mundo 🌍
 
 ---
 
@@ -99,6 +100,17 @@ A DevMarket está em busca de empresas parceiras que queiram abraçar a causa e 
 - Fundamentos concluídos: monorepo, App Router, UI base
 - Em andamento: integração de perfil no Sanity e ISR
 - Próximo passo: webhook de revalidação e página completa de perfil
+
+---
+
+## Tema e Design System 🎨
+
+- O app `web` controla o tema (Light/Dark) aplicando a classe `dark` ao `html`.
+- O pacote `@devmarket/ui` agora apenas referencia os tokens do app em `tokens.css`, sem sobrescrever `:root`.
+  - Bridging de variáveis: `--color-bg` → `var(--bg-default, #fff)`, `--color-text` → `var(--text-primary, #0f172a)`, etc.
+  - Isso garante que todas as páginas herdem corretamente o tema, evitando regressões ao navegar.
+- Validação realizada nas rotas: `/signup`, `/projetos/mock`, `/perfil/mock` e Home — todas mantêm o dark mode.
+- Erros de imagens bloqueadas (`net::ERR_BLOCKED_BY_ORB`) do CDN em dev não impactam o tema nem funcionalidade.
 
 ---
 

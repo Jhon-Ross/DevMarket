@@ -213,6 +213,7 @@ const dict: Dict = {
   'profile.title': { pt: 'Perfil:', en: 'Profile:' },
   'profile.projects': { pt: 'Projetos públicos', en: 'Public projects' },
   'profile.empty': { pt: 'Nenhum projeto público encontrado.', en: 'No public projects found.' },
+  'profile.skills': { pt: 'Skills', en: 'Skills' },
 };
 
 type LocaleContextValue = {

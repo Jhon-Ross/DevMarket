@@ -1,15 +1,15 @@
 :root {
-  /* Colors */
-  --color-bg: #ffffff;
-  --color-bg-subtle: #f8fafc;
-  --color-text: #0f172a;
-  --color-muted: #64748b;
-  --color-border: #e2e8f0;
-  --color-accent: #3b82f6;
-  --color-accent-foreground: #ffffff;
-  --color-danger: #ef4444;
-  --color-success: #16a34a;
-  --color-warning: #f59e0b;
+  /* Colors (bridge to app tokens with safe fallbacks) */
+  --color-bg: var(--bg-default, #ffffff);
+  --color-bg-subtle: var(--bg-subtle, #f8fafc);
+  --color-text: var(--text-primary, #0f172a);
+  --color-muted: var(--text-muted, #64748b);
+  --color-border: var(--border-default, #e2e8f0);
+  --color-accent: var(--accent, #3b82f6);
+  --color-accent-foreground: var(--accent-foreground, #ffffff);
+  --color-danger: var(--danger-600, #ef4444);
+  --color-success: var(--success-600, #16a34a);
+  --color-warning: var(--warning-600, #f59e0b);
 
   /* Spacing */
   --space-1: 4px;
@@ -26,7 +26,9 @@
   --radius-lg: 14px;
 
   /* Typography */
-  --font-sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  --font-sans:
+    ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell,
+    Helvetica Neue, Arial, 'Apple Color Emoji', 'Segoe UI Emoji';
   --font-size-xs: 12px;
   --font-size-sm: 14px;
   --font-size-md: 16px;
@@ -34,7 +36,7 @@
   --line-height: 1.5;
 
   /* Shadows */
-  --shadow-sm: 0 1px 2px rgba(0,0,0,0.06);
-  --shadow-md: 0 4px 8px rgba(0,0,0,0.08);
-  --shadow-lg: 0 10px 15px rgba(0,0,0,0.12);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.12);
 }
