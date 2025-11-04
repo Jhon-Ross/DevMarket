@@ -85,7 +85,7 @@ export default function Page() {
 - O pacote `@devmarket/ui` referencia esses tokens via bridging em `packages/ui/src/styles/tokens.css`:
   - Ex.: `--color-bg: var(--bg-default, #ffffff)`, `--color-text: var(--text-primary, #0f172a)`, `--color-border: var(--border-default, #e2e8f0)`.
 - Isso evita que o UI sobrescreva `:root` e mantém a herança do tema entre páginas.
-- Páginas validadas com dark mode consistente: `/signup`, `/projetos/mock`, `/perfil/mock`, e Home.
+- Páginas validadas com dark mode consistente: `/signup`, `/projetos`, `/perfil/[slug]`, e Home.
 - Observação: erros `net::ERR_BLOCKED_BY_ORB` do Sanity CDN em dev não afetam UI/tema; são bloqueios do ambiente.
 
 ## Autenticação, Navegação e Sessão

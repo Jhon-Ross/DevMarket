@@ -439,6 +439,7 @@ Mantemos este arquivo como registro de mudanças. Para detalhes e exemplos, cons
 - Integrado `SessionProvider` via `AuthProvider` no `layout.tsx` para habilitar leitura de sessão em componentes client.
 - Corrigido redirecionamento pós-login: `apps/web/src/app/login/page.tsx` agora decodifica e prioriza `callbackUrl` ao navegar após `signIn`.
 - Protegidas páginas sensíveis (`/perfil/meu`, `/projetos/novo`) com `getServerSession(authOptions)` e `try/catch` para tratar `JWT_SESSION_ERROR` como não autenticado, redirecionando para `/login` com `callbackUrl` apropriado.
+ - Removidas páginas mock: `/perfil/mock` e `/projetos/mock`. Conteúdo de Projetos migrado para rota final `/projetos`.
 
 ### Notas de validação
 

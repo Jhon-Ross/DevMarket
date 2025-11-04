@@ -109,7 +109,7 @@ A DevMarket está em busca de empresas parceiras que queiram abraçar a causa e 
 - O pacote `@devmarket/ui` agora apenas referencia os tokens do app em `tokens.css`, sem sobrescrever `:root`.
   - Bridging de variáveis: `--color-bg` → `var(--bg-default, #fff)`, `--color-text` → `var(--text-primary, #0f172a)`, etc.
   - Isso garante que todas as páginas herdem corretamente o tema, evitando regressões ao navegar.
-- Validação realizada nas rotas: `/signup`, `/projetos/mock`, `/perfil/mock` e Home — todas mantêm o dark mode.
+- Validação realizada nas rotas: `/signup`, `/projetos`, `/perfil/[slug]` e Home — todas mantêm o dark mode.
 - Erros de imagens bloqueadas (`net::ERR_BLOCKED_BY_ORB`) do CDN em dev não impactam o tema nem funcionalidade.
 
 ---
