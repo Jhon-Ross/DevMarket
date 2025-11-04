@@ -173,14 +173,8 @@ type LocaleContextValue = {
 const LocaleContext = createContext<LocaleContextValue | null>(null);
 
 export default function LocaleProvider({ children }: { children: React.ReactNode }) {
-  const [locale, setLocale] = useState<Locale>(() => {
-    try {
-      const stored = typeof window !== 'undefined' ? localStorage.getItem('locale') : null;
-      return stored === 'en' ? 'en' : 'pt';
-    } catch {
-      return 'pt';
-    }
-  });
+  // Inicializa sempre em 'pt' para evitar mismatch de hidratação entre SSR e cliente
+  const [locale, setLocale] = useState<Locale>('pt');
 
   useEffect(() => {
     try {
