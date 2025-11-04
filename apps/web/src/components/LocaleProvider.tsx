@@ -120,7 +120,7 @@ const dict: Dict = {
   },
   // Navegação
   'nav.uiPreview': { pt: 'Preview de UI', en: 'UI Preview' },
-  'nav.projects': { pt: 'Projetos', en: 'Projects' },
+  'nav.projects': { pt: 'Feed', en: 'Feed' },
   'nav.profile': { pt: 'Perfil', en: 'Profile' },
   'nav.login': { pt: 'Entrar', en: 'Sign in' },
   // Projetos

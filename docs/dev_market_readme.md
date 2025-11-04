@@ -198,7 +198,11 @@ export default function Example() {
 
 - Botão em `loading`: spinner passou a ser renderizado inline (em vez de overlay absoluto) para evitar sobreposição de texto.
 - Spinner ajustado para forma perfeitamente circular (`border-radius: 50%`) e animação mais suave.
-- Página “Projetos” atualizada: grid de cards, filtros por `techTags`, owner com link.
+ - Página “Feed” unificada: cards com badges de tipo (Projeto/Evento/Notícia/Interesse), filtros por tipo, owner com link.
+ - Separação Server/Client em `/projetos`: `page.tsx` (Server, metadata) renderiza `FeedPageClient` (Client com estado/filtros).
+ - Novo componente reutilizável `FeedItemCard` para renderizar conteúdo com capa, autor, tags e CTAs.
+ - Navegação atualizada: rótulo “Projetos” → “Feed” (PT/EN) via `LocaleProvider`.
+ - Ajustes de tipos na UI: `Grid.gap="lg"`, `Avatar.size="sm"`, `Tag` recebe texto via `children`.
  - Páginas “Sobre” e “Signup” traduzidas com `LocaleProvider` (`about.*` e `signup.*`).
  - CTA da página “Sobre” corrigida: `Button` usa `onClick` com `router.push('/signup')` (sem `href`).
  - Tema escuro: variante `button-outline` com contraste reforçado via `apps/web/src/app/globals.css` (bordas e texto ajustados).

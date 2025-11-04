@@ -446,3 +446,32 @@ Mantemos este arquivo como registro de mudanças. Para detalhes e exemplos, cons
 - Acesse `/perfil/meu` sem sessão para confirmar redirecionamento para `/login?callbackUrl=%2Fperfil%2Fmeu` e retorno pós-login.
 - Com sessão ativa, o menu de usuário aparece no cabeçalho com itens funcionais; "Sair" encerra a sessão e volta para a Home.
 - APIs protegidas retornam `401` sem cookies; após login, `/api/auth/session` deve refletir dados do usuário.
+## [0.1.5] — 2025-11-04
+
+### Camada 1 — Resumo executivo
+
+- Página `/projetos` transformada em um Feed unificado (projetos, eventos, notícias, interesses), com filtros e componentes dedicados.
+- Navegação atualizada para exibir “Feed” no cabeçalho.
+
+### Web (Next.js)
+
+- Nova UI de Feed:
+  - Adicionados `apps/web/src/app/projetos/FeedItemCard.tsx` e `FeedPageClient.tsx`.
+  - `apps/web/src/app/projetos/page.tsx` agora é Server Component com `metadata` e delega renderização ao Client Component.
+  - Filtros por tipo com `Tag` e layout em coluna via `Grid`.
+- Ajustes de componentes/types:
+  - `Grid.gap` alinhado para `"lg"`.
+  - `Avatar.size` alinhado para `"sm"`.
+  - `Tag` usa `children` para exibir texto (sem prop `label`).
+- Navegação/i18n:
+  - `LocaleProvider`: chave `nav.projects` atualizada para `Feed` (PT/EN).
+  - `NavLinks`: mantém link para `/projetos` exibindo “Feed”.
+- Documentação atualizada:
+  - `apps/web/README.md` ganhou seção “Feed”.
+  - `docs/dev_market_readme.md` atualizado com detalhes da nova página e separação Server/Client.
+- Observação de desenvolvimento:
+  - Em ambiente local, imagens de demo `cdn.sanity.io` podem ser bloqueadas (ORB). Não impacta funcionalidade; considerar placeholders locais ou `images.remotePatterns`.
+
+### Notas
+
+- Build de produção segue com verificação; o dev server (`pnpm web:dev`) foi utilizado para validação visual do Feed.

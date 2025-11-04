@@ -26,7 +26,7 @@ Abra `http://localhost:3000` no navegador.
 ### Internacionalização (i18n)
 
 - `LocaleProvider` expõe `useLocale()` e `t(key)` para traduções.
-- Textos traduzidos na Home, navegação, página de Projetos, UI Preview, **Sobre** e **Signup**.
+- Textos traduzidos na Home, navegação, página de Feed, UI Preview, **Sobre** e **Signup**.
 - Dicionário em `apps/web/src/components/LocaleProvider.tsx` com chaves como `home.*`, `nav.*`, `projects.*`, `uiPreview.*`, `about.*`, `signup.*`, e básicas para planos (`home.plans.*`).
 
 ## Integração com `@devmarket/ui`
@@ -42,6 +42,14 @@ export default nextConfig;
 ```
 
 - Importes típicos:
+ 
+## Feed
+
+- Rota: `/projetos` (feed unificado de atividades).
+- Tipos de conteúdo: projetos, eventos, notícias e interesses.
+- Componentes: `FeedItemCard` e `FeedPageClient` (separação Server/Client).
+- Filtros: seleção por tipo usando `Tag` e layout em coluna com `Grid` (`gap="lg"`).
+- Navegação: o menu mostra “Feed” e aponta para `/projetos`.
 
 ```tsx
 import {
