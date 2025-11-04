@@ -165,8 +165,10 @@ export default function SignupPage() {
                 </p>
               ) : null}
             </div>
-            <CardFooter style={{ display: 'flex', justifyContent: 'flex-end', gap: 8 }}>
-              <Button type="submit" loading={loading}>
+            <CardFooter
+              style={{ display: 'flex', justifyContent: 'flex-end', gap: 8, flexWrap: 'wrap' }}
+            >
+              <Button type="submit" className="button-fluid-sm" loading={loading}>
                 {t('signup.submit')}
               </Button>
             </CardFooter>

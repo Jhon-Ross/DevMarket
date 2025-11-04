@@ -36,6 +36,42 @@ Formato baseado em Keep a Changelog e organizado em camadas para inspeção prec
 
 - Visual verificado em `http://localhost:3000/`: cards de Showcase clicáveis e alinhados; Planos com CTAs centralizados, listas com ✓ e tipografia clean.
 
+## [0.1.7] — 2025-11-04
+
+### Camada 1 — Resumo executivo
+
+- Responsividade móvel profissional aplicada ao site (Home, Login, Signup):
+  - Novos utilitários de Grid responsivo (sm/md/lg) no Design System.
+  - Seções de múltiplas colunas da Home atualizadas para 1→2→3 colunas.
+  - CTAs fluidos (100% de largura) em telas pequenas, mantendo ergonomia e legibilidade.
+
+### Camada 2 — Áreas e tópicos
+
+- UI/Design System
+  - `Grid.css`: adicionados helpers `.grid-sm-cols-2/3`, `.grid-md-cols-2/3`, `.grid-lg-cols-2/3`.
+  - `Button.css`: adicionada utilitária `.button-fluid-sm` (100% no mobile, auto em desktop).
+- App (Home)
+  - Seções “Diferenciais”, “Social Proof”, “Showcase”, “Como funciona”, “Planos”, “FAQ” usam `columns={1}` com classes responsivas para 2/3 colunas.
+  - CTAs do header/showcase/planos passam a ser fluídos em mobile.
+- App (Auth)
+  - Login: rodapé com `flex-wrap` e botão `Entrar` fluido em mobile.
+  - Signup: rodapé com `flex-wrap` e botão `Cadastrar` fluido em mobile.
+
+### Camada 3 — Referências a arquivos
+
+- `packages/ui/src/components/Grid/Grid.css` — novos utilitários responsivos.
+- `packages/ui/src/components/Button/Button.css` — utilitária `.button-fluid-sm`.
+- `apps/web/src/app/page.tsx` — Grids e CTAs responsivos na Home.
+- `apps/web/src/app/login/page.tsx` — rodapé responsivo + botão fluido.
+- `apps/web/src/app/signup/page.tsx` — rodapé responsivo + botão fluido.
+
+### Notas de validação
+
+- Preview da Home: `http://localhost:3000/`.
+- Preview do Login: `http://localhost:3000/login`.
+- Preview do Signup: `http://localhost:3000/signup`.
+- Em dev, pode surgir `webpack.hot-update.json` abortado (HMR); não impacta funcionalidade.
+
 ## [0.2.1] — 2025-11-04
 
 ### Camada 1 — Resumo executivo

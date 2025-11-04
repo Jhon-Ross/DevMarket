@@ -121,15 +121,17 @@ export default function Home() {
             flexWrap: 'wrap',
           }}
         >
-          <Button onClick={handleStart}>{t('home.ctaStart')}</Button>
-          <Button variant="outline" onClick={handleLearn}>
+          <Button className="button-fluid-sm" onClick={handleStart}>
+            {t('home.ctaStart')}
+          </Button>
+          <Button className="button-fluid-sm" variant="outline" onClick={handleLearn}>
             {t('home.ctaLearn')}
           </Button>
         </div>
       </header>
 
       <section ref={showcaseRef} style={{ marginBottom: 'var(--space-8)' }}>
-        <Grid columns={3} gap="md">
+        <Grid columns={1} gap="md" className="grid-sm-cols-2 grid-lg-cols-3">
           <Card elevated>
             <CardHeader style={{ fontWeight: 600 }}>{t('home.dev.title')}</CardHeader>
             <CardBody style={{ color: 'var(--text-secondary)', lineHeight: 1.6 }}>
@@ -164,7 +166,7 @@ export default function Home() {
         >
           {t('home.social.title')}
         </h2>
-        <Grid columns={3} gap="md">
+        <Grid columns={1} gap="md" className="grid-sm-cols-2 grid-lg-cols-3">
           {testimonials.map((item) => (
             <Card key={item.profile.slug} elevated>
               <CardBody style={{ color: 'var(--text-secondary)', lineHeight: 1.6 }}>
@@ -223,7 +225,7 @@ export default function Home() {
           ];
 
           return (
-            <Grid columns={3} gap="md">
+            <Grid columns={1} gap="md" className="grid-sm-cols-2 grid-lg-cols-3">
               {showcaseItems.map((item) => (
                 <AppLink href="/projetos" key={item.src} style={{ textDecoration: 'none' }}>
                   <Card
@@ -273,7 +275,11 @@ export default function Home() {
         })()}
 
         <div style={{ display: 'flex', justifyContent: 'center', marginTop: 'var(--space-4)' }}>
-          <Button variant="outline" onClick={() => router.push('/sobre')}>
+          <Button
+            className="button-fluid-sm"
+            variant="outline"
+            onClick={() => router.push('/sobre')}
+          >
             {t('home.showcase.cta')}
           </Button>
         </div>
@@ -290,7 +296,7 @@ export default function Home() {
         >
           {t('home.how.title')}
         </h2>
-        <Grid columns={3} gap="md">
+        <Grid columns={1} gap="md" className="grid-sm-cols-2 grid-lg-cols-3">
           <Card elevated>
             <CardHeader style={{ fontWeight: 600 }}>{t('home.how.step1.title')}</CardHeader>
             <CardBody style={{ color: 'var(--text-secondary)', lineHeight: 1.6 }}>
@@ -325,7 +331,7 @@ export default function Home() {
         >
           {t('home.plans.title')}
         </h2>
-        <Grid columns={3} gap="md">
+        <Grid columns={1} gap="md" className="grid-sm-cols-2 grid-lg-cols-3">
           {/* Dev Free */}
           <Card
             bordered
@@ -399,6 +405,7 @@ export default function Home() {
               <Button
                 size="lg"
                 variant="outline"
+                className="button-fluid-sm"
                 style={{ minWidth: 220 }}
                 onClick={() => router.push('/signup')}
               >
@@ -482,7 +489,12 @@ export default function Home() {
               </div>
             </CardBody>
             <CardFooter style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-              <Button size="lg" style={{ minWidth: 220 }} onClick={() => router.push('/signup')}>
+              <Button
+                size="lg"
+                className="button-fluid-sm"
+                style={{ minWidth: 220 }}
+                onClick={() => router.push('/signup')}
+              >
                 {t('home.ctaStart')}
               </Button>
             </CardFooter>
@@ -557,7 +569,12 @@ export default function Home() {
               </ul>
             </CardBody>
             <CardFooter style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-              <Button size="lg" style={{ minWidth: 220 }} onClick={() => router.push('/signup')}>
+              <Button
+                size="lg"
+                className="button-fluid-sm"
+                style={{ minWidth: 220 }}
+                onClick={() => router.push('/signup')}
+              >
                 {t('home.ctaStart')}
               </Button>
             </CardFooter>
@@ -576,7 +593,7 @@ export default function Home() {
         >
           {t('home.faq.title')}
         </h2>
-        <Grid columns={3} gap="md">
+        <Grid columns={1} gap="md" className="grid-sm-cols-2 grid-lg-cols-3">
           <Card elevated>
             <CardHeader style={{ fontWeight: 600 }}>{t('home.faq.q1')}</CardHeader>
             <CardBody style={{ color: 'var(--text-secondary)', lineHeight: 1.6 }}>

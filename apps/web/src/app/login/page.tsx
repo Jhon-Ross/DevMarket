@@ -137,7 +137,13 @@ export default function LoginPage() {
             </Grid>
           </CardBody>
           <CardFooter
-            style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              flexWrap: 'wrap',
+              gap: 'var(--space-3)',
+            }}
           >
             <AppLink
               href="/signup"
@@ -145,7 +151,7 @@ export default function LoginPage() {
             >
               {t('auth.login.toSignup') || 'Não tem conta? Cadastre-se'}
             </AppLink>
-            <Button type="submit" loading={loading}>
+            <Button type="submit" className="button-fluid-sm" loading={loading}>
               {loading
                 ? t('common.loading') || 'Carregando...'
                 : t('auth.login.submit') || 'Entrar'}
