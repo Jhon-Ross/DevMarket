@@ -28,6 +28,26 @@ const dict: Dict = {
     pt: 'Veja projetos em ação, código real e resultados que demonstram a qualidade do trabalho.',
     en: 'See projects in action, real code, and results that demonstrate work quality.',
   },
+  // Home — Como funciona
+  'home.how.title': { pt: 'Como funciona', en: 'How it works' },
+  'home.how.step1.title': { pt: 'Crie seu perfil', en: 'Create your profile' },
+  'home.how.step1.desc': {
+    pt: 'Adicione nome, bio, skills e links para apresentar quem você é.',
+    en: 'Add name, bio, skills and links to present who you are.',
+  },
+  'home.how.step2.title': { pt: 'Publique projetos com mídia', en: 'Publish media-rich projects' },
+  'home.how.step2.desc': {
+    pt: 'Inclua capas, imagens, vídeos e arquivos para mostrar seu trabalho.',
+    en: 'Include covers, images, videos and files to showcase your work.',
+  },
+  'home.how.step3.title': {
+    pt: 'Ganhe visibilidade e conexões',
+    en: 'Gain visibility and connections',
+  },
+  'home.how.step3.desc': {
+    pt: 'Apareça para empresas e devs, compartilhe e receba oportunidades.',
+    en: 'Be discovered by companies and devs, share and get opportunities.',
+  },
   // Home — Planos (títulos resumidos)
   'home.plans.title': { pt: 'Planos', en: 'Plans' },
   'home.plans.devFree.title': { pt: 'Dev Free', en: 'Dev Free' },

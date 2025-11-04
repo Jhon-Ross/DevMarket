@@ -124,6 +124,41 @@ export default function Home() {
         </Grid>
       </section>
 
+      {/* Como funciona */}
+      <section style={{ marginBottom: 'var(--space-8)' }}>
+        <h2
+          style={{
+            marginBottom: 'var(--space-4)',
+            color: 'var(--text-primary)',
+            textAlign: 'center',
+          }}
+        >
+          {t('home.how.title')}
+        </h2>
+        <Grid columns={3} gap="md">
+          <Card elevated>
+            <CardHeader style={{ fontWeight: 600 }}>{t('home.how.step1.title')}</CardHeader>
+            <CardBody style={{ color: 'var(--text-secondary)', lineHeight: 1.6 }}>
+              {t('home.how.step1.desc')}
+            </CardBody>
+          </Card>
+
+          <Card elevated>
+            <CardHeader style={{ fontWeight: 600 }}>{t('home.how.step2.title')}</CardHeader>
+            <CardBody style={{ color: 'var(--text-secondary)', lineHeight: 1.6 }}>
+              {t('home.how.step2.desc')}
+            </CardBody>
+          </Card>
+
+          <Card elevated>
+            <CardHeader style={{ fontWeight: 600 }}>{t('home.how.step3.title')}</CardHeader>
+            <CardBody style={{ color: 'var(--text-secondary)', lineHeight: 1.6 }}>
+              {t('home.how.step3.desc')}
+            </CardBody>
+          </Card>
+        </Grid>
+      </section>
+
       {/* Planos */}
       <section style={{ marginBottom: 'var(--space-8)' }}>
         <h2
