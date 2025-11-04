@@ -1,4 +1,9 @@
 import { defineConfig } from 'sanity';
+import { config as dotenvConfig } from 'dotenv';
+import path from 'path';
+// Carrega variáveis do .env na raiz do monorepo (se existirem)
+dotenvConfig({ path: path.resolve(__dirname, '../../.env') });
+dotenvConfig({ path: path.resolve(__dirname, '../../.env.local') });
 import { deskTool } from 'sanity/desk';
 import { visionTool } from '@sanity/vision';
 import { schemaTypes } from './schemas';

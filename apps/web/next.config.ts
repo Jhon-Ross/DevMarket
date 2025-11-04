@@ -1,4 +1,11 @@
 import type { NextConfig } from 'next';
+import { config as dotenvConfig } from 'dotenv';
+import path from 'path';
+
+// Carrega variáveis do .env na raiz do monorepo (se existirem)
+// Isso permite usar um único .env compartilhado sem precisar duplicar em apps/web/.env.local
+dotenvConfig({ path: path.resolve(__dirname, '../../.env') });
+dotenvConfig({ path: path.resolve(__dirname, '../../.env.local') });
 
 const nextConfig: NextConfig = {
   // Ensure workspace packages are transpiled (TS, CSS) by Next
