@@ -129,6 +129,39 @@ const dict: Dict = {
   'projects.filters': { pt: 'Filtros', en: 'Filters' },
   'projects.all': { pt: 'Todos', en: 'All' },
   'projects.by': { pt: 'por', en: 'by' },
+  // Perfil público
+  'profile.title': { pt: 'Perfil de', en: 'Profile of' },
+  'profile.skills': { pt: 'Skills', en: 'Skills' },
+  'profile.links': { pt: 'Links', en: 'Links' },
+  'profile.projects': { pt: 'Projetos', en: 'Projects' },
+  'profile.empty': { pt: 'Nenhum projeto publicado ainda.', en: 'No projects published yet.' },
+  'profile.notFound.title': { pt: 'Perfil não encontrado', en: 'Profile not found' },
+  'profile.notFound.desc': {
+    pt: 'O perfil solicitado não existe ou foi removido.',
+    en: 'The requested profile does not exist or was removed.',
+  },
+  'profile.notFound.back': { pt: 'Voltar para a Home', en: 'Back to Home' },
+  // Meu Perfil (área autenticada)
+  'myProfile.title': { pt: 'Meu Perfil', en: 'My Profile' },
+  'myProfile.desc': {
+    pt: 'Edite seu perfil público. Publicações de projetos entram como "pendentes" para moderação.',
+    en: 'Edit your public profile. Project publications enter as "pending" for moderation.',
+  },
+  // Feed
+  'feed.title': { pt: 'Feed', en: 'Feed' },
+  'feed.subtitle': {
+    pt: 'Projetos, eventos, notícias e interesses publicados por devs e empresas.',
+    en: 'Projects, events, news, and interests published by devs and companies.',
+  },
+  'feed.filter.all': { pt: 'Todos', en: 'All' },
+  'feed.filter.project': { pt: 'Projetos', en: 'Projects' },
+  'feed.filter.event': { pt: 'Eventos', en: 'Events' },
+  'feed.filter.news': { pt: 'Notícias', en: 'News' },
+  'feed.filter.interest': { pt: 'Interesses', en: 'Interests' },
+  'feed.type.project': { pt: 'Projeto', en: 'Project' },
+  'feed.type.event': { pt: 'Evento', en: 'Event' },
+  'feed.type.news': { pt: 'Notícia', en: 'News' },
+  'feed.type.interest': { pt: 'Interesse', en: 'Interest' },
   // UI Preview
   'uiPreview.title': { pt: 'Preview de UI', en: 'UI Preview' },
   'uiPreview.section.button': { pt: 'Botão', en: 'Button' },
@@ -211,11 +244,6 @@ const dict: Dict = {
   // Common
   'common.loading': { pt: 'Carregando...', en: 'Loading...' },
   'common.redirecting': { pt: 'Redirecionando...', en: 'Redirecting...' },
-  // Perfil
-  'profile.title': { pt: 'Perfil:', en: 'Profile:' },
-  'profile.projects': { pt: 'Projetos públicos', en: 'Public projects' },
-  'profile.empty': { pt: 'Nenhum projeto público encontrado.', en: 'No public projects found.' },
-  'profile.skills': { pt: 'Skills', en: 'Skills' },
 };
 
 type LocaleContextValue = {

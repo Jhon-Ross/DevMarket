@@ -3,13 +3,10 @@ import AppLink from '../../../components/AppLink';
 import { useLocale } from '../../../components/LocaleProvider';
 
 export default function NotFound() {
-  const { locale } = useLocale();
-  const title = locale === 'pt' ? 'Perfil não encontrado' : 'Profile not found';
-  const desc =
-    locale === 'pt'
-      ? 'O perfil solicitado não existe ou foi removido.'
-      : 'The requested profile does not exist or was removed.';
-  const back = locale === 'pt' ? 'Voltar para a Home' : 'Back to Home';
+  const { t } = useLocale();
+  const title = t('profile.notFound.title');
+  const desc = t('profile.notFound.desc');
+  const back = t('profile.notFound.back');
 
   return (
     <section>

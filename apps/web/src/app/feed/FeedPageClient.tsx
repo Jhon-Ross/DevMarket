@@ -1,5 +1,6 @@
 'use client';
 import React from 'react';
+import { useLocale } from '@/components/LocaleProvider';
 import { Grid, Tag } from '@devmarket/ui';
 import '@devmarket/ui';
 import FeedItemCard, { FeedItem, FeedItemType } from './FeedItemCard';
@@ -74,6 +75,7 @@ const demoFeed: FeedItem[] = [
 ];
 
 export default function FeedPageClient({ items }: { items?: FeedItem[] }) {
+  const { t } = useLocale();
   const source = items && items.length ? items : demoFeed;
   const [activeType, setActiveType] = React.useState<FeedItemType | 'all'>('all');
   const filtered = React.useMemo(
@@ -83,10 +85,8 @@ export default function FeedPageClient({ items }: { items?: FeedItem[] }) {
 
   return (
     <section style={{ maxWidth: 900, margin: '0 auto' }}>
-      <h1 style={{ fontWeight: 800, letterSpacing: '-0.02em' }}>Feed</h1>
-      <p style={{ color: 'var(--color-muted)' }}>
-        Projetos, eventos, notícias e interesses publicados por devs e empresas.
-      </p>
+      <h1 style={{ fontWeight: 800, letterSpacing: '-0.02em' }}>{t('feed.title')}</h1>
+      <p style={{ color: 'var(--color-muted)' }}>{t('feed.subtitle')}</p>
 
       {/* Filtros por tipo */}
       <div style={{ marginTop: 'var(--space-4)' }}>
@@ -95,31 +95,31 @@ export default function FeedPageClient({ items }: { items?: FeedItem[] }) {
             variant={activeType === 'all' ? 'primary' : undefined}
             onClick={() => setActiveType('all')}
           >
-            Todos
+            {t('feed.filter.all')}
           </Tag>
           <Tag
             variant={activeType === 'project' ? 'primary' : undefined}
             onClick={() => setActiveType('project')}
           >
-            Projetos
+            {t('feed.filter.project')}
           </Tag>
           <Tag
             variant={activeType === 'event' ? 'primary' : undefined}
             onClick={() => setActiveType('event')}
           >
-            Eventos
+            {t('feed.filter.event')}
           </Tag>
           <Tag
             variant={activeType === 'news' ? 'primary' : undefined}
             onClick={() => setActiveType('news')}
           >
-            Notícias
+            {t('feed.filter.news')}
           </Tag>
           <Tag
             variant={activeType === 'interest' ? 'primary' : undefined}
             onClick={() => setActiveType('interest')}
           >
-            Interesses
+            {t('feed.filter.interest')}
           </Tag>
         </div>
       </div>

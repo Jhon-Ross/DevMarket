@@ -3,6 +3,7 @@ import React from 'react';
 import Image from 'next/image';
 import AppLink from '@/components/AppLink';
 import { Card, CardHeader, CardBody, CardFooter, Avatar, Tag, Button } from '@devmarket/ui';
+import { useLocale } from '@/components/LocaleProvider';
 
 export type FeedItemType = 'project' | 'event' | 'news' | 'interest';
 
@@ -25,20 +26,22 @@ export type FeedItem = {
 };
 
 function TypeBadge({ type }: { type: FeedItemType }) {
+  const { t } = useLocale();
   const map: Record<
     FeedItemType,
     { label: string; variant?: 'primary' | 'success' | 'warning' | 'danger' }
   > = {
-    project: { label: 'Projeto', variant: 'primary' },
-    event: { label: 'Evento', variant: 'success' },
-    news: { label: 'Notícia', variant: 'warning' },
-    interest: { label: 'Interesse', variant: 'danger' },
+    project: { label: t('feed.type.project'), variant: 'primary' },
+    event: { label: t('feed.type.event'), variant: 'success' },
+    news: { label: t('feed.type.news'), variant: 'warning' },
+    interest: { label: t('feed.type.interest'), variant: 'danger' },
   };
   const conf = map[type];
   return <Tag variant={conf.variant}>{conf.label}</Tag>;
 }
 
 export default function FeedItemCard({ item }: { item: FeedItem }) {
+  const { locale } = useLocale();
   return (
     <Card elevated>
       <CardHeader>
@@ -50,15 +53,15 @@ export default function FeedItemCard({ item }: { item: FeedItem }) {
           )}
           <div style={{ display: 'grid' }}>
             {item.author?.slug ? (
-          <AppLink href={`/perfil/${item.author.slug}`} style={{ fontWeight: 700 }}>
-            {item.author.name}
-          </AppLink>
+              <AppLink href={`/perfil/${item.author.slug}`} style={{ fontWeight: 700 }}>
+                {item.author.name}
+              </AppLink>
             ) : (
               <strong>{item.author?.name}</strong>
             )}
             {item.createdAt ? (
               <time dateTime={item.createdAt} style={{ color: 'var(--color-muted)', fontSize: 12 }}>
-                {new Date(item.createdAt).toLocaleString('pt-BR')}
+                {new Date(item.createdAt).toLocaleString(locale === 'pt' ? 'pt-BR' : 'en-US')}
               </time>
             ) : null}
           </div>

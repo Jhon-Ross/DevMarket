@@ -2,6 +2,7 @@ import { redirect } from 'next/navigation';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import MyProfileForm from './MyProfileForm';
+import MyProfileHeader from './MyProfileHeader';
 
 export default async function MyProfilePage() {
   let session = null as Awaited<ReturnType<typeof getServerSession>> | null;
@@ -18,12 +19,7 @@ export default async function MyProfilePage() {
 
   return (
     <main style={{ padding: 'var(--space-8)', maxWidth: 960, margin: '0 auto' }}>
-      <header style={{ marginBottom: 'var(--space-6)' }}>
-        <h1 style={{ color: 'var(--text-primary)' }}>Meu Perfil</h1>
-        <p style={{ color: 'var(--text-secondary)' }}>
-          Edite seu perfil público. Publicações de projetos entram como "pendentes" para moderação.
-        </p>
-      </header>
+      <MyProfileHeader />
       <MyProfileForm />
     </main>
   );
