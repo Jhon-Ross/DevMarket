@@ -430,3 +430,18 @@ Mantemos este arquivo como registro de mudanças. Para detalhes e exemplos, cons
 
 - Layout do Login refatorado com subcomponentes do `Card` e inputs em coluna.
 - Kanban atualizado com entregas e próximos passos de UX para Login.
+## [0.1.4] — 2025-11-04
+
+### Web (Next.js)
+
+- Adicionado `UserMenu` no cabeçalho com avatar (iniciais), nome/email e dropdown com "Meu Perfil", "Novo Projeto" e "Sair".
+- Simplificado `NavLinks`: mantém "Projetos" sempre visível e mostra "Entrar" apenas quando não autenticado; ações do usuário autenticado migradas para `UserMenu`.
+- Integrado `SessionProvider` via `AuthProvider` no `layout.tsx` para habilitar leitura de sessão em componentes client.
+- Corrigido redirecionamento pós-login: `apps/web/src/app/login/page.tsx` agora decodifica e prioriza `callbackUrl` ao navegar após `signIn`.
+- Protegidas páginas sensíveis (`/perfil/meu`, `/projetos/novo`) com `getServerSession(authOptions)` e `try/catch` para tratar `JWT_SESSION_ERROR` como não autenticado, redirecionando para `/login` com `callbackUrl` apropriado.
+
+### Notas de validação
+
+- Acesse `/perfil/meu` sem sessão para confirmar redirecionamento para `/login?callbackUrl=%2Fperfil%2Fmeu` e retorno pós-login.
+- Com sessão ativa, o menu de usuário aparece no cabeçalho com itens funcionais; "Sair" encerra a sessão e volta para a Home.
+- APIs protegidas retornam `401` sem cookies; após login, `/api/auth/session` deve refletir dados do usuário.

@@ -3,7 +3,9 @@ import Link from 'next/link';
 import LanguageSelector from '../components/LanguageSelector';
 import ThemeToggle from '../components/ThemeToggle';
 import LocaleProvider from '../components/LocaleProvider';
+import AuthProvider from '../components/AuthProvider';
 import NavLinks from '../components/NavLinks';
+import UserMenu from '../components/UserMenu';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -29,7 +31,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           minHeight: '100vh',
         }}
       >
-        <LocaleProvider>
+        <AuthProvider>
+          <LocaleProvider>
           <header
             style={{
               borderBottom: '1px solid var(--border-default)',
@@ -65,13 +68,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <NavLinks />
                 <LanguageSelector />
                 <ThemeToggle />
+                <UserMenu />
               </div>
             </nav>
           </header>
           <main style={{ maxWidth: 1200, margin: '0 auto', padding: 'var(--space-6)' }}>
             {children}
           </main>
-        </LocaleProvider>
+          </LocaleProvider>
+        </AuthProvider>
       </body>
     </html>
   );

@@ -196,6 +196,8 @@ const dict: Dict = {
   'signup.field.confirm': { pt: 'Confirmar senha', en: 'Confirm password' },
   'signup.error.required': { pt: 'Preencha todos os campos.', en: 'Fill in all fields.' },
   'signup.error.mismatch': { pt: 'Senhas não coincidem.', en: 'Passwords do not match.' },
+  'signup.error.generic': { pt: 'Erro ao cadastrar', en: 'Error signing up' },
+  'signup.error.emailTaken': { pt: 'Email já cadastrado', en: 'Email already taken' },
   'signup.submit': { pt: 'Criar conta', en: 'Create account' },
   'signup.success': { pt: 'Cadastro enviado! (mock)', en: 'Signup submitted! (mock)' },
   // Auth / Login
@@ -240,7 +242,7 @@ export default function LocaleProvider({ children }: { children: React.ReactNode
     () => ({
       locale,
       setLocale,
-      t: (key) => dict[key][locale],
+      t: (key) => (dict[key] ? dict[key][locale] : ''),
     }),
     [locale]
   );

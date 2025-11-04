@@ -88,25 +88,36 @@ export default function Page() {
 - Páginas validadas com dark mode consistente: `/signup`, `/projetos/mock`, `/perfil/mock`, e Home.
 - Observação: erros `net::ERR_BLOCKED_BY_ORB` do Sanity CDN em dev não afetam UI/tema; são bloqueios do ambiente.
 
-## Autenticação e Cadastro
+## Autenticação, Navegação e Sessão
 
-- Fluxo: `next-auth` com provedor `Credentials` (email/senha) e `PrismaAdapter`.
-- Página de Login: `/login` — usa `CardHeader`, `CardBody` e `CardFooter` do `@devmarket/ui`.
-  - Inputs estilizados com HTML padrão (o pacote UI não fornece `Input`/`Text`/`Spacer`).
-  - Botão "Entrar" no `CardFooter` com estado `loading` usando `Button` do UI.
-  - Link para cadastro: `{t('auth.login.toSignup')}` → navega para `/signup`.
-- Página de Cadastro: `/signup` — validação simples (campos obrigatórios e confirmação de senha).
-- Internacionalização:
-  - Chaves adicionadas em `LocaleProvider`: `auth.login.*`, `auth.email`, `auth.password`, `common.loading`, `common.redirecting`.
-  - Evita erros de chave ausente e mantém PT/EN.
-- Navegação:
-  - Link "Entrar" adicionado ao cabeçalho em `apps/web/src/components/NavLinks.tsx` via `t('nav.login')`.
-- Integração com NextAuth:
-  - `apps/web/src/app/api/auth/[...nextauth]/route.ts` define `pages.signIn = '/login'`.
-  - Login programático: `await signIn('credentials', { email, password, redirect: false })`.
+- NextAuth: provedor `Credentials` com `PrismaAdapter`.
+- Páginas protegidas:
+  - `/perfil/meu` e `/projetos/novo` usam `getServerSession(authOptions)`.
+  - Em erro `JWT_SESSION_ERROR` (falha de decriptação), tratam como não autenticado e redirecionam para `/login` com `callbackUrl` apropriado.
+- Login com `callbackUrl`:
+  - `apps/web/src/app/login/page.tsx` decodifica e prioriza `callbackUrl` ao navegar após `signIn`.
+  - Ex.: acessar `/perfil/meu` sem sessão redireciona para `/login?callbackUrl=%2Fperfil%2Fmeu`; após login, retorna para `/perfil/meu`.
+- Sessão no cliente:
+  - `apps/web/src/components/AuthProvider.tsx` encapsula `SessionProvider`.
+  - `apps/web/src/app/layout.tsx` envolve a árvore com `AuthProvider` para habilitar `useSession()` em componentes client.
+- Cabeçalho e navegação:
+  - `NavLinks` mostra "Projetos" sempre e "Entrar" apenas quando não autenticado.
+  - `UserMenu` exibe avatar (iniciais), nome/email e dropdown com "Meu Perfil", "Novo Projeto" e "Sair" quando autenticado.
+  - Arquivos: `apps/web/src/components/NavLinks.tsx` e `apps/web/src/components/UserMenu.tsx`.
+ 
+### Ambiente e troubleshooting
+
+- Garanta `NEXTAUTH_URL=http://localhost:3000` e um `NEXTAUTH_SECRET` estável em `apps/web/.env.local`.
+- Evite múltiplos processos de `next dev`; se trocar o `NEXTAUTH_SECRET`, pare o servidor, limpe cookies de sessão e reinicie.
+- Valide a sessão em `http://localhost:3000/api/auth/session` após login.
 
 ### Dicas de Desenvolvimento
 
 - Se aparecer `Runtime Error: invalid element type`, confira se o componente existe em `@devmarket/ui`.
   - Substituímos `Text`, `Input`, `Spacer` por elementos HTML para compatibilidade.
 - Ao adicionar novos textos às páginas de auth, sempre inclua as chaves no `LocaleProvider`.
+ 
+### Fluxos rápidos de validação
+
+- Sem sessão: acessar `/perfil/meu` deve redirecionar para `/login` e, após login, voltar para o perfil.
+- Logado: o menu de usuário no header aparece; "Sair" derruba sessão e volta à Home; o header volta a mostrar "Entrar".

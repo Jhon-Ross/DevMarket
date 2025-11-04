@@ -1,6 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { signIn } from 'next-auth/react';
 import { useLocale } from '@/components/LocaleProvider';
 import Link from 'next/link';
@@ -9,6 +9,7 @@ import { Button, Card, Grid, CardHeader, CardBody, CardFooter } from '@devmarket
 export default function LoginPage() {
   const { t } = useLocale();
   const router = useRouter();
+  const search = useSearchParams();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -18,9 +19,12 @@ export default function LoginPage() {
     e.preventDefault();
     setError(null);
     setLoading(true);
+    const rawCb = search?.get('callbackUrl');
+    const callbackUrl = rawCb ? decodeURIComponent(rawCb) : '/';
     const res = await signIn('credentials', {
       email,
       password,
+      callbackUrl,
       redirect: false,
     });
     setLoading(false);
@@ -28,7 +32,9 @@ export default function LoginPage() {
       setError(res.error);
       return;
     }
-    router.push('/');
+    // Preferimos o callbackUrl informado pela rota protegida
+    const target = callbackUrl || (res as any)?.url || '/';
+    router.replace(target);
   };
 
   return (
