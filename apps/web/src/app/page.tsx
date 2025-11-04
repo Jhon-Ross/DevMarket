@@ -303,6 +303,41 @@ export default function Home() {
           </Card>
         </Grid>
       </section>
+
+      {/* FAQ */}
+      <section style={{ marginBottom: 'var(--space-8)' }}>
+        <h2
+          style={{
+            marginBottom: 'var(--space-4)',
+            color: 'var(--text-primary)',
+            textAlign: 'center',
+          }}
+        >
+          {t('home.faq.title')}
+        </h2>
+        <Grid columns={3} gap="md">
+          <Card elevated>
+            <CardHeader style={{ fontWeight: 600 }}>{t('home.faq.q1')}</CardHeader>
+            <CardBody style={{ color: 'var(--text-secondary)', lineHeight: 1.6 }}>
+              {t('home.faq.a1')}
+            </CardBody>
+          </Card>
+
+          <Card elevated>
+            <CardHeader style={{ fontWeight: 600 }}>{t('home.faq.q2')}</CardHeader>
+            <CardBody style={{ color: 'var(--text-secondary)', lineHeight: 1.6 }}>
+              {t('home.faq.a2')}
+            </CardBody>
+          </Card>
+
+          <Card elevated>
+            <CardHeader style={{ fontWeight: 600 }}>{t('home.faq.q3')}</CardHeader>
+            <CardBody style={{ color: 'var(--text-secondary)', lineHeight: 1.6 }}>
+              {t('home.faq.a3')}
+            </CardBody>
+          </Card>
+        </Grid>
+      </section>
     </main>
   );
 }

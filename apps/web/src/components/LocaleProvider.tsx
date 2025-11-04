@@ -95,6 +95,29 @@ const dict: Dict = {
   'home.plans.devPremium.benefit2': { pt: 'Insights de visitas', en: 'Visit insights' },
   'home.plans.devPremium.benefit3': { pt: 'Suporte prioritário', en: 'Priority support' },
   'home.plans.devPremium.price': { pt: 'R$ 39,90/mês', en: '$39.90/mo' },
+  // Home — FAQ
+  'home.faq.title': { pt: 'Perguntas Frequentes', en: 'Frequently Asked Questions' },
+  'home.faq.q1': { pt: 'O DevMarket é gratuito?', en: 'Is DevMarket free?' },
+  'home.faq.a1': {
+    pt: 'Há um plano Free para Devs com recursos limitados e planos pagos opcionais para benefícios extras.',
+    en: 'There is a Free plan for Devs with limited features and optional paid plans for extra benefits.',
+  },
+  'home.faq.q2': {
+    pt: 'Posso publicar vídeos nos projetos?',
+    en: 'Can I publish videos in projects?',
+  },
+  'home.faq.a2': {
+    pt: 'Sim. Suportamos imagens, vídeos e arquivos para demonstrar seu trabalho com mídia rica.',
+    en: 'Yes. We support images, videos, and files to showcase your work with rich media.',
+  },
+  'home.faq.q3': {
+    pt: 'Empresas podem avaliar portfólios?',
+    en: 'Can companies review portfolios?',
+  },
+  'home.faq.a3': {
+    pt: 'Empresas podem pesquisar perfis, analisar projetos e entrar em contato diretamente com talentos.',
+    en: 'Companies can search profiles, review projects, and contact talents directly.',
+  },
   // Navegação
   'nav.uiPreview': { pt: 'Preview de UI', en: 'UI Preview' },
   'nav.projects': { pt: 'Projetos', en: 'Projects' },
