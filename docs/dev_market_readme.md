@@ -135,7 +135,7 @@ Boas práticas:
 - `apps/web/next.config.ts` inclui `transpilePackages: ['@devmarket/ui']` para transpilar o pacote da workspace.
 - `packages/ui/package.json` marca CSS como `sideEffects` e declara `react`/`react-dom` como `peerDependencies`.
 - `packages/ui/src/index.ts` importa `tokens.css` globalmente para disponibilizar variáveis no app consumidor.
- - `apps/web/src/app/globals.css` mapeia tokens do design system para variáveis globais do app (light/dark), melhorando contraste em variantes como `button-outline`.
+- `apps/web/src/app/globals.css` mapeia tokens do design system para variáveis globais do app (light/dark), melhorando contraste em variantes como `button-outline`.
 
 ### Como usar
 
@@ -182,7 +182,7 @@ export default function Example() {
 - Tema: alterna entre `Light` e `Dark`; preferência persistida em `localStorage` e aplicada via classe `dark` no `html`.
 - Mensagens antigas de instrução removidas da Home.
 - Internacionalização conectada: `LocaleProvider` com `useLocale()`/`t(key)` e dicionários locais (`home.*`, `nav.*`, `projects.*`, `uiPreview.*`).
- - Páginas “Sobre” e “Signup” também usam `t(key)`; textos alternam corretamente com o seletor de idioma.
+- Páginas “Sobre” e “Signup” também usam `t(key)`; textos alternam corretamente com o seletor de idioma.
 
 ### Indicadores de desenvolvimento do Next
 
@@ -198,14 +198,14 @@ export default function Example() {
 
 - Botão em `loading`: spinner passou a ser renderizado inline (em vez de overlay absoluto) para evitar sobreposição de texto.
 - Spinner ajustado para forma perfeitamente circular (`border-radius: 50%`) e animação mais suave.
- - Página “Feed” unificada: cards com badges de tipo (Projeto/Evento/Notícia/Interesse), filtros por tipo, owner com link.
- - Separação Server/Client em `/projetos`: `page.tsx` (Server, metadata) renderiza `FeedPageClient` (Client com estado/filtros).
- - Novo componente reutilizável `FeedItemCard` para renderizar conteúdo com capa, autor, tags e CTAs.
- - Navegação atualizada: rótulo “Projetos” → “Feed” (PT/EN) via `LocaleProvider`.
- - Ajustes de tipos na UI: `Grid.gap="lg"`, `Avatar.size="sm"`, `Tag` recebe texto via `children`.
- - Páginas “Sobre” e “Signup” traduzidas com `LocaleProvider` (`about.*` e `signup.*`).
- - CTA da página “Sobre” corrigida: `Button` usa `onClick` com `router.push('/signup')` (sem `href`).
- - Tema escuro: variante `button-outline` com contraste reforçado via `apps/web/src/app/globals.css` (bordas e texto ajustados).
+- Página “Feed” unificada: cards com badges de tipo (Projeto/Evento/Notícia/Interesse), filtros por tipo, owner com link.
+- Separação Server/Client em `/projetos`: `page.tsx` (Server, metadata) renderiza `FeedPageClient` (Client com estado/filtros).
+- Novo componente reutilizável `FeedItemCard` para renderizar conteúdo com capa, autor, tags e CTAs.
+- Navegação atualizada: rótulo “Projetos” → “Feed” (PT/EN) via `LocaleProvider`.
+- Ajustes de tipos na UI: `Grid.gap="lg"`, `Avatar.size="sm"`, `Tag` recebe texto via `children`.
+- Páginas “Sobre” e “Signup” traduzidas com `LocaleProvider` (`about.*` e `signup.*`).
+- CTA da página “Sobre” corrigida: `Button` usa `onClick` com `router.push('/signup')` (sem `href`).
+- Tema escuro: variante `button-outline` com contraste reforçado via `apps/web/src/app/globals.css` (bordas e texto ajustados).
 
 ### Avisos corrigidos
 
@@ -367,6 +367,56 @@ Modelos adicionais:
 
 - Não envie arquivos grandes através do servidor (gargalo). Use **signed URLs** do S3 para upload direto do cliente.
 - Armazene metadados (tipo, duração, poster image, transcode status) no banco.
+
+---
+
+## Moderação e Publicação (Sanity)
+
+Fluxo proposto para conteúdo criado pelo site (projetos, posts, cases, etc.):
+
+- Criação via API (autenticado): o backend grava no Sanity com `status: "pending"` e `isPublic: false`.
+- Aprovação no Studio: moderadores alteram `status: "approved"` e marcam `isPublic: true`.
+- Reprovação: `status: "rejected"` (mantém `isPublic: false`).
+- Webhook: ao publicar/alterar, o Studio aciona `POST /api/webhooks/sanity` com `{ slug, _type }` e revalida rotas públicas (perfil e listagens).
+
+Implementação sugerida no schema `project` (e demais documentos públicos):
+
+- Campo `status` (`string`): `pending | approved | rejected`.
+- Campo `isPublic` (`boolean`): controla exibição em páginas públicas e feed.
+- Campo `owner` (`reference` → `userProfile`): vincula o conteúdo ao perfil.
+
+UI no Studio:
+
+- Views/filters por status: “Pendentes”, “Aprovados”, “Rejeitados”.
+- Ação rápida de aprovação: marcar `approved` + `isPublic: true`.
+
+Critérios de aceite:
+
+- Conteúdo só aparece no feed público quando `isPublic: true`.
+- Revalidação de páginas ocorre via webhook após mudanças.
+
+---
+
+## Perfis Completos (Indivíduo e Empresa)
+
+Objetivo: transformar `/perfil/[slug]` em uma página de portfólio moderna, altamente personalizável.
+
+Diretrizes:
+
+- Cabeçalho: avatar/logo, nome, tagline, localização, badges de tipo de perfil (`individual`, `company`, `agency`, `team`, `creator`), CTAs de contato.
+- Seções: Sobre, Portfólio/Projetos, Serviços/Ofertas, Skills & Domínios, Conteúdos (posts/cases), Avaliações/Clientes, Vagas (empresas), Links.
+- Taxonomias: `domains[]` (development, design, marketing, product, data, ops, security, growth) e `roleTags[]` para filtros globais.
+- Personalização: temas e variantes visuais diferentes para perfis de empresa (mais corporativo) e indivíduo (mais autoral).
+
+Backlog técnico (alto nível):
+
+- Expandir `userProfile` com `profileType`, `domains[]`, `services[]`, `availability`, `rateCard`, `location`, `companySize`, `industries[]`, `teamMembers[]`, `clients[]`.
+- Evoluir `/perfil/meu` em seções, com componentes de formulário reutilizáveis.
+- Ajustar `/perfil/[slug]` para renderizar seções condicionais conforme `profileType`.
+- Atualizar `LocaleProvider` com strings novas para navegação e seções.
+
+Referência de sprints: ver `docs/planning/sprints-overview.md` e `docs/sprints/sprint-05-perfis-completos.md`.
+
 - Faça transcodificação (para vídeos) — usar serviços gerenciados (Mux, Cloudflare Stream) ou pipelines serverless para gerar thumbs e versões otimizadas.
 
 ---

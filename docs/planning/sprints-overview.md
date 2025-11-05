@@ -47,4 +47,26 @@ Critérios de sucesso gerais
 
 Estrutura atual: colunas "Sprints", "Em Progresso", "Em Revisão", "Concluído".
 
+## Próximas Sprints (Planejamento)
+
+- Sprint 5 — Perfis Completos (Indivíduo e Empresa)
+  - Evoluir `/perfil/[slug]` com seções completas e personalização por `profileType`.
+  - Form `/perfil/meu` por seções, novos campos em `userProfile`.
+
+- Sprint 6 — Conteúdos (Posts e Cases)
+  - Schemas `post` e `case`; endpoints `POST /api/posts` e `POST /api/cases`.
+  - Páginas `/posts/novo`, `/cases/novo` e listagens públicas.
+
+- Sprint 7 — Oportunidades (Gigs e Vagas)
+  - Schemas `gig` e `job`; `POST /api/gigs` e `POST /api/jobs` com gating para empresas.
+  - Páginas `/gigs/novo`, `/vagas/novo` e listagens públicas.
+
+- Sprint 8 — Descoberta e Filtros
+  - Página `/descobrir` com tabs (Projetos, Posts, Cases, Gigs, Vagas, Eventos).
+  - Filtros por `domains`/`roleTags`, melhorias no `LocaleProvider`.
+
+- Sprint 9 — Moderação e Reputação
+  - Views e ações no Studio para `status` e `isPublic`.
+  - Reputação básica (aprovações/recomendações) e endpoint de report.
+
 Arquivo: `docs/kanban/devmarket-kanban.md`.

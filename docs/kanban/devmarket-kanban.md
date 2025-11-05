@@ -15,12 +15,35 @@ kanban-plugin: board
 - [ ] ⏳ Sprint 4 — Hardening & QA
   - Testes unit/e2e, segurança, logs/métricas, CI/CD e performance.
 
+- [ ] 🧭 Sprint 5 — Perfis Completos (Indivíduo e Empresa)
+  - Evoluir `/perfil/[slug]` com seções completas e personalização por `profileType`.
+  - Form `/perfil/meu` por seções, novos campos em `userProfile`.
+
+- [ ] 📝 Sprint 6 — Conteúdos (Posts e Cases)
+  - Schemas `post` e `case`; endpoints `POST /api/posts` e `POST /api/cases`.
+  - Páginas `/posts/novo`, `/cases/novo` e listagens públicas.
+
+- [ ] 💼 Sprint 7 — Oportunidades (Gigs e Vagas)
+  - Schemas `gig` e `job`; `POST /api/gigs` e `POST /api/jobs` com gating para empresas.
+  - Páginas `/gigs/novo`, `/vagas/novo` e listagens públicas.
+
+- [ ] 🔎 Sprint 8 — Descoberta e Filtros
+  - Página `/descobrir` com tabs (Projetos, Posts, Cases, Gigs, Vagas, Eventos).
+  - Filtros por `domains`/`roleTags`, melhorias no `LocaleProvider`.
+
+- [ ] 🛡️ Sprint 9 — Moderação e Reputação
+  - Views/ações no Studio para `status` e `isPublic`.
+  - Reputação básica (aprovações/recomendações) e endpoint de report.
+
 ## Em Progresso
 
 - [ ] Configurar webhook de revalidação (Sanity → Next.js) para `/perfil/[slug]`.
 - [ ] Homepage UX — definir estrutura e chaves i18n (`docs/planning/homepage-ux.md`).
 - [ ] Criar Prisma schema (`User`, `Subscription`) e migrations.
 - [ ] Melhorias de UX no Login: toggle de visibilidade da senha, mensagens de erro consistentes.
+
+- [ ] Planejar `userProfile` avançado (campos e seções) — Sprint 5.
+- [ ] Preparar endpoints e páginas de criação para Posts/Cases — Sprint 6.
 
 ## Em Revisão
 
@@ -64,6 +87,22 @@ kanban-plugin: board
 - [x] [UI] Refatoração do layout do Login com `CardHeader`, `CardBody`, `CardFooter` e inputs alinhados.
 - [x] [UI] Remoção de imports inexistentes (`Text`, `Input`, `Spacer`) do `@devmarket/ui` e uso de HTML.
 - [x] [Nav] Link “Entrar” adicionado ao cabeçalho (`NavLinks.tsx`) usando `t('nav.login')`.
+
+### Planejado (Checklist granular)
+
+- [ ] Expandir schema `userProfile` com `profileType`, `domains`, `services`, `companySize`, etc. (Sprint 5)
+- [ ] Dividir `/perfil/meu` em seções de formulário com validação (Sprint 5)
+- [ ] Renderização condicional em `/perfil/[slug]` por tipo de perfil (Sprint 5)
+- [ ] Criar schemas `post` e `case` com `status` e `isPublic` (Sprint 6)
+- [ ] Implementar `POST /api/posts` e `POST /api/cases` (Sprint 6)
+- [ ] Páginas `/posts/novo`, `/cases/novo` e listagens públicas (Sprint 6)
+- [ ] Schemas `gig` e `job` com gating para empresas (Sprint 7)
+- [ ] Endpoints `POST /api/gigs` e `POST /api/jobs` (Sprint 7)
+- [ ] Páginas `/gigs/novo`, `/vagas/novo` e listagens (Sprint 7)
+- [ ] Página `/descobrir` com tabs e filtros por `domains`/`roleTags` (Sprint 8)
+- [ ] Atualizações no `LocaleProvider` para novas seções (Sprint 8)
+- [ ] Views/ações no Studio para aprovação (`status`/`isPublic`) (Sprint 9)
+- [ ] Webhook revisado e métricas de reputação (Sprint 9)
 
 %% kanban:settings
 

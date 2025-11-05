@@ -213,6 +213,11 @@ const dict: Dict = {
     en: 'Internal error saving profile',
   },
   'myProfile.form.success': { pt: 'Perfil atualizado.', en: 'Profile updated.' },
+  // Seções do formulário de perfil
+  'myProfile.section.basic': { pt: 'Informações básicas', en: 'Basic information' },
+  'myProfile.section.avatar': { pt: 'Imagem de perfil', en: 'Profile image' },
+  'myProfile.section.skills': { pt: 'Habilidades', en: 'Skills' },
+  'myProfile.section.links': { pt: 'Links', en: 'Links' },
   // Feed
   'feed.title': { pt: 'Feed', en: 'Feed' },
   'feed.subtitle': {

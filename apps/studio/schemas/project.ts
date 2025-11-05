@@ -64,7 +64,23 @@ export default defineType({
       name: 'isPublic',
       title: 'Public?',
       type: 'boolean',
-      initialValue: true,
+      initialValue: false,
+      description: 'Controle de visibilidade pública. Moderado via Studio.',
+    }),
+    defineField({
+      name: 'status',
+      title: 'Status',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'Pending', value: 'pending' },
+          { title: 'Approved', value: 'approved' },
+          { title: 'Rejected', value: 'rejected' },
+        ],
+        layout: 'radio',
+      },
+      initialValue: 'pending',
+      description: 'Fluxo de moderação: pending → approved/rejected.',
     }),
     defineField({
       name: 'slug',

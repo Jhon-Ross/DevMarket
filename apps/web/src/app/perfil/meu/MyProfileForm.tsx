@@ -97,90 +97,162 @@ export default function MyProfileForm() {
       </CardHeader>
       <form onSubmit={onSubmit}>
         <CardBody>
-          <Grid columns={2} gap="md" className="grid-sm-1 grid-md-2">
-            <label style={{ display: 'grid', gap: 6 }}>
-              <span>{t('myProfile.form.name')}</span>
-              <input
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder={t('myProfile.form.namePlaceholder')}
-                style={{
-                  width: '100%',
-                  padding: '10px 12px',
-                  borderRadius: 'var(--radius-md)',
-                  border: '1px solid var(--border-default)',
-                  background: 'var(--bg-default)',
-                  color: 'var(--text-primary)',
-                }}
-              />
-            </label>
-            <label style={{ display: 'grid', gap: 6 }}>
-              <span>{t('myProfile.form.avatarUrl')}</span>
-              <input
-                value={avatarUrl}
-                onChange={(e) => setAvatarUrl(e.target.value)}
-                placeholder={t('myProfile.form.avatarUrlPlaceholder')}
-                style={{
-                  width: '100%',
-                  padding: '10px 12px',
-                  borderRadius: 'var(--radius-md)',
-                  border: '1px solid var(--border-default)',
-                  background: 'var(--bg-default)',
-                  color: 'var(--text-primary)',
-                }}
-              />
-            </label>
-            <label style={{ display: 'grid', gap: 6 }}>
-              <span>{t('myProfile.form.bio')}</span>
-              <textarea
-                value={bio}
-                onChange={(e) => setBio(e.target.value)}
-                placeholder={t('myProfile.form.bioPlaceholder')}
-                rows={5}
-                style={{
-                  width: '100%',
-                  padding: '10px 12px',
-                  borderRadius: 'var(--radius-md)',
-                  border: '1px solid var(--border-default)',
-                  background: 'var(--bg-default)',
-                  color: 'var(--text-primary)',
-                }}
-              />
-            </label>
-            <label style={{ display: 'grid', gap: 6 }}>
-              <span>{t('myProfile.form.skills')}</span>
-              <input
-                value={skills}
-                onChange={(e) => setSkills(e.target.value)}
-                placeholder={t('myProfile.form.skillsPlaceholder')}
-                style={{
-                  width: '100%',
-                  padding: '10px 12px',
-                  borderRadius: 'var(--radius-md)',
-                  border: '1px solid var(--border-default)',
-                  background: 'var(--bg-default)',
-                  color: 'var(--text-primary)',
-                }}
-              />
-            </label>
-            <label style={{ display: 'grid', gap: 6 }}>
-              <span>{t('myProfile.form.links')}</span>
-              <textarea
-                value={links}
-                onChange={(e) => setLinks(e.target.value)}
-                placeholder={t('myProfile.form.linksPlaceholder')}
-                rows={5}
-                style={{
-                  width: '100%',
-                  padding: '10px 12px',
-                  borderRadius: 'var(--radius-md)',
-                  border: '1px solid var(--border-default)',
-                  background: 'var(--bg-default)',
-                  color: 'var(--text-primary)',
-                }}
-              />
-            </label>
-          </Grid>
+          {/* Seção: Informações básicas */}
+          <section aria-labelledby="basic-info" style={{ marginBottom: 'var(--space-6)' }}>
+            <h3
+              id="basic-info"
+              style={{ marginBottom: 'var(--space-2)', color: 'var(--text-primary)' }}
+            >
+              {t('myProfile.section.basic')}
+            </h3>
+            <Grid columns={2} gap="md" className="grid-sm-1 grid-md-2">
+              <label style={{ display: 'grid', gap: 6 }}>
+                <span>{t('myProfile.form.name')}</span>
+                <input
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder={t('myProfile.form.namePlaceholder')}
+                  style={{
+                    width: '100%',
+                    padding: '10px 12px',
+                    borderRadius: 'var(--radius-md)',
+                    border: '1px solid var(--border-default)',
+                    background: 'var(--bg-default)',
+                    color: 'var(--text-primary)',
+                  }}
+                />
+              </label>
+              <label style={{ display: 'grid', gap: 6 }}>
+                <span>{t('myProfile.form.bio')}</span>
+                <textarea
+                  value={bio}
+                  onChange={(e) => setBio(e.target.value)}
+                  placeholder={t('myProfile.form.bioPlaceholder')}
+                  rows={5}
+                  style={{
+                    width: '100%',
+                    padding: '10px 12px',
+                    borderRadius: 'var(--radius-md)',
+                    border: '1px solid var(--border-default)',
+                    background: 'var(--bg-default)',
+                    color: 'var(--text-primary)',
+                  }}
+                />
+              </label>
+            </Grid>
+          </section>
+
+          {/* Seção: Avatar */}
+          <section aria-labelledby="avatar" style={{ marginBottom: 'var(--space-6)' }}>
+            <h3
+              id="avatar"
+              style={{ marginBottom: 'var(--space-2)', color: 'var(--text-primary)' }}
+            >
+              {t('myProfile.section.avatar')}
+            </h3>
+            <Grid columns={2} gap="md" className="grid-sm-1 grid-md-2">
+              <label style={{ display: 'grid', gap: 6 }}>
+                <span>{t('myProfile.form.avatarUrl')}</span>
+                <input
+                  value={avatarUrl}
+                  onChange={(e) => setAvatarUrl(e.target.value)}
+                  placeholder={t('myProfile.form.avatarUrlPlaceholder')}
+                  style={{
+                    width: '100%',
+                    padding: '10px 12px',
+                    borderRadius: 'var(--radius-md)',
+                    border: '1px solid var(--border-default)',
+                    background: 'var(--bg-default)',
+                    color: 'var(--text-primary)',
+                  }}
+                />
+              </label>
+              <div style={{ display: 'grid', alignContent: 'start', gap: 6 }}>
+                <span style={{ color: 'var(--text-secondary)' }}>Preview</span>
+                {avatarUrl ? (
+                  // preview simples via tag img
+                  <img
+                    src={avatarUrl}
+                    alt="avatar preview"
+                    style={{
+                      width: 96,
+                      height: 96,
+                      borderRadius: '50%',
+                      objectFit: 'cover',
+                      border: '1px solid var(--border-default)',
+                      boxShadow: 'var(--shadow-sm)',
+                    }}
+                    onError={(e) => ((e.currentTarget.style.display = 'none'), void 0)}
+                  />
+                ) : (
+                  <div
+                    style={{
+                      width: 96,
+                      height: 96,
+                      borderRadius: '50%',
+                      border: '1px dashed var(--border-default)',
+                      background: 'var(--bg-subtle)',
+                    }}
+                  />
+                )}
+              </div>
+            </Grid>
+          </section>
+
+          {/* Seção: Skills */}
+          <section aria-labelledby="skills" style={{ marginBottom: 'var(--space-6)' }}>
+            <h3
+              id="skills"
+              style={{ marginBottom: 'var(--space-2)', color: 'var(--text-primary)' }}
+            >
+              {t('myProfile.section.skills')}
+            </h3>
+            <Grid columns={1} gap="md" className="grid-sm-1">
+              <label style={{ display: 'grid', gap: 6 }}>
+                <span>{t('myProfile.form.skills')}</span>
+                <input
+                  value={skills}
+                  onChange={(e) => setSkills(e.target.value)}
+                  placeholder={t('myProfile.form.skillsPlaceholder')}
+                  style={{
+                    width: '100%',
+                    padding: '10px 12px',
+                    borderRadius: 'var(--radius-md)',
+                    border: '1px solid var(--border-default)',
+                    background: 'var(--bg-default)',
+                    color: 'var(--text-primary)',
+                  }}
+                />
+              </label>
+            </Grid>
+          </section>
+
+          {/* Seção: Links */}
+          <section aria-labelledby="links" style={{ marginBottom: 'var(--space-2)' }}>
+            <h3 id="links" style={{ marginBottom: 'var(--space-2)', color: 'var(--text-primary)' }}>
+              {t('myProfile.section.links')}
+            </h3>
+            <Grid columns={1} gap="md" className="grid-sm-1">
+              <label style={{ display: 'grid', gap: 6 }}>
+                <span>{t('myProfile.form.links')}</span>
+                <textarea
+                  value={links}
+                  onChange={(e) => setLinks(e.target.value)}
+                  placeholder={t('myProfile.form.linksPlaceholder')}
+                  rows={5}
+                  style={{
+                    width: '100%',
+                    padding: '10px 12px',
+                    borderRadius: 'var(--radius-md)',
+                    border: '1px solid var(--border-default)',
+                    background: 'var(--bg-default)',
+                    color: 'var(--text-primary)',
+                  }}
+                />
+              </label>
+            </Grid>
+          </section>
+
           {error ? (
             <p role="alert" style={{ color: 'var(--danger-600)' }}>
               {error}

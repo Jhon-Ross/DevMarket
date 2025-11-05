@@ -8,6 +8,43 @@ Formato baseado em Keep a Changelog e organizado em camadas para inspeção prec
 - Testes de componentes (`packages/ui`)
 - Storybook opcional para o Design System
 
+## [0.2.2] — 2025-11-05
+
+### Camada 1 — Resumo executivo
+
+- Moderação habilitada para publicações de projetos no Sanity Studio com ação personalizada “Aprovar publicação”.
+- Schema de `project` atualizado com `status` (`pending/approved/rejected`) e `isPublic` iniciando como `false`.
+- Formulário autenticado de perfil (`/perfil/meu`) reorganizado em seções: Básico, Avatar (com preview), Skills e Links.
+- Dicionário de i18n expandido com títulos das novas seções do perfil.
+
+### Camada 2 — Áreas e tópicos
+
+- Sanity Studio
+  - Plugin de ação “Aprovar publicação” que altera `status` para `approved`, define `isPublic: true` e publica o documento.
+  - Registro do plugin no `sanity.config.ts` e recarregamento do dev server sem erros.
+- Schemas
+  - `project.ts`: novo campo `status` com opções `pending`, `approved`, `rejected` e `isPublic` com valor inicial `false` para ativar moderação.
+- Web (Next.js)
+  - `/perfil/meu`: formulário separado em seções com cabeçalhos claros e preview simples da imagem de avatar via URL.
+  - i18n: adicionadas chaves `myProfile.section.*` (basic, avatar, skills, links).
+
+### Camada 3 — Referências a arquivos
+
+- `apps/studio/sanity.config.ts` — registro do plugin de aprovação.
+- `apps/studio/plugins/approve-publication.ts` — ação personalizada para `project`.
+- `apps/studio/schemas/project.ts` — campos `status` e `isPublic` ajustados.
+- `apps/web/src/app/perfil/meu/MyProfileForm.tsx` — reorganização em seções e preview de avatar.
+- `apps/web/src/components/LocaleProvider.tsx` — chaves de seção do formulário de perfil.
+
+### Notas de validação
+
+- Studio em dev: `http://localhost:3333/` (ação “Aprovar publicação” visível em documentos `project`).
+- Web em dev: `http://localhost:3000/perfil/meu` (redireciona para login se sem sessão; após login, formulário com seções e preview).
+
+### Próximo passo (amanhã)
+
+- Moderation refinements no Studio: condicionar a visibilidade da ação “Aprovar publicação” apenas quando `status === 'pending'` e adicionar uma ação complementar “Rejeitar publicação” que define `status: 'rejected'`, `isPublic: false` e registra `moderationNotes` no documento.
+
 ## [0.1.6] — 2025-11-04
 
 ### Camada 1 — Resumo executivo

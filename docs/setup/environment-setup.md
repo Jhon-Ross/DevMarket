@@ -103,6 +103,25 @@ Observações
 
 - Local-first: desenvolvimento e validação acontecem 100% em ambiente local.
 - Webhook: em dev, simular com `curl`/Postman; configurar no Sanity somente após deploy/preview.
+
+## Sanity Studio — Desenvolvimento local
+
+Para abrir o Studio do Sanity deste projeto em modo de desenvolvimento:
+
+```bash
+pnpm -C apps/studio dev
+```
+
+Alternativamente, se preferir usar o filtro do workspace:
+
+```bash
+pnpm --filter studio dev
+```
+
+Observações
+
+- Certifique-se de que variáveis `SANITY_STUDIO_PROJECT_ID`/`SANITY_STUDIO_DATASET` (ou `SANITY_PROJECT_ID`/`SANITY_DATASET` para dev local) estão definidas.
+- O comando executa `sanity dev` conforme script em `apps/studio/package.json`.
 - Deploy: Vercel será usada para hospedagem (Production/Preview) e gestão de variáveis de ambiente.
 
 ### Política de Push (Kanban)
