@@ -1,27 +1,73 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Card, CardHeader, CardBody, CardFooter, Grid, Button } from '@devmarket/ui';
 import { useLocale } from '@/components/LocaleProvider';
+import { validateProfile } from './schema';
+import HorizontalDragBar from '@/components/HorizontalDragBar';
 
 type ProfilePayload = {
   name?: string;
   bio?: string;
-  avatarUrl?: string;
   skills?: string[];
   links?: { title: string; url: string; type?: string }[];
+  tagline?: string;
+  customization?: {
+    theme?: {
+      primaryColor?: string;
+      backgroundColor?: string;
+      textColor?: string;
+      accentColor?: string;
+    };
+    layout?: 'classic' | 'modern' | 'grid';
+    sections?: {
+      showAbout?: boolean;
+      showSkills?: boolean;
+      showProjects?: boolean;
+      showExperience?: boolean;
+      showTestimonials?: boolean;
+      showContact?: boolean;
+    };
+  };
 };
 
 export default function MyProfileForm() {
   const { t } = useLocale();
   const [name, setName] = useState('');
   const [bio, setBio] = useState('');
-  const [avatarUrl, setAvatarUrl] = useState('');
+  const [avatarPreviewUrl, setAvatarPreviewUrl] = useState('');
+  const [heroPreviewUrl, setHeroPreviewUrl] = useState('');
   const [skills, setSkills] = useState('');
   const [links, setLinks] = useState('');
+  const [tagline, setTagline] = useState('');
+  const [customization, setCustomization] = useState<ProfilePayload['customization']>({
+    theme: {
+      primaryColor: '',
+      backgroundColor: '',
+      textColor: '',
+      accentColor: '',
+    },
+    layout: 'classic',
+    sections: {
+      showAbout: true,
+      showSkills: true,
+      showProjects: true,
+      showExperience: true,
+      showTestimonials: true,
+      showContact: true,
+    },
+  });
+  const [slug, setSlug] = useState('');
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string | undefined>>({});
+  const [uploading, setUploading] = useState(false);
+  const [uploadError, setUploadError] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const heroFileInputRef = useRef<HTMLInputElement | null>(null);
+  const [heroUploading, setHeroUploading] = useState(false);
+  const [heroUploadError, setHeroUploadError] = useState<string | null>(null);
 
   useEffect(() => {
     let mounted = true;
@@ -32,13 +78,37 @@ export default function MyProfileForm() {
         if (!mounted) return;
         if (res.ok) {
           const data = await res.json();
-          const p = data?.profile as ProfilePayload | null;
+          const p = data?.profile as any;
           if (p) {
             setName(p.name || '');
             setBio(p.bio || '');
-            setAvatarUrl(p.avatarUrl || '');
+            setAvatarPreviewUrl(p.avatarUrl || '');
+            setHeroPreviewUrl(p.heroUrl || '');
             setSkills((p.skills || []).join(', '));
-            setLinks((p.links || []).map((l) => `${l.title}|${l.url}|${l.type || ''}`).join('\n'));
+            setLinks(
+              (p.links || [])
+                .map((l: { title: string; url: string; type?: string }) => `${l.title}|${l.url}|${l.type || ''}`)
+                .join('\n')
+            );
+            setTagline(p.tagline || '');
+            setCustomization({
+              theme: {
+                primaryColor: p?.customization?.theme?.primaryColor || '',
+                backgroundColor: p?.customization?.theme?.backgroundColor || '',
+                textColor: p?.customization?.theme?.textColor || '',
+                accentColor: p?.customization?.theme?.accentColor || '',
+              },
+              layout: p?.customization?.layout || 'classic',
+              sections: {
+                showAbout: Boolean(p?.customization?.sections?.showAbout ?? true),
+                showSkills: Boolean(p?.customization?.sections?.showSkills ?? true),
+                showProjects: Boolean(p?.customization?.sections?.showProjects ?? true),
+                showExperience: Boolean(p?.customization?.sections?.showExperience ?? true),
+                showTestimonials: Boolean(p?.customization?.sections?.showTestimonials ?? true),
+                showContact: Boolean(p?.customization?.sections?.showContact ?? true),
+              },
+            });
+            setSlug((p as any).slug || '');
           }
         }
       } catch {}
@@ -51,25 +121,24 @@ export default function MyProfileForm() {
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
+    setFieldErrors({});
     setSuccess(null);
     setLoading(true);
     try {
+      const validation = validateProfile({ name, bio, skills, links, tagline, customization });
+      if (validation.errors) {
+        setFieldErrors(validation.errors);
+        setLoading(false);
+        return;
+      }
+      const { value } = validation;
       const payload: ProfilePayload = {
-        name: name.trim() || undefined,
-        bio: bio.trim() || undefined,
-        avatarUrl: avatarUrl.trim() || undefined,
-        skills: skills
-          .split(',')
-          .map((s) => s.trim())
-          .filter(Boolean),
-        links: links
-          .split('\n')
-          .map((line) => {
-            const [title, url, type] = line.split('|').map((p) => (p || '').trim());
-            if (!title || !url) return null;
-            return { title, url, type: type || undefined };
-          })
-          .filter(Boolean) as { title: string; url: string; type?: string }[],
+        name: value?.name || undefined,
+        bio: value?.bio || undefined,
+        skills: value?.skills || [],
+        links: value?.links || [],
+        tagline: value?.tagline || undefined,
+        customization: value?.customization || undefined,
       };
 
       const res = await fetch('/api/profile', {
@@ -79,10 +148,22 @@ export default function MyProfileForm() {
       });
       const data = await res.json();
       if (!res.ok || !data?.ok) {
-        setError(data?.error || t('myProfile.form.error.save'));
+        const code = data?.error as string | undefined;
+        const key =
+          code === 'sanity_env_missing'
+            ? 'myProfile.form.error.sanityEnvMissing'
+            : code === 'sanity_write_token_missing'
+            ? 'myProfile.form.error.sanityWriteTokenMissing'
+            : code === 'sanity_unauthorized'
+            ? 'myProfile.form.error.sanityUnauthorized'
+            : code === 'invalid_body'
+            ? 'myProfile.form.error.save'
+            : 'myProfile.form.error.internalSave';
+        setError(t(key as any));
         return;
       }
       setSuccess(t('myProfile.form.success'));
+      if (data?.slug) setSlug(data.slug);
     } catch (e) {
       setError(t('myProfile.form.error.internalSave'));
     } finally {
@@ -91,7 +172,7 @@ export default function MyProfileForm() {
   };
 
   return (
-    <Card elevated>
+    <Card elevated style={{ minWidth: 760 }}>
       <CardHeader>
         <strong>{t('myProfile.title')}</strong>
       </CardHeader>
@@ -121,6 +202,11 @@ export default function MyProfileForm() {
                     color: 'var(--text-primary)',
                   }}
                 />
+                {fieldErrors.name && (
+                  <span role="alert" style={{ color: 'var(--danger-600)' }}>
+                    {t(fieldErrors.name as any) || 'Campo inválido.'}
+                  </span>
+                )}
               </label>
               <label style={{ display: 'grid', gap: 6 }}>
                 <span>{t('myProfile.form.bio')}</span>
@@ -138,6 +224,44 @@ export default function MyProfileForm() {
                     color: 'var(--text-primary)',
                   }}
                 />
+                {fieldErrors.bio && (
+                  <span role="alert" style={{ color: 'var(--danger-600)' }}>
+                    {t(fieldErrors.bio as any) || 'Campo inválido.'}
+                  </span>
+                )}
+              </label>
+            </Grid>
+          </section>
+
+          {/* Seção: Tagline/Destaque */}
+          <section aria-labelledby="tagline" style={{ marginBottom: 'var(--space-6)' }}>
+            <h3 id="tagline" style={{ marginBottom: 'var(--space-2)', color: 'var(--text-primary)' }}>
+              {t('myProfile.section.tagline')}
+            </h3>
+            <Grid columns={1} gap="md" className="grid-sm-1">
+              <label style={{ display: 'grid', gap: 6 }}>
+                <span>{t('myProfile.form.tagline')}</span>
+                <input
+                  value={tagline}
+                  onChange={(e) => setTagline(e.target.value)}
+                  placeholder={t('myProfile.form.taglinePlaceholder')}
+                  maxLength={140}
+                  style={{
+                    width: '100%',
+                    padding: '10px 12px',
+                    borderRadius: 'var(--radius-md)',
+                    border: fieldErrors.tagline
+                      ? '1px solid var(--danger-500)'
+                      : '1px solid var(--border-default)',
+                    background: 'var(--bg-default)',
+                    color: 'var(--text-primary)',
+                  }}
+                />
+                {fieldErrors.tagline && (
+                  <span role="alert" style={{ color: 'var(--danger-600)' }}>
+                    {t(fieldErrors.tagline as any) || 'Campo inválido.'}
+                  </span>
+                )}
               </label>
             </Grid>
           </section>
@@ -152,27 +276,71 @@ export default function MyProfileForm() {
             </h3>
             <Grid columns={2} gap="md" className="grid-sm-1 grid-md-2">
               <label style={{ display: 'grid', gap: 6 }}>
-                <span>{t('myProfile.form.avatarUrl')}</span>
-                <input
-                  value={avatarUrl}
-                  onChange={(e) => setAvatarUrl(e.target.value)}
-                  placeholder={t('myProfile.form.avatarUrlPlaceholder')}
-                  style={{
-                    width: '100%',
-                    padding: '10px 12px',
-                    borderRadius: 'var(--radius-md)',
-                    border: '1px solid var(--border-default)',
-                    background: 'var(--bg-default)',
-                    color: 'var(--text-primary)',
-                  }}
-                />
+                <span style={{ color: 'var(--text-secondary)' }}>Envie uma imagem para atualizar seu avatar</span>
+                <div style={{ display: 'flex', gap: 8 }}>
+                  <Button
+                    type="button"
+                    onClick={() => fileInputRef.current?.click()}
+                    loading={uploading}
+                  >
+                    Upload imagem
+                  </Button>
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept="image/*"
+                    style={{ display: 'none' }}
+                    onChange={async (e) => {
+                      const inputEl = e.currentTarget as HTMLInputElement;
+                      const file = inputEl.files?.[0];
+                      if (!file) {
+                        // Always clear selection to allow re-uploading the same file
+                        inputEl.value = '';
+                        return;
+                      }
+                      setUploadError(null);
+                      setUploading(true);
+                      try {
+                        const fd = new FormData();
+                        fd.set('file', file);
+                        const res = await fetch('/api/profile/avatar', { method: 'POST', body: fd });
+                        const data = await res.json();
+                        if (!res.ok || !data?.ok || !data?.url) {
+                          const code = data?.error as string | undefined;
+                          const key =
+                            code === 'sanity_env_missing'
+                              ? 'myProfile.form.error.sanityEnvMissing'
+                              : code === 'sanity_write_token_missing'
+                              ? 'myProfile.form.error.sanityWriteTokenMissing'
+                              : code === 'sanity_unauthorized'
+                              ? 'myProfile.form.error.sanityUnauthorized'
+                              : code === 'invalid_file'
+                              ? 'myProfile.form.error.save'
+                              : 'myProfile.form.error.internalSave';
+                          setUploadError(t(key as any));
+                        } else {
+                          setAvatarPreviewUrl(data.url as string);
+                        }
+                      } catch {
+                        setUploadError(t('myProfile.form.error.internalSave' as any));
+                      } finally {
+                        setUploading(false);
+                        // Avoid relying on possibly nulled synthetic event after async
+                        inputEl.value = '';
+                      }
+                    }}
+                  />
+                </div>
+                {uploadError ? (
+                  <span role="alert" style={{ color: 'var(--danger-600)' }}>{uploadError}</span>
+                ) : null}
               </label>
               <div style={{ display: 'grid', alignContent: 'start', gap: 6 }}>
                 <span style={{ color: 'var(--text-secondary)' }}>Preview</span>
-                {avatarUrl ? (
+                {avatarPreviewUrl ? (
                   // preview simples via tag img
                   <img
-                    src={avatarUrl}
+                    src={avatarPreviewUrl}
                     alt="avatar preview"
                     style={{
                       width: 96,
@@ -199,6 +367,215 @@ export default function MyProfileForm() {
             </Grid>
           </section>
 
+          {/* Seção: Capa do perfil */}
+          <section aria-labelledby="hero" style={{ marginBottom: 'var(--space-6)' }}>
+            <h3 id="hero" style={{ marginBottom: 'var(--space-2)', color: 'var(--text-primary)' }}>
+              Capa do perfil
+            </h3>
+            <Grid columns={2} gap="md" className="grid-sm-1 grid-md-2">
+              <label style={{ display: 'grid', gap: 6 }}>
+                <span style={{ color: 'var(--text-secondary)' }}>Envie uma imagem larga para a capa do perfil</span>
+                <div style={{ display: 'flex', gap: 8 }}>
+                  <Button type="button" onClick={() => heroFileInputRef.current?.click()} loading={heroUploading}>
+                    Upload capa
+                  </Button>
+                  <input
+                    ref={heroFileInputRef}
+                    type="file"
+                    accept="image/*"
+                    style={{ display: 'none' }}
+                    onChange={async (e) => {
+                      const inputEl = e.currentTarget as HTMLInputElement;
+                      const file = inputEl.files?.[0];
+                      if (!file) {
+                        inputEl.value = '';
+                        return;
+                      }
+                      setHeroUploadError(null);
+                      setHeroUploading(true);
+                      try {
+                        const fd = new FormData();
+                        fd.set('file', file);
+                        const res = await fetch('/api/profile/hero', { method: 'POST', body: fd });
+                        const data = await res.json();
+                        if (!res.ok || !data?.ok || !data?.url) {
+                          const code = data?.error as string | undefined;
+                          const key =
+                            code === 'sanity_env_missing'
+                              ? 'myProfile.form.error.sanityEnvMissing'
+                              : code === 'sanity_write_token_missing'
+                              ? 'myProfile.form.error.sanityWriteTokenMissing'
+                              : code === 'sanity_unauthorized'
+                              ? 'myProfile.form.error.sanityUnauthorized'
+                              : code === 'invalid_file'
+                              ? 'myProfile.form.error.save'
+                              : 'myProfile.form.error.internalSave';
+                          setHeroUploadError(t(key as any));
+                        } else {
+                          setHeroPreviewUrl(data.url as string);
+                        }
+                      } catch {
+                        setHeroUploadError(t('myProfile.form.error.internalSave' as any));
+                      } finally {
+                        setHeroUploading(false);
+                        inputEl.value = '';
+                      }
+                    }}
+                  />
+                </div>
+                {heroUploadError ? (
+                  <span role="alert" style={{ color: 'var(--danger-600)' }}>{heroUploadError}</span>
+                ) : null}
+              </label>
+              <div style={{ display: 'grid', alignContent: 'start', gap: 6 }}>
+                <span style={{ color: 'var(--text-secondary)' }}>Preview</span>
+                {heroPreviewUrl ? (
+                  <img
+                    src={heroPreviewUrl}
+                    alt="hero preview"
+                    style={{
+                      width: '100%',
+                      height: 120,
+                      objectFit: 'cover',
+                      borderRadius: 'var(--radius-md)',
+                      border: '1px solid var(--border-default)',
+                      boxShadow: 'var(--shadow-sm)',
+                    }}
+                    onError={(e) => ((e.currentTarget.style.display = 'none'), void 0)}
+                  />
+                ) : (
+                  <div
+                    style={{
+                      width: '100%',
+                      height: 120,
+                      borderRadius: 'var(--radius-md)',
+                      border: '1px dashed var(--border-default)',
+                      background: 'var(--bg-subtle)',
+                    }}
+                  />
+                )}
+              </div>
+            </Grid>
+          </section>
+
+          {/* Seção: Customização */}
+          <section aria-labelledby="customization" style={{ marginBottom: 'var(--space-6)' }}>
+            <h3 id="customization" style={{ marginBottom: 'var(--space-2)', color: 'var(--text-primary)' }}>
+              {t('myProfile.section.customization')}
+            </h3>
+            <Grid columns={2} gap="md" className="grid-sm-1 grid-md-2">
+              <div style={{ display: 'grid', gap: 6 }}>
+                <span style={{ color: 'var(--text-secondary)' }}>{t('myProfile.form.theme')}</span>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
+                  <label style={{ display: 'grid', gap: 4 }}>
+                    <span>{t('myProfile.form.theme.primaryColor')}</span>
+                    <input
+                      type="color"
+                      value={customization?.theme?.primaryColor || '#3b82f6'}
+                      onChange={(e) =>
+                        setCustomization((prev) => ({
+                          ...(prev || {}),
+                          theme: { ...(prev?.theme || {}), primaryColor: e.target.value },
+                        }))
+                      }
+                    />
+                  </label>
+                  <label style={{ display: 'grid', gap: 4 }}>
+                    <span>{t('myProfile.form.theme.backgroundColor')}</span>
+                    <input
+                      type="color"
+                      value={customization?.theme?.backgroundColor || '#0b0f14'}
+                      onChange={(e) =>
+                        setCustomization((prev) => ({
+                          ...(prev || {}),
+                          theme: { ...(prev?.theme || {}), backgroundColor: e.target.value },
+                        }))
+                      }
+                    />
+                  </label>
+                  <label style={{ display: 'grid', gap: 4 }}>
+                    <span>{t('myProfile.form.theme.textColor')}</span>
+                    <input
+                      type="color"
+                      value={customization?.theme?.textColor || '#e5e7eb'}
+                      onChange={(e) =>
+                        setCustomization((prev) => ({
+                          ...(prev || {}),
+                          theme: { ...(prev?.theme || {}), textColor: e.target.value },
+                        }))
+                      }
+                    />
+                  </label>
+                  <label style={{ display: 'grid', gap: 4 }}>
+                    <span>{t('myProfile.form.theme.accentColor')}</span>
+                    <input
+                      type="color"
+                      value={customization?.theme?.accentColor || '#f59e0b'}
+                      onChange={(e) =>
+                        setCustomization((prev) => ({
+                          ...(prev || {}),
+                          theme: { ...(prev?.theme || {}), accentColor: e.target.value },
+                        }))
+                      }
+                    />
+                  </label>
+                </div>
+              </div>
+              <div style={{ display: 'grid', gap: 6 }}>
+                <span style={{ color: 'var(--text-secondary)' }}>{t('myProfile.form.layout')}</span>
+                <select
+                  value={customization?.layout || 'classic'}
+                  onChange={(e) =>
+                    setCustomization((prev) => ({ ...(prev || {}), layout: e.target.value as any }))
+                  }
+                  style={{
+                    width: '100%',
+                    padding: '10px 12px',
+                    borderRadius: 'var(--radius-md)',
+                    border: '1px solid var(--border-default)',
+                    background: 'var(--bg-default)',
+                    color: 'var(--text-primary)',
+                  }}
+                >
+                  <option value="classic">Classic</option>
+                  <option value="modern">Modern</option>
+                  <option value="grid">Grid</option>
+                </select>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
+                  {(
+                    [
+                      ['showAbout', 'myProfile.form.sections.showAbout'],
+                      ['showSkills', 'myProfile.form.sections.showSkills'],
+                      ['showProjects', 'myProfile.form.sections.showProjects'],
+                      ['showExperience', 'myProfile.form.sections.showExperience'],
+                      ['showTestimonials', 'myProfile.form.sections.showTestimonials'],
+                      ['showContact', 'myProfile.form.sections.showContact'],
+                    ] as const
+                  ).map(([key, labelKey]) => (
+                    <label key={key} style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+                      <input
+                        type="checkbox"
+                        checked={Boolean(customization?.sections?.[key as keyof NonNullable<ProfilePayload['customization']>['sections']])}
+                        onChange={(e) =>
+                          setCustomization((prev) => ({
+                            ...(prev || {}),
+                            sections: { ...(prev?.sections || {}), [key]: e.target.checked },
+                          }))
+                        }
+                      />
+                      <span>{t(labelKey as any)}</span>
+                    </label>
+                  ))}
+                </div>
+                {fieldErrors.customization && (
+                  <span role="alert" style={{ color: 'var(--danger-600)' }}>
+                    {t(fieldErrors.customization as any) || 'Configuração inválida.'}
+                  </span>
+                )}
+              </div>
+            </Grid>
+          </section>
+
           {/* Seção: Skills */}
           <section aria-labelledby="skills" style={{ marginBottom: 'var(--space-6)' }}>
             <h3
@@ -218,11 +595,60 @@ export default function MyProfileForm() {
                     width: '100%',
                     padding: '10px 12px',
                     borderRadius: 'var(--radius-md)',
-                    border: '1px solid var(--border-default)',
+                    border:
+                      fieldErrors.skills ? '1px solid var(--danger-500)' : '1px solid var(--border-default)',
                     background: 'var(--bg-default)',
                     color: 'var(--text-primary)',
                   }}
                 />
+                {fieldErrors.skills && (
+                  <span role="alert" style={{ color: 'var(--danger-600)' }}>
+                    {t(fieldErrors.skills as any) || 'Campo inválido.'}
+                  </span>
+                )}
+                {/* Chips editáveis */}
+                <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginTop: 8 }}>
+                  {skills
+                    .split(',')
+                    .map((s) => s.trim())
+                    .filter(Boolean)
+                    .map((chip, idx) => (
+                      <span
+                        key={`${chip}-${idx}`}
+                        style={{
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: 8,
+                          background: 'var(--bg-subtle)',
+                          border: '1px solid var(--border-default)',
+                          borderRadius: 'var(--radius-sm)',
+                          padding: '4px 8px',
+                        }}
+                      >
+                        {chip}
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const arr = skills
+                              .split(',')
+                              .map((s) => s.trim())
+                              .filter(Boolean)
+                              .filter((x) => x !== chip);
+                            setSkills(arr.join(', '));
+                          }}
+                          style={{
+                            border: 'none',
+                            background: 'transparent',
+                            color: 'var(--danger-600)',
+                            cursor: 'pointer',
+                          }}
+                          aria-label={`Remover ${chip}`}
+                        >
+                          ×
+                        </button>
+                      </span>
+                    ))}
+                </div>
               </label>
             </Grid>
           </section>
@@ -244,11 +670,58 @@ export default function MyProfileForm() {
                     width: '100%',
                     padding: '10px 12px',
                     borderRadius: 'var(--radius-md)',
-                    border: '1px solid var(--border-default)',
+                    border:
+                      fieldErrors.links ? '1px solid var(--danger-500)' : '1px solid var(--border-default)',
                     background: 'var(--bg-default)',
                     color: 'var(--text-primary)',
                   }}
                 />
+                {fieldErrors.links && (
+                  <span role="alert" style={{ color: 'var(--danger-600)' }}>
+                    {t(fieldErrors.links as any) || 'Campo inválido.'}
+                  </span>
+                )}
+                {/* Builder visual de links */}
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr auto', gap: 8 }}>
+                  <input placeholder="Título" id="link-title" style={{ padding: '8px 10px' }} />
+                  <input placeholder="URL" id="link-url" style={{ padding: '8px 10px' }} />
+                  <input placeholder="Tipo (opcional)" id="link-type" style={{ padding: '8px 10px' }} />
+                  <Button
+                    type="button"
+                    onClick={() => {
+                      const titleEl = document.getElementById('link-title') as HTMLInputElement;
+                      const urlEl = document.getElementById('link-url') as HTMLInputElement;
+                      const typeEl = document.getElementById('link-type') as HTMLInputElement;
+                      const title = (titleEl?.value || '').trim();
+                      const url = (urlEl?.value || '').trim();
+                      const type = (typeEl?.value || '').trim();
+                      if (!title || !url) return;
+                      const line = `${title}|${url}|${type}`;
+                      const next = links ? `${links}\n${line}` : line;
+                      setLinks(next);
+                      if (titleEl) titleEl.value = '';
+                      if (urlEl) urlEl.value = '';
+                      if (typeEl) typeEl.value = '';
+                    }}
+                  >
+                    Adicionar
+                  </Button>
+                </div>
+                {/* Preview das entradas */}
+                <ul style={{ listStyle: 'none', paddingLeft: 0, marginTop: 8 }}>
+                  {links
+                    .split('\n')
+                    .map((l) => l.trim())
+                    .filter(Boolean)
+                    .map((line, i) => {
+                      const [title, url, type] = line.split('|').map((p) => (p || '').trim());
+                      return (
+                        <li key={`${url}-${i}`} style={{ color: 'var(--text-secondary)' }}>
+                          {title} — {url} {type ? `(${type})` : ''}
+                        </li>
+                      );
+                    })}
+                </ul>
               </label>
             </Grid>
           </section>
@@ -263,6 +736,10 @@ export default function MyProfileForm() {
               {success}
             </p>
           ) : null}
+          {/* Barra de arrasto horizontal adicional, acima do botão de salvar */}
+          <div style={{ marginTop: 12 }}>
+            <HorizontalDragBar />
+          </div>
         </CardBody>
         <CardFooter
           style={{ display: 'flex', justifyContent: 'flex-end', gap: 12, flexWrap: 'wrap' }}
@@ -270,6 +747,7 @@ export default function MyProfileForm() {
           <Button className="button-fluid-sm" type="submit" loading={loading}>
             {t('myProfile.form.submit')}
           </Button>
+          {/* Botão de "Ver perfil público" removido: a visualização pública é acessível diretamente sem precisar navegar */}
         </CardFooter>
       </form>
     </Card>

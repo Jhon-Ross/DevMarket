@@ -4,19 +4,19 @@
     "type": "split",
     "children": [
       {
-        "id": "319ac3bed8f449eb",
+        "id": "9f44df8f8d71931b",
         "type": "tabs",
         "children": [
           {
-            "id": "96165af60f853ad5",
+            "id": "ebd057a15eeb2e02",
             "type": "leaf",
             "state": {
               "type": "kanban",
               "state": {
                 "file": "kanban/devmarket-kanban.md",
                 "kanbanViewState": {
-                  "kanban-plugin": "board",
-                  "list-collapse": [false, false, false]
+                  "kanban-plugin": true,
+                  "list-collapse": []
                 }
               },
               "icon": "lucide-trello",
@@ -172,41 +172,42 @@
       "obsidian-kanban:Criar um novo quadro": false
     }
   },
-  "active": "96165af60f853ad5",
+  "active": "ebd057a15eeb2e02",
   "lastOpenFiles": [
-    "kanban/devmarket-kanban.md",
-    "sprints/sprint-00-fundacoes.md",
-    "CHANGELOG.md",
-    "dev_market_readme.md",
-    "setup/environment-setup.md",
-    "checklists/release-checklist.md",
-    "exemplo/README.md",
-    "exemplo/kanban/pre-sprint0-visual-estrutura.md",
-    "exemplo/estrutura/packages/ui/README.md",
-    "exemplo/estrutura/apps/web/README.md",
-    "exemplo/backlog/pre-sprint0-visual-estrutura.md",
-    "exemplo/estrutura/packages/types/README.md",
-    "exemplo/estrutura/packages/sanity/README.md",
-    "exemplo/estrutura/packages/lib/README.md",
-    "exemplo/estrutura/packages/config/README.md",
-    "planning/sprints-overview.md",
-    "sprints/sprint-01-perfil-publico.md",
-    "INDICE KANBAN.md",
-    "templates/sprint-template.md",
+    "tecnologias.md",
+    "extras.md",
+    "estrutura-ideia-foco.md",
+    "estado-atual.md",
+    "README-novo.md",
     "templates/user-story-template.md",
-    "exemplo/kanban",
-    "exemplo/backlog",
-    "exemplo/estrutura/prisma/README.md",
-    "exemplo/estrutura/prisma",
-    "exemplo/estrutura/packages/config",
-    "exemplo/estrutura/packages/types",
-    "exemplo/estrutura/packages/lib",
-    "exemplo/estrutura/packages/sanity",
-    "exemplo/estrutura/packages/ui",
-    "exemplo/estrutura/packages",
-    "exemplo/estrutura/apps/web",
+    "templates/sprint-template.md",
+    "templates",
+    "sprints/sprint-05-perfis-completos.md",
+    "sprints/sprint-04-hardening-qa.md",
     "sprints/sprint-02-projetos-midia.md",
     "sprints/sprint-03-pagamentos.md",
-    "sprints/sprint-04-hardening-qa.md"
+    "sprints/sprint-01-perfil-publico.md",
+    "sprints/sprint-00-fundacoes.md",
+    "sprints",
+    "setup/environment-setup.md",
+    "setup",
+    "planning/sprints-overview.md",
+    "planning/homepage-ux.md",
+    "planning",
+    "exemplo/kanban/pre-sprint0-visual-estrutura.md",
+    "exemplo/kanban",
+    "exemplo/estrutura/tree.txt",
+    "exemplo/backlog/pre-sprint0-visual-estrutura.md",
+    "exemplo/backlog",
+    "exemplo/README.md",
+    "dev_market_readme.md",
+    "checklists/release-checklist.md",
+    "checklists",
+    "CHANGELOG.md",
+    "kanban/devmarket-kanban.md",
+    "planejamento.md",
+    "reviews/auditoria-2025-11-05.md",
+    "reviews",
+    "exemplo/estrutura/prisma"
   ]
 }

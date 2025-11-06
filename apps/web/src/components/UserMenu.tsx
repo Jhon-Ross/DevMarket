@@ -2,6 +2,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import AppLink from './AppLink';
 import { useSession, signOut } from 'next-auth/react';
+import { Avatar } from '@devmarket/ui';
+import SidePanel from './SidePanel';
+import MyProfileForm from '@/app/perfil/meu/MyProfileForm';
+import NewProjectForm from '@/app/projetos/novo/NewProjectForm';
 
 function getInitials(name?: string | null, email?: string | null) {
   const src = (name || email || '').trim();
@@ -18,6 +22,9 @@ export default function UserMenu() {
   const user = session?.user;
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement | null>(null);
+  const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
+  const [profileSlug, setProfileSlug] = useState<string | null>(null);
+  const [drawer, setDrawer] = useState<null | 'editProfile' | 'newProject'>(null);
 
   useEffect(() => {
     function onClickOutside(e: MouseEvent) {
@@ -30,11 +37,38 @@ export default function UserMenu() {
     return () => document.removeEventListener('mousedown', onClickOutside);
   }, []);
 
+  useEffect(() => {
+    let active = true;
+    async function loadProfileBasics() {
+      try {
+        if (!user) {
+          setAvatarUrl(null);
+          setProfileSlug(null);
+          return;
+        }
+        const res = await fetch('/api/profile', { cache: 'no-store' });
+        if (!res.ok) return;
+        const data = await res.json();
+        const url = data?.profile?.avatarUrl || null;
+        const slug = data?.profile?.slug || null;
+        if (active) {
+          setAvatarUrl(url);
+          setProfileSlug(slug);
+        }
+      } catch {}
+    }
+    loadProfileBasics();
+    return () => {
+      active = false;
+    };
+  }, [user?.id]);
+
   if (!user) return null;
 
   const initials = getInitials(user.name as string | null, user.email as string | null);
 
   return (
+    <>
     <div ref={ref} style={{ position: 'relative' }}>
       <button
         type="button"
@@ -51,23 +85,12 @@ export default function UserMenu() {
           cursor: 'pointer',
         }}
       >
-        <span
+        <Avatar
+          src={avatarUrl || undefined}
+          name={(user.name as string) || (user.email as string) || 'Usuário'}
+          size="sm"
           aria-hidden
-          style={{
-            width: 28,
-            height: 28,
-            borderRadius: '999px',
-            display: 'grid',
-            placeItems: 'center',
-            background: 'var(--bg-default)',
-            border: '1px solid var(--border-default)',
-            fontSize: 12,
-            fontWeight: 600,
-            color: 'var(--text-secondary)',
-          }}
-        >
-          {initials}
-        </span>
+        />
         <span style={{ fontSize: 13 }}>{user.name || user.email}</span>
       </button>
 
@@ -88,7 +111,16 @@ export default function UserMenu() {
           }}
         >
           <AppLink
-            href="/perfil/meu"
+            href={
+              profileSlug
+                ? `/perfil/${profileSlug}`
+                : (() => {
+                    // Fallback: derive slug from email
+                    const src = (user?.email || 'user').toLowerCase();
+                    const derived = src.replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+                    return `/perfil/${derived || 'meu'}`;
+                  })()
+            }
             style={{
               display: 'block',
               padding: '8px 10px',
@@ -100,19 +132,46 @@ export default function UserMenu() {
           >
             Meu Perfil
           </AppLink>
-          <AppLink
-            href="/projetos/novo"
+          <button
+            type="button"
+            onClick={() => {
+              setOpen(false);
+              setDrawer('editProfile');
+            }}
             style={{
               display: 'block',
+              width: '100%',
+              textAlign: 'left',
               padding: '8px 10px',
               borderRadius: 'var(--radius-sm)',
-              color: 'var(--text-primary)',
-              textDecoration: 'none',
+              background: 'transparent',
+              border: 'none',
+              color: 'var(--text-secondary)',
+              cursor: 'pointer',
             }}
-            onClick={() => setOpen(false)}
+          >
+            Editar Perfil
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              setOpen(false);
+              setDrawer('newProject');
+            }}
+            style={{
+              display: 'block',
+              width: '100%',
+              textAlign: 'left',
+              padding: '8px 10px',
+              borderRadius: 'var(--radius-sm)',
+              background: 'transparent',
+              border: 'none',
+              color: 'var(--text-primary)',
+              cursor: 'pointer',
+            }}
           >
             Novo Projeto
-          </AppLink>
+          </button>
           <button
             type="button"
             onClick={() => {
@@ -136,5 +195,23 @@ export default function UserMenu() {
         </div>
       ) : null}
     </div>
+      {/* Side drawers */}
+      <SidePanel
+        open={drawer === 'editProfile'}
+        title="Editar Perfil"
+        onClose={() => setDrawer(null)}
+        width={540}
+      >
+        <MyProfileForm />
+      </SidePanel>
+      <SidePanel
+        open={drawer === 'newProject'}
+        title="Novo Projeto"
+        onClose={() => setDrawer(null)}
+        width={540}
+      >
+        <NewProjectForm />
+      </SidePanel>
+    </>
   );
 }

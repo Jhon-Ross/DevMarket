@@ -12,6 +12,8 @@ export const authOptions: AuthOptions = {
   pages: {
     signIn: '/login',
   },
+  // Dev-safe: trust incoming host to avoid NEXTAUTH_URL requirement
+  trustHost: true,
   providers: [
     Credentials({
       name: 'credentials',
@@ -54,7 +56,8 @@ export const authOptions: AuthOptions = {
       return session;
     },
   },
-  secret: process.env.NEXTAUTH_SECRET,
+  // Dev-safe fallback to avoid crashes when NEXTAUTH_SECRET is missing
+  secret: process.env.NEXTAUTH_SECRET ?? 'dev-secret',
 };
 
 const handler = NextAuth(authOptions);

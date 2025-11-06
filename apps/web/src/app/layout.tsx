@@ -14,6 +14,27 @@ export const metadata: Metadata = {
     'Conecte-se com desenvolvedores talentosos e encontre projetos incríveis. Plataforma para freelancers e empresas.',
   keywords: ['desenvolvedores', 'freelancers', 'projetos', 'marketplace', 'tecnologia'],
   authors: [{ name: 'DevMarket Team' }],
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'),
+  alternates: {
+    canonical: '/',
+  },
+  openGraph: {
+    title: 'DevMarket - Marketplace para Desenvolvedores',
+    description:
+      'Conecte-se com desenvolvedores talentosos e encontre projetos incríveis. Plataforma para freelancers e empresas.',
+    type: 'website',
+    locale: 'pt_BR',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'DevMarket - Marketplace para Desenvolvedores',
+    description:
+      'Conecte-se com desenvolvedores talentosos e encontre projetos incríveis. Plataforma para freelancers e empresas.',
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export const viewport: Viewport = {

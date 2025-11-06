@@ -186,8 +186,7 @@ const dict: Dict = {
   },
   'myProfile.form.name': { pt: 'Nome', en: 'Name' },
   'myProfile.form.namePlaceholder': { pt: 'Seu nome público', en: 'Your public name' },
-  'myProfile.form.avatarUrl': { pt: 'Avatar (URL da imagem)', en: 'Avatar (image URL)' },
-  'myProfile.form.avatarUrlPlaceholder': { pt: 'https://...', en: 'https://...' },
+  // Removed: avatarUrl text field (now asset-only)
   'myProfile.form.bio': { pt: 'Bio', en: 'Bio' },
   'myProfile.form.bioPlaceholder': {
     pt: 'Resumo sobre você, foco, interesses.',
@@ -212,7 +211,46 @@ const dict: Dict = {
     pt: 'Erro interno ao salvar perfil',
     en: 'Internal error saving profile',
   },
+  // Meu Perfil — Tagline & Customização
+  'myProfile.section.tagline': { pt: 'Destaque', en: 'Tagline' },
+  'myProfile.form.tagline': { pt: 'Frase de destaque (tagline)', en: 'Highlight phrase (tagline)' },
+  'myProfile.form.taglinePlaceholder': { pt: 'Ex.: Desenvolvedor Fullstack focado em performance', en: 'e.g., Fullstack developer focused on performance' },
+  'myProfile.section.customization': { pt: 'Customização', en: 'Customization' },
+  'myProfile.form.theme': { pt: 'Tema', en: 'Theme' },
+  'myProfile.form.theme.primaryColor': { pt: 'Cor Primária', en: 'Primary Color' },
+  'myProfile.form.theme.backgroundColor': { pt: 'Cor de Fundo', en: 'Background Color' },
+  'myProfile.form.theme.textColor': { pt: 'Cor do Texto', en: 'Text Color' },
+  'myProfile.form.theme.accentColor': { pt: 'Cor de Acento', en: 'Accent Color' },
+  'myProfile.form.layout': { pt: 'Layout', en: 'Layout' },
+  'myProfile.form.sections.showAbout': { pt: 'Mostrar Sobre', en: 'Show About' },
+  'myProfile.form.sections.showSkills': { pt: 'Mostrar Skills', en: 'Show Skills' },
+  'myProfile.form.sections.showProjects': { pt: 'Mostrar Projetos', en: 'Show Projects' },
+  'myProfile.form.sections.showExperience': { pt: 'Mostrar Experiência', en: 'Show Experience' },
+  'myProfile.form.sections.showTestimonials': { pt: 'Mostrar Depoimentos', en: 'Show Testimonials' },
+  'myProfile.form.sections.showContact': { pt: 'Mostrar Contato', en: 'Show Contact' },
+  // Meu Perfil — Erros específicos de configuração Sanity
+  'myProfile.form.error.sanityEnvMissing': {
+    pt: 'Configuração do Sanity ausente. Defina SANITY_PROJECT_ID e SANITY_DATASET em .env.local.',
+    en: 'Sanity configuration missing. Set SANITY_PROJECT_ID and SANITY_DATASET in .env.local.',
+  },
+  'myProfile.form.error.sanityWriteTokenMissing': {
+    pt: 'Token de escrita do Sanity ausente. Defina SANITY_TOKEN com permissões de escrita.',
+    en: 'Sanity write token missing. Set SANITY_TOKEN with write permissions.',
+  },
+  'myProfile.form.error.sanityUnauthorized': {
+    pt: 'Token do Sanity sem permissão. Gere um token com escopo de escrita (Editor).',
+    en: 'Sanity token unauthorized. Create a token with write scope (Editor).',
+  },
   'myProfile.form.success': { pt: 'Perfil atualizado.', en: 'Profile updated.' },
+  'myProfile.form.viewPublic': { pt: 'Ver perfil público', en: 'View public profile' },
+  // Meu Perfil — Validações
+  'myProfile.validation.name': { pt: 'Informe um nome válido (2-60 caracteres).', en: 'Provide a valid name (2-60 characters).' },
+  'myProfile.validation.bio': { pt: 'Bio muito longa (máx. 500 caracteres).', en: 'Bio too long (max 500 characters).' },
+  'myProfile.validation.avatarUrl': { pt: 'URL de avatar inválida.', en: 'Invalid avatar URL.' },
+  'myProfile.validation.skills': { pt: 'Revise suas skills (até 30 itens, 1-30 chars).', en: 'Review your skills (up to 30 items, 1-30 chars).' },
+  'myProfile.validation.links': { pt: 'Cada linha deve ser Título|URL|Tipo com URL válida.', en: 'Each line must be Title|URL|Type with valid URL.' },
+  'myProfile.validation.tagline': { pt: 'Tagline muito longa (máx. 140 caracteres).', en: 'Tagline too long (max 140 characters).' },
+  'myProfile.validation.customization': { pt: 'Configuração de customização inválida.', en: 'Invalid customization configuration.' },
   // Seções do formulário de perfil
   'myProfile.section.basic': { pt: 'Informações básicas', en: 'Basic information' },
   'myProfile.section.avatar': { pt: 'Imagem de perfil', en: 'Profile image' },

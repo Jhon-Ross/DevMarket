@@ -83,6 +83,12 @@ export default defineType({
       description: 'Fluxo de moderação: pending → approved/rejected.',
     }),
     defineField({
+      name: 'moderationNotes',
+      title: 'Moderation Notes',
+      type: 'text',
+      description: 'Notas internas da moderação para justificar aprovações/recusas.',
+    }),
+    defineField({
       name: 'slug',
       title: 'Slug',
       type: 'slug',

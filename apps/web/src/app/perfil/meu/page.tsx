@@ -1,8 +1,7 @@
 import { redirect } from 'next/navigation';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
-import MyProfileForm from './MyProfileForm';
-import MyProfileHeader from './MyProfileHeader';
+import RedirectToPublicProfile from './RedirectToPublicProfile';
 
 export default async function MyProfilePage() {
   let session = null as Awaited<ReturnType<typeof getServerSession>> | null;
@@ -17,12 +16,7 @@ export default async function MyProfilePage() {
     redirect('/login?callbackUrl=%2Fperfil%2Fmeu');
   }
 
-  return (
-    <main style={{ padding: 'var(--space-8)', maxWidth: 960, margin: '0 auto' }}>
-      <MyProfileHeader />
-      <MyProfileForm />
-    </main>
-  );
+  return <RedirectToPublicProfile />;
 }
 
 export const metadata = {

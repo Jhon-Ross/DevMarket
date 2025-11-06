@@ -9,7 +9,7 @@ dotenvConfig({ path: path.resolve(__dirname, '../../.env.local') });
 
 const nextConfig: NextConfig = {
   // Ensure workspace packages are transpiled (TS, CSS) by Next
-  transpilePackages: ['@devmarket/ui'],
+  transpilePackages: ['@devmarket/ui', '@devmarket/sanity'],
   // Oculta o indicador/flutuante do Next em modo desenvolvimento
   devIndicators: false,
   // Temporário: ignorar erros de TypeScript no build para permitir preview
