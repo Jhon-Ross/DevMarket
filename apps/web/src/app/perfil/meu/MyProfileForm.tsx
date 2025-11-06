@@ -4,6 +4,7 @@ import { Card, CardHeader, CardBody, CardFooter, Grid, Button } from '@devmarket
 import { useLocale } from '@/components/LocaleProvider';
 import { validateProfile } from './schema';
 import HorizontalDragBar from '@/components/HorizontalDragBar';
+import UploadArea from '@/components/UploadArea';
 
 type ProfilePayload = {
   name?: string;
@@ -87,7 +88,10 @@ export default function MyProfileForm() {
             setSkills((p.skills || []).join(', '));
             setLinks(
               (p.links || [])
-                .map((l: { title: string; url: string; type?: string }) => `${l.title}|${l.url}|${l.type || ''}`)
+                .map(
+                  (l: { title: string; url: string; type?: string }) =>
+                    `${l.title}|${l.url}|${l.type || ''}`
+                )
                 .join('\n')
             );
             setTagline(p.tagline || '');
@@ -153,12 +157,12 @@ export default function MyProfileForm() {
           code === 'sanity_env_missing'
             ? 'myProfile.form.error.sanityEnvMissing'
             : code === 'sanity_write_token_missing'
-            ? 'myProfile.form.error.sanityWriteTokenMissing'
-            : code === 'sanity_unauthorized'
-            ? 'myProfile.form.error.sanityUnauthorized'
-            : code === 'invalid_body'
-            ? 'myProfile.form.error.save'
-            : 'myProfile.form.error.internalSave';
+              ? 'myProfile.form.error.sanityWriteTokenMissing'
+              : code === 'sanity_unauthorized'
+                ? 'myProfile.form.error.sanityUnauthorized'
+                : code === 'invalid_body'
+                  ? 'myProfile.form.error.save'
+                  : 'myProfile.form.error.internalSave';
         setError(t(key as any));
         return;
       }
@@ -235,7 +239,10 @@ export default function MyProfileForm() {
 
           {/* Seção: Tagline/Destaque */}
           <section aria-labelledby="tagline" style={{ marginBottom: 'var(--space-6)' }}>
-            <h3 id="tagline" style={{ marginBottom: 'var(--space-2)', color: 'var(--text-primary)' }}>
+            <h3
+              id="tagline"
+              style={{ marginBottom: 'var(--space-2)', color: 'var(--text-primary)' }}
+            >
               {t('myProfile.section.tagline')}
             </h3>
             <Grid columns={1} gap="md" className="grid-sm-1">
@@ -275,66 +282,22 @@ export default function MyProfileForm() {
               {t('myProfile.section.avatar')}
             </h3>
             <Grid columns={2} gap="md" className="grid-sm-1 grid-md-2">
-              <label style={{ display: 'grid', gap: 6 }}>
-                <span style={{ color: 'var(--text-secondary)' }}>Envie uma imagem para atualizar seu avatar</span>
-                <div style={{ display: 'flex', gap: 8 }}>
-                  <Button
-                    type="button"
-                    onClick={() => fileInputRef.current?.click()}
-                    loading={uploading}
-                  >
-                    Upload imagem
-                  </Button>
-                  <input
-                    ref={fileInputRef}
-                    type="file"
-                    accept="image/*"
-                    style={{ display: 'none' }}
-                    onChange={async (e) => {
-                      const inputEl = e.currentTarget as HTMLInputElement;
-                      const file = inputEl.files?.[0];
-                      if (!file) {
-                        // Always clear selection to allow re-uploading the same file
-                        inputEl.value = '';
-                        return;
-                      }
-                      setUploadError(null);
-                      setUploading(true);
-                      try {
-                        const fd = new FormData();
-                        fd.set('file', file);
-                        const res = await fetch('/api/profile/avatar', { method: 'POST', body: fd });
-                        const data = await res.json();
-                        if (!res.ok || !data?.ok || !data?.url) {
-                          const code = data?.error as string | undefined;
-                          const key =
-                            code === 'sanity_env_missing'
-                              ? 'myProfile.form.error.sanityEnvMissing'
-                              : code === 'sanity_write_token_missing'
-                              ? 'myProfile.form.error.sanityWriteTokenMissing'
-                              : code === 'sanity_unauthorized'
-                              ? 'myProfile.form.error.sanityUnauthorized'
-                              : code === 'invalid_file'
-                              ? 'myProfile.form.error.save'
-                              : 'myProfile.form.error.internalSave';
-                          setUploadError(t(key as any));
-                        } else {
-                          setAvatarPreviewUrl(data.url as string);
-                        }
-                      } catch {
-                        setUploadError(t('myProfile.form.error.internalSave' as any));
-                      } finally {
-                        setUploading(false);
-                        // Avoid relying on possibly nulled synthetic event after async
-                        inputEl.value = '';
-                      }
-                    }}
-                  />
-                </div>
-                {uploadError ? (
-                  <span role="alert" style={{ color: 'var(--danger-600)' }}>{uploadError}</span>
-                ) : null}
-              </label>
+              <div style={{ display: 'grid', gap: 6 }}>
+                <span style={{ color: 'var(--text-secondary)' }}>
+                  Envie uma imagem para atualizar seu avatar
+                </span>
+                <UploadArea
+                  label={t('myProfile.form.avatarUploadLabel') || 'Selecione/arraste seu avatar'}
+                  endpoint="/api/profile/avatar"
+                  accept="image/*"
+                  maxSizeMB={5}
+                  currentUrl={avatarPreviewUrl || null}
+                  onSuccess={(data) => {
+                    const url = (data?.avatarUrl as string) || (data?.url as string) || '';
+                    if (url) setAvatarPreviewUrl(url);
+                  }}
+                />
+              </div>
               <div style={{ display: 'grid', alignContent: 'start', gap: 6 }}>
                 <span style={{ color: 'var(--text-secondary)' }}>Preview</span>
                 {avatarPreviewUrl ? (
@@ -373,60 +336,22 @@ export default function MyProfileForm() {
               Capa do perfil
             </h3>
             <Grid columns={2} gap="md" className="grid-sm-1 grid-md-2">
-              <label style={{ display: 'grid', gap: 6 }}>
-                <span style={{ color: 'var(--text-secondary)' }}>Envie uma imagem larga para a capa do perfil</span>
-                <div style={{ display: 'flex', gap: 8 }}>
-                  <Button type="button" onClick={() => heroFileInputRef.current?.click()} loading={heroUploading}>
-                    Upload capa
-                  </Button>
-                  <input
-                    ref={heroFileInputRef}
-                    type="file"
-                    accept="image/*"
-                    style={{ display: 'none' }}
-                    onChange={async (e) => {
-                      const inputEl = e.currentTarget as HTMLInputElement;
-                      const file = inputEl.files?.[0];
-                      if (!file) {
-                        inputEl.value = '';
-                        return;
-                      }
-                      setHeroUploadError(null);
-                      setHeroUploading(true);
-                      try {
-                        const fd = new FormData();
-                        fd.set('file', file);
-                        const res = await fetch('/api/profile/hero', { method: 'POST', body: fd });
-                        const data = await res.json();
-                        if (!res.ok || !data?.ok || !data?.url) {
-                          const code = data?.error as string | undefined;
-                          const key =
-                            code === 'sanity_env_missing'
-                              ? 'myProfile.form.error.sanityEnvMissing'
-                              : code === 'sanity_write_token_missing'
-                              ? 'myProfile.form.error.sanityWriteTokenMissing'
-                              : code === 'sanity_unauthorized'
-                              ? 'myProfile.form.error.sanityUnauthorized'
-                              : code === 'invalid_file'
-                              ? 'myProfile.form.error.save'
-                              : 'myProfile.form.error.internalSave';
-                          setHeroUploadError(t(key as any));
-                        } else {
-                          setHeroPreviewUrl(data.url as string);
-                        }
-                      } catch {
-                        setHeroUploadError(t('myProfile.form.error.internalSave' as any));
-                      } finally {
-                        setHeroUploading(false);
-                        inputEl.value = '';
-                      }
-                    }}
-                  />
-                </div>
-                {heroUploadError ? (
-                  <span role="alert" style={{ color: 'var(--danger-600)' }}>{heroUploadError}</span>
-                ) : null}
-              </label>
+              <div style={{ display: 'grid', gap: 6 }}>
+                <span style={{ color: 'var(--text-secondary)' }}>
+                  Envie uma imagem larga para a capa do perfil
+                </span>
+                <UploadArea
+                  label={t('myProfile.form.heroUploadLabel') || 'Selecione/arraste sua capa'}
+                  endpoint="/api/profile/hero"
+                  accept="image/*"
+                  maxSizeMB={8}
+                  currentUrl={heroPreviewUrl || null}
+                  onSuccess={(data) => {
+                    const url = (data?.heroUrl as string) || (data?.url as string) || '';
+                    if (url) setHeroPreviewUrl(url);
+                  }}
+                />
+              </div>
               <div style={{ display: 'grid', alignContent: 'start', gap: 6 }}>
                 <span style={{ color: 'var(--text-secondary)' }}>Preview</span>
                 {heroPreviewUrl ? (
@@ -460,7 +385,10 @@ export default function MyProfileForm() {
 
           {/* Seção: Customização */}
           <section aria-labelledby="customization" style={{ marginBottom: 'var(--space-6)' }}>
-            <h3 id="customization" style={{ marginBottom: 'var(--space-2)', color: 'var(--text-primary)' }}>
+            <h3
+              id="customization"
+              style={{ marginBottom: 'var(--space-2)', color: 'var(--text-primary)' }}
+            >
               {t('myProfile.section.customization')}
             </h3>
             <Grid columns={2} gap="md" className="grid-sm-1 grid-md-2">
@@ -552,10 +480,17 @@ export default function MyProfileForm() {
                       ['showContact', 'myProfile.form.sections.showContact'],
                     ] as const
                   ).map(([key, labelKey]) => (
-                    <label key={key} style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+                    <label
+                      key={key}
+                      style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}
+                    >
                       <input
                         type="checkbox"
-                        checked={Boolean(customization?.sections?.[key as keyof NonNullable<ProfilePayload['customization']>['sections']])}
+                        checked={Boolean(
+                          customization?.sections?.[
+                            key as keyof NonNullable<ProfilePayload['customization']>['sections']
+                          ]
+                        )}
                         onChange={(e) =>
                           setCustomization((prev) => ({
                             ...(prev || {}),
@@ -595,8 +530,9 @@ export default function MyProfileForm() {
                     width: '100%',
                     padding: '10px 12px',
                     borderRadius: 'var(--radius-md)',
-                    border:
-                      fieldErrors.skills ? '1px solid var(--danger-500)' : '1px solid var(--border-default)',
+                    border: fieldErrors.skills
+                      ? '1px solid var(--danger-500)'
+                      : '1px solid var(--border-default)',
                     background: 'var(--bg-default)',
                     color: 'var(--text-primary)',
                   }}
@@ -670,8 +606,9 @@ export default function MyProfileForm() {
                     width: '100%',
                     padding: '10px 12px',
                     borderRadius: 'var(--radius-md)',
-                    border:
-                      fieldErrors.links ? '1px solid var(--danger-500)' : '1px solid var(--border-default)',
+                    border: fieldErrors.links
+                      ? '1px solid var(--danger-500)'
+                      : '1px solid var(--border-default)',
                     background: 'var(--bg-default)',
                     color: 'var(--text-primary)',
                   }}
@@ -685,7 +622,11 @@ export default function MyProfileForm() {
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr auto', gap: 8 }}>
                   <input placeholder="Título" id="link-title" style={{ padding: '8px 10px' }} />
                   <input placeholder="URL" id="link-url" style={{ padding: '8px 10px' }} />
-                  <input placeholder="Tipo (opcional)" id="link-type" style={{ padding: '8px 10px' }} />
+                  <input
+                    placeholder="Tipo (opcional)"
+                    id="link-type"
+                    style={{ padding: '8px 10px' }}
+                  />
                   <Button
                     type="button"
                     onClick={() => {
