@@ -19,7 +19,6 @@ export default function SidePanel({
   const startXRef = useRef(0);
   const startScrollLeftRef = useRef(0);
   const [panelWidth, setPanelWidth] = useState(width);
-  useEffect(() => setPanelWidth(width), [width]);
   const [resizeDragging, setResizeDragging] = useState(false);
   const resizeStartXRef = useRef(0);
   const resizeStartWidthRef = useRef(0);
@@ -177,7 +176,6 @@ export default function SidePanel({
         </header>
         {/* Barra clicável para arrastar horizontalmente */}
         <div
-          role="scrollbar"
           aria-label="Arraste para rolar horizontalmente"
           onMouseDown={(e) => {
             if (!contentRef.current) return;

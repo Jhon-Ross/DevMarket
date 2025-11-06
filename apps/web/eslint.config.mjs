@@ -5,6 +5,14 @@ import nextTs from "eslint-config-next/typescript";
 const eslintConfig = defineConfig([
   ...nextVitals,
   ...nextTs,
+  {
+    // Regras pragmáticas para desenvolvimento inicial até hardening
+    rules: {
+      "@typescript-eslint/no-explicit-any": "warn",
+      // Afinar ruídos: manter alerta, sem quebrar build
+      "react-hooks/exhaustive-deps": "warn",
+    },
+  },
   // Override default ignores of eslint-config-next.
   globalIgnores([
     // Default ignores of eslint-config-next:

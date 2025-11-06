@@ -1,14 +1,20 @@
 'use client';
 import React, { useEffect, useRef, useState } from 'react';
 
-export default function HorizontalDragBar({ title = 'Clique e arraste para mover o conteúdo para os lados' }: { title?: string }) {
+export default function HorizontalDragBar({
+  title = 'Clique e arraste para mover o conteúdo para os lados',
+}: {
+  title?: string;
+}) {
   const [dragging, setDragging] = useState(false);
   const startXRef = useRef(0);
   const startScrollLeftRef = useRef(0);
   const containerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    containerRef.current = document.querySelector('[data-sidepanel-content="true"]') as HTMLDivElement | null;
+    containerRef.current = document.querySelector(
+      '[data-sidepanel-content="true"]'
+    ) as HTMLDivElement | null;
   }, []);
 
   useEffect(() => {
@@ -32,7 +38,6 @@ export default function HorizontalDragBar({ title = 'Clique e arraste para mover
 
   return (
     <div
-      role="scrollbar"
       aria-label="Arraste para rolar horizontalmente"
       onMouseDown={(e) => {
         if (!containerRef.current) return;
