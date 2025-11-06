@@ -1,5 +1,6 @@
 'use client';
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
+import Image from 'next/image';
 import { Card, CardHeader, CardBody, CardFooter, Grid, Button } from '@devmarket/ui';
 import { useLocale } from '@/components/LocaleProvider';
 import { validateProfile } from './schema';
@@ -57,18 +58,12 @@ export default function MyProfileForm() {
       showContact: true,
     },
   });
-  const [slug, setSlug] = useState('');
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string | undefined>>({});
-  const [uploading, setUploading] = useState(false);
-  const [uploadError, setUploadError] = useState<string | null>(null);
-  const fileInputRef = useRef<HTMLInputElement | null>(null);
-  const heroFileInputRef = useRef<HTMLInputElement | null>(null);
-  const [heroUploading, setHeroUploading] = useState(false);
-  const [heroUploadError, setHeroUploadError] = useState<string | null>(null);
+  // Uploads são gerenciados pelo componente UploadArea; estados/refs antigos removidos
 
   useEffect(() => {
     let mounted = true;
@@ -112,7 +107,6 @@ export default function MyProfileForm() {
                 showContact: Boolean(p?.customization?.sections?.showContact ?? true),
               },
             });
-            setSlug((p as any).slug || '');
           }
         }
       } catch {}
@@ -167,7 +161,6 @@ export default function MyProfileForm() {
         return;
       }
       setSuccess(t('myProfile.form.success'));
-      if (data?.slug) setSlug(data.slug);
     } catch (e) {
       setError(t('myProfile.form.error.internalSave'));
     } finally {
@@ -301,19 +294,18 @@ export default function MyProfileForm() {
               <div style={{ display: 'grid', alignContent: 'start', gap: 6 }}>
                 <span style={{ color: 'var(--text-secondary)' }}>Preview</span>
                 {avatarPreviewUrl ? (
-                  // preview simples via tag img
-                  <img
+                  <Image
                     src={avatarPreviewUrl}
                     alt="avatar preview"
+                    width={96}
+                    height={96}
+                    unoptimized
                     style={{
-                      width: 96,
-                      height: 96,
                       borderRadius: '50%',
                       objectFit: 'cover',
                       border: '1px solid var(--border-default)',
                       boxShadow: 'var(--shadow-sm)',
                     }}
-                    onError={(e) => ((e.currentTarget.style.display = 'none'), void 0)}
                   />
                 ) : (
                   <div
@@ -355,9 +347,13 @@ export default function MyProfileForm() {
               <div style={{ display: 'grid', alignContent: 'start', gap: 6 }}>
                 <span style={{ color: 'var(--text-secondary)' }}>Preview</span>
                 {heroPreviewUrl ? (
-                  <img
+                  <Image
                     src={heroPreviewUrl}
                     alt="hero preview"
+                    width={1200}
+                    height={400}
+                    unoptimized
+                    sizes="100vw"
                     style={{
                       width: '100%',
                       height: 120,
@@ -366,7 +362,6 @@ export default function MyProfileForm() {
                       border: '1px solid var(--border-default)',
                       boxShadow: 'var(--shadow-sm)',
                     }}
-                    onError={(e) => ((e.currentTarget.style.display = 'none'), void 0)}
                   />
                 ) : (
                   <div

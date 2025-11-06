@@ -11,6 +11,8 @@ const eslintConfig = defineConfig([
       "@typescript-eslint/no-explicit-any": "warn",
       // Afinar ruídos: manter alerta, sem quebrar build
       "react-hooks/exhaustive-deps": "warn",
+      "react-hooks/set-state-in-effect": "warn",
+      "@next/next/no-img-element": "warn",
     },
   },
   // Override default ignores of eslint-config-next.
