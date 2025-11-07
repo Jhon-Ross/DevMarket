@@ -129,3 +129,9 @@ Uso interno em evolução. Licença pública em definição.
 ---
 
 Feito com ❤️ para devs que querem deixar sua marca.
+
+---
+
+## Documentação detalhada
+
+- Consulte o documento unificado: [`docs/Visao-Arquitetura-Roadmap.md`](docs/Visao-Arquitetura-Roadmap.md)

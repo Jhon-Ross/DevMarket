@@ -4,6 +4,7 @@ export const dynamic = 'force-dynamic';
 import React, { useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { signIn } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 import { useLocale } from '@/components/LocaleProvider';
 import AppLink from '@/components/AppLink';
 import { Button, Card, Grid, CardHeader, CardBody, CardFooter } from '@devmarket/ui';
@@ -12,6 +13,8 @@ export default function LoginPage() {
   const { t } = useLocale();
   const router = useRouter();
   const search = useSearchParams();
+  const { status } = useSession();
+  const isAuth = status === 'authenticated';
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -145,12 +148,14 @@ export default function LoginPage() {
               gap: 'var(--space-3)',
             }}
           >
-            <AppLink
-              href="/signup"
-              style={{ color: 'var(--text-primary)', textDecoration: 'underline' }}
-            >
-              {t('auth.login.toSignup') || 'Não tem conta? Cadastre-se'}
-            </AppLink>
+            {!isAuth && (
+              <AppLink
+                href="/signup"
+                style={{ color: 'var(--text-primary)', textDecoration: 'underline' }}
+              >
+                {t('auth.login.toSignup') || 'Não tem conta? Cadastre-se'}
+              </AppLink>
+            )}
             <Button type="submit" className="button-fluid-sm" loading={loading}>
               {loading
                 ? t('common.loading') || 'Carregando...'

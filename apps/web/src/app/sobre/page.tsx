@@ -1,6 +1,7 @@
 'use client';
 import React from 'react';
 import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 import {
   Button,
   Card,
@@ -17,6 +18,8 @@ import { useLocale } from '@/components/LocaleProvider';
 export default function SobrePage() {
   const { t } = useLocale();
   const router = useRouter();
+  const { status } = useSession();
+  const isAuth = status === 'authenticated';
   return (
     <main style={{ padding: 'var(--space-8)', maxWidth: 1200, margin: '0 auto' }}>
       <header style={{ textAlign: 'center', marginBottom: 'var(--space-8)' }}>
@@ -103,9 +106,11 @@ export default function SobrePage() {
 
       {/* Call-to-action final */}
       <section style={{ textAlign: 'center' }}>
-        <Button className="button-fluid-sm" onClick={() => router.push('/signup')}>
-          {t('about.cta')}
-        </Button>
+        {!isAuth && (
+          <Button className="button-fluid-sm" onClick={() => router.push('/signup')}>
+            {t('about.cta')}
+          </Button>
+        )}
       </section>
     </main>
   );

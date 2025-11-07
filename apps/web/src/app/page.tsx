@@ -1,6 +1,7 @@
 'use client';
 import React, { useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 import { useLocale } from '../components/LocaleProvider';
 import {
   Button,
@@ -19,6 +20,8 @@ import { track } from '@/lib/analytics';
 export default function Home() {
   const { t } = useLocale();
   const router = useRouter();
+  const { status } = useSession();
+  const isAuth = status === 'authenticated';
   const showcaseRef = useRef<HTMLDivElement | null>(null);
   const testimonials = [
     {
@@ -121,9 +124,11 @@ export default function Home() {
             flexWrap: 'wrap',
           }}
         >
-          <Button className="button-fluid-sm" onClick={handleStart}>
-            {t('home.ctaStart')}
-          </Button>
+          {!isAuth && (
+            <Button className="button-fluid-sm" onClick={handleStart}>
+              {t('home.ctaStart')}
+            </Button>
+          )}
           <Button className="button-fluid-sm" variant="outline" onClick={handleLearn}>
             {t('home.ctaLearn')}
           </Button>
@@ -402,15 +407,17 @@ export default function Home() {
               </ul>
             </CardBody>
             <CardFooter style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-              <Button
-                size="lg"
-                variant="outline"
-                className="button-fluid-sm"
-                style={{ minWidth: 220 }}
-                onClick={() => router.push('/signup')}
-              >
-                {t('home.ctaStart')}
-              </Button>
+              {!isAuth && (
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="button-fluid-sm"
+                  style={{ minWidth: 220 }}
+                  onClick={() => router.push('/signup')}
+                >
+                  {t('home.ctaStart')}
+                </Button>
+              )}
             </CardFooter>
           </Card>
 
@@ -489,14 +496,16 @@ export default function Home() {
               </div>
             </CardBody>
             <CardFooter style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-              <Button
-                size="lg"
-                className="button-fluid-sm"
-                style={{ minWidth: 220 }}
-                onClick={() => router.push('/signup')}
-              >
-                {t('home.ctaStart')}
-              </Button>
+              {!isAuth && (
+                <Button
+                  size="lg"
+                  className="button-fluid-sm"
+                  style={{ minWidth: 220 }}
+                  onClick={() => router.push('/signup')}
+                >
+                  {t('home.ctaStart')}
+                </Button>
+              )}
             </CardFooter>
           </Card>
 
@@ -569,14 +578,16 @@ export default function Home() {
               </ul>
             </CardBody>
             <CardFooter style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-              <Button
-                size="lg"
-                className="button-fluid-sm"
-                style={{ minWidth: 220 }}
-                onClick={() => router.push('/signup')}
-              >
-                {t('home.ctaStart')}
-              </Button>
+              {!isAuth && (
+                <Button
+                  size="lg"
+                  className="button-fluid-sm"
+                  style={{ minWidth: 220 }}
+                  onClick={() => router.push('/signup')}
+                >
+                  {t('home.ctaStart')}
+                </Button>
+              )}
             </CardFooter>
           </Card>
         </Grid>
